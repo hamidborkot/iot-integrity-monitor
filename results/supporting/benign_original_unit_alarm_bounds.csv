@@ -1,0 +1,7 @@
+Cohort,Family/seed,Definite alarms,No alarm,Unresolved,False-alarm fraction bounds
+Fresh48,"HGB,seeds8101–8103",21,491,0,"[21/512,21/512]=[4.1015625%,4.1015625%]"
+Fresh48,"LR,seeds8101–8103",22,490,0,"[22/512,22/512]=[4.296875%,4.296875%]"
+Fresh48,"Protocol-only LR,seeds8101–8103",21,491,0,"[21/512,21/512]=[4.1015625%,4.1015625%]"
+Historical49,"Historical HGB,8101",23,488,1,"[23/512,24/512]=[4.4921875%,4.6875%]"
+Historical49,"Historical HGB,8102",23,488,1,"[23/512,24/512]=[4.4921875%,4.6875%]"
+Historical49,"Historical HGB,8103",8,503,1,"[8/512,9/512]=[1.5625%,1.7578125%]"

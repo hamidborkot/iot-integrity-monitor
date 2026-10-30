@@ -1,0 +1,8 @@
+property,validated_units,unresolved_units
+malicious_reference_units,263,249
+mean_expected_packet_occurrences,2.000,5.904
+mean_mapped_packet_occurrences,2.000,5.904
+unresolved_packet_occurrence_assignments,0,0
+mean_associated_records,2.000,2.976
+mean_surplus_packet_count,0,2.028
+units_sharing_UID_with_another_selected_unit,0,2

@@ -1,0 +1,11 @@
+Track,Cohort,Evidence,Scope
+Tabular audit,Five benchmarks; 14 domains,Scores; labels,Full/pattern-balanced
+Legacy capture 49,512 malicious + 512 benign,Start/MG; benign MG/PW,Historical bank
+Matched capture 49,512 malicious; HGB/LR,Packet-mapped MG,Common source split
+Fresh capture 48,512 malicious + 512 benign,MG/PW,Separate bank
+Raw-only pilot,Captures 7/34/49,PW; deadlines,Separate bank
+Matched MD3,Capture-49 windows,Native warnings,Continuous/reset
+Temporal capture 35,Four periods; 18 later windows,Labels; calibration,Pre-scoring freeze
+Timer sweep,Captures 48/49,Record counts,32 runs; unscored
+Paired extractors,Captures 48/49,Zeek/NFStream counts,Identical inputs
+NF-ToN-IoT-v2,Five attack-family panels,Classification; views,Report corruption

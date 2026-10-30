@@ -1,0 +1,6 @@
+model,normal_records,threshold,threshold_ties,FP_strict,FPR_strict,FP_budget
+primary,1000,0.7736825114589977,1,50,0.05,50
+protocol_service,1000,0.8361993293275479,36,20,0.02,50
+transport_state,1000,0.7314433865857944,5,47,0.047,50
+size_volume,1000,0.7900096033965307,3,48,0.048,50
+timing_rate,1000,0.7355464245904219,1,50,0.05,50

@@ -1,0 +1,6 @@
+cohort,model,seeds_as_reported,delay_seconds_as_reported,rules,N,definite_alarms,no_alarm,unresolved,lower_percent,upper_percent
+fresh48,HGB,8101-8103,0/1/10,MG/PW,512,21,491,0,4.10,4.10
+fresh48,LR,8101-8103,0/1/10,MG/PW,512,22,490,0,4.30,4.30
+historical49,historical_HGB,8101,0/1/10,MG/PW,512,23,488,1,4.49,4.69
+historical49,historical_HGB,8102,0/1/10,MG/PW,512,23,488,1,4.49,4.69
+historical49,historical_HGB,8103,0/1/10,MG/PW,512,8,503,1,1.56,1.76

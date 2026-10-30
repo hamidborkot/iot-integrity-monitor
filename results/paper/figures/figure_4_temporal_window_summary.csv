@@ -1,0 +1,5 @@
+Model,Alpha,Eligible later windows,FAR rule with slack,Strict FAR rule,Legacy lower-count diagnostic valid,Minimum defined later AUROC,Median attack-positive-window recall
+HGB,.01,18,18/18,18/18,18/18,.556459,.114741
+HGB,.05,18,18/18,18/18,18/18,.556459,.114741
+LR,.01,18,18/18,15/18,15/18,.674232,.713449
+LR,.05,18,17/18,14/18,15/18,.674232,.714080

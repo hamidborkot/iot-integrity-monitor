@@ -1,0 +1,5 @@
+setting,SYN_timeout_seconds,attempt_delay_seconds,inactivity_timeout_seconds
+DEFAULT,5,5,300
+SYN_15S,15,5,300
+ATTEMPT_15S,5,15,300
+INACTIVITY_15S,5,5,15

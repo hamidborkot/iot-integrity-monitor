@@ -1,0 +1,4 @@
+delay_seconds,reference_units,packet_occurrences,source_owner_agreements,target_assignment_agreements,disagreements,Zeek_observations_shared
+0,64,248,248,248,0,True
+1,64,248,248,248,0,True
+10,64,248,248,248,0,True

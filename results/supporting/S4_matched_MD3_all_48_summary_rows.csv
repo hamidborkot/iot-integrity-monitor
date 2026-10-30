@@ -1,0 +1,49 @@
+ordering,variant,delay_seconds,warning_rule,eligible,paired,coverage,TP,FN,FP,TN,TPR,FPR
+historical_hash,CF,0,Condition,24,24,1,0,0,3,21,NA,0.125
+historical_hash,CF,0,Condition Only,24,24,1,0,0,0,24,NA,0.0
+historical_hash,CF,1,Condition,24,24,1,0,0,3,21,NA,0.125
+historical_hash,CF,1,Condition Only,24,24,1,0,0,0,24,NA,0.0
+historical_hash,CF,3,Condition,24,24,1,0,0,0,24,NA,0.0
+historical_hash,CF,3,Condition Only,24,24,1,0,0,0,24,NA,0.0
+historical_hash,CF,10,Condition,24,24,1,3,21,0,0,0.125,NA
+historical_hash,CF,10,Condition Only,24,24,1,0,24,0,0,0.0,NA
+historical_hash,WR,0,Condition,24,24,1,0,0,0,24,NA,0.0
+historical_hash,WR,0,Condition Only,24,24,1,0,0,0,24,NA,0.0
+historical_hash,WR,1,Condition,24,24,1,0,0,0,24,NA,0.0
+historical_hash,WR,1,Condition Only,24,24,1,0,0,0,24,NA,0.0
+historical_hash,WR,3,Condition,24,24,1,0,0,0,24,NA,0.0
+historical_hash,WR,3,Condition Only,24,24,1,0,0,0,24,NA,0.0
+historical_hash,WR,10,Condition,24,24,1,0,24,0,0,0.0,NA
+historical_hash,WR,10,Condition Only,24,24,1,0,24,0,0,0.0,NA
+MD3_named_hash,CF,0,Condition,24,24,1,0,0,3,21,NA,0.125
+MD3_named_hash,CF,0,Condition Only,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,CF,1,Condition,24,24,1,0,0,3,21,NA,0.125
+MD3_named_hash,CF,1,Condition Only,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,CF,3,Condition,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,CF,3,Condition Only,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,CF,10,Condition,24,24,1,3,21,0,0,0.125,NA
+MD3_named_hash,CF,10,Condition Only,24,24,1,0,24,0,0,0.0,NA
+MD3_named_hash,WR,0,Condition,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,WR,0,Condition Only,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,WR,1,Condition,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,WR,1,Condition Only,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,WR,3,Condition,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,WR,3,Condition Only,24,24,1,0,0,0,24,NA,0.0
+MD3_named_hash,WR,10,Condition,24,24,1,0,24,0,0,0.0,NA
+MD3_named_hash,WR,10,Condition Only,24,24,1,0,24,0,0,0.0,NA
+saved_order,CF,0,Condition,12,12,1,0,0,3,9,NA,0.25
+saved_order,CF,0,Condition Only,12,12,1,0,0,0,12,NA,0.0
+saved_order,CF,1,Condition,12,12,1,0,0,3,9,NA,0.25
+saved_order,CF,1,Condition Only,12,12,1,0,0,0,12,NA,0.0
+saved_order,CF,3,Condition,12,12,1,0,0,0,12,NA,0.0
+saved_order,CF,3,Condition Only,12,12,1,0,0,0,12,NA,0.0
+saved_order,CF,10,Condition,12,12,1,3,9,0,0,0.25,NA
+saved_order,CF,10,Condition Only,12,12,1,0,12,0,0,0.0,NA
+saved_order,WR,0,Condition,12,12,1,0,0,0,12,NA,0.0
+saved_order,WR,0,Condition Only,12,12,1,0,0,0,12,NA,0.0
+saved_order,WR,1,Condition,12,12,1,0,0,0,12,NA,0.0
+saved_order,WR,1,Condition Only,12,12,1,0,0,0,12,NA,0.0
+saved_order,WR,3,Condition,12,12,1,0,0,0,12,NA,0.0
+saved_order,WR,3,Condition Only,12,12,1,0,0,0,12,NA,0.0
+saved_order,WR,10,Condition,12,12,1,0,12,0,0,0.0,NA
+saved_order,WR,10,Condition Only,12,12,1,0,12,0,0,0.0,NA

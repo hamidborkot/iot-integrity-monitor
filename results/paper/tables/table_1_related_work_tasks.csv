@@ -1,0 +1,7 @@
+Study,Task,Comparison target
+DI-NIDS~\cite{LAYEGHY2023110626},A,Learned domain-invariant representation
+EM-AUC~\cite{s25010078},M,Label-free ROC/precision--recall areas
+Frontiers audit~\cite{10.3389/frai.2026.1928858},"A, M",Monitoring/adaptation under temporal shift
+"Flow audits~\cite{9474286,Lanvin2022}",D,Flow construction and labeling correction
+Timeout study~\cite{JANATIIDRISSI2025107641},E,Timeout-dependent detection performance
+This audit,"U, E",Supported unit verdicts; extraction-count controls

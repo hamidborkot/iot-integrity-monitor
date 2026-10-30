@@ -1,0 +1,6 @@
+model,rows,accuracy,normal_FPR,attack_recall
+primary,4000,0.634,0.055,0.323
+protocol_service,4000,0.50175,0.026,0.0295
+transport_state,4000,0.6785,0.039,0.396
+size_volume,4000,0.54275,0.032,0.1175
+timing_rate,4000,0.5845,0.0505,0.2195

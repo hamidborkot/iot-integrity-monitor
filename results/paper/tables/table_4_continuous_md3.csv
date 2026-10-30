@@ -1,0 +1,7 @@
+ordering,rule,harm_TP,harm_FN,sensitivity_percent,paired_coverage_percent,control_FP,control_TN,control_FP_percent
+historical_hash,condition,3,21,12.5,100,6,66,8.33
+historical_hash,condition_only,0,24,0,100,0,72,0
+MD3_named_hash,condition,3,21,12.5,100,6,66,8.33
+MD3_named_hash,condition_only,0,24,0,100,0,72,0
+saved_order,condition,3,9,25.0,100,6,30,16.67
+saved_order,condition_only,0,12,0,100,0,36,0
