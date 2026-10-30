@@ -1,0 +1,364 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{longtable,booktabs,array}
+\usepackage[table]{xcolor}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[L]{\footnotesize Extraction-aware auditing of frozen IoT intrusion detectors | Supplementary material}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.18}
+\setlength{\LTpre}{3pt}
+\setlength{\LTpost}{7pt}
+\begin{document}
+
+{\LARGE\bfseries Supplementary Material}\par
+{\large From Flow Records to Original Connections: Extraction-Aware Auditing of Frozen IoT Intrusion Detectors}\par
+Tables S1-S8 provide supporting results for the extraction-aware audit. Model banks, reference cohorts, operating points, alarm policies, and observation horizons remain distinct across tracks. Repeated model, seed, ordering, and window evaluations are dependent appearances, not independent original connections or deployments. NA denotes an undefined or non-evaluable quantity, not zero. Rates are fractions unless a percentage is explicitly indicated; attribution intervals are not sampling confidence intervals.
+\section*{S1. Capture-48 packet-membership diagnosis}
+The 10-s condition uses the fixed 512-malicious-unit cohort. MG denotes the whole-membership gate; unresolved units remain in the detection denominator.
+\textbf{Table S1. Membership and associated-record checks at 10 s}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.545455\linewidth - 6.5455pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.227273\linewidth - 2.7273pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.227273\linewidth - 2.7273pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Property} & \textbf{Validated units} & \textbf{Unresolved units} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Property} & \textbf{Validated units} & \textbf{Unresolved units} \\
+\midrule\endhead
+\bottomrule\endfoot
+Malicious reference units & 263 & 249 \\
+Mean expected packet occurrences & 2.000 & 5.904 \\
+Mean mapped packet occurrences & 2.000 & 5.904 \\
+Unresolved packet-occurrence assignments & 0 & 0 \\
+Mean associated records & 2.000 & 2.976 \\
+Mean surplus packet count & 0 & 2.028 \\
+Units sharing a UID with another selected unit & 0 & 2 \\
+\end{longtable}
+}
+Of 269 units with two expected packet occurrences, 263 validate and six remain unresolved. All 243 units with at least six expected occurrences remain unresolved. Among the 249 unresolved units, surplus counts are two for 246 units, four for two units, and five for one unit. Associated-record counts are two for six unresolved units and three for 243 unresolved units. No expected selected-unit occurrences are missing from the retained mapping; this is not a global packet-loss claim. The physical owners of all surplus packets are not established.
+\clearpage
+\section*{S2. Zeek timer-count controls}
+The sweep comprises 32 replays: two captures, four delays, and four one-factor settings. Each input prefix ends at 32 MiB or 400,000 packets, whichever occurs first.
+\textbf{Table S2a. Timer configurations}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.277778\linewidth - 5.0000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.222222\linewidth - 4.0000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.222222\linewidth - 4.0000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.277778\linewidth - 5.0000pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Setting} & \textbf{SYN timeout (s)} & \textbf{Attempt delay (s)} & \textbf{Inactivity timeout (s)} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Setting} & \textbf{SYN timeout (s)} & \textbf{Attempt delay (s)} & \textbf{Inactivity timeout (s)} \\
+\midrule\endhead
+\bottomrule\endfoot
+DEFAULT & 5 & 5 & 300 \\
+SYN\_15S & 15 & 5 & 300 \\
+ATTEMPT\_15S & 5 & 15 & 300 \\
+INACTIVITY\_15S & 5 & 5 & 15 \\
+\end{longtable}
+}
+\textbf{Table S2b. Total exported connection records}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.109589\linewidth - 3.2877pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.123288\linewidth - 3.6986pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.178082\linewidth - 5.3425pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.178082\linewidth - 5.3425pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.205479\linewidth - 6.1644pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.205479\linewidth - 6.1644pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Capture} & \textbf{Delay (s)} & \textbf{DEFAULT} & \textbf{SYN\_15S} & \textbf{ATTEMPT\_15S} & \textbf{INACTIVITY\_15S} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Capture} & \textbf{Delay (s)} & \textbf{DEFAULT} & \textbf{SYN\_15S} & \textbf{ATTEMPT\_15S} & \textbf{INACTIVITY\_15S} \\
+\midrule\endhead
+\bottomrule\endfoot
+48 & 0 & 86,060 & 86,060 & 43,661 & 86,076 \\
+48 & 1 & 86,062 & 86,062 & 43,661 & 86,078 \\
+48 & 3 & 86,435 & 86,435 & 43,662 & 86,451 \\
+48 & 10 & 129,278 & 129,278 & 85,719 & 129,294 \\
+49 & 0 & 125,847 & 125,847 & 125,832 & 125,858 \\
+49 & 1 & 125,849 & 125,849 & 125,832 & 125,860 \\
+49 & 3 & 125,861 & 125,861 & 125,833 & 125,872 \\
+49 & 10 & 251,514 & 251,514 & 125,840 & 251,525 \\
+\end{longtable}
+}
+These counts describe exported records from the bounded input prefixes, not independently identified malicious reference connections. No detector is scored in this sweep. Changed counts do not establish detection recovery for the separate 512-unit cohort.
+\clearpage
+\section*{S3. Paired extractor-count comparison}
+Zeek 8.0.10 and NFStream 6.6.0 process the same eight capture/delay inputs. Eight Zeek extractions and sixteen NFStream extractions produce 24 result rows. Paired inputs have identical packet hashes.
+\textbf{Table S3. Total exported records by extractor and setting}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.108108\linewidth - 2.5946pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.121622\linewidth - 2.9189pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.202703\linewidth - 4.8649pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.283784\linewidth - 6.8108pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.283784\linewidth - 6.8108pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Capture} & \textbf{Delay (s)} & \textbf{Zeek default} & \textbf{NFStream idle 15 s} & \textbf{NFStream idle 300 s} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Capture} & \textbf{Delay (s)} & \textbf{Zeek default} & \textbf{NFStream idle 15 s} & \textbf{NFStream idle 300 s} \\
+\midrule\endhead
+\bottomrule\endfoot
+48 & 0 & 86,060 & 43,361 & 43,295 \\
+48 & 1 & 86,062 & 43,361 & 43,295 \\
+48 & 3 & 86,435 & 43,361 & 43,295 \\
+48 & 10 & 129,278 & 43,361 & 43,295 \\
+49 & 0 & 125,847 & 125,835 & 125,733 \\
+49 & 1 & 125,849 & 125,835 & 125,733 \\
+49 & 3 & 125,861 & 125,835 & 125,733 \\
+49 & 10 & 251,514 & 125,835 & 125,733 \\
+\end{longtable}
+}
+NFStream uses an active timeout of 1,800 s. Its TCP-group record totals remain unchanged across delays: capture 48 has 43,259 (idle 15 s) and 43,219 (idle 300 s); capture 49 has 125,802 and 125,700, respectively. The inputs contain 43,219 TCP groups for capture 48 and 125,669 for capture 49. Expiration semantics differ across extractors, even at equal nominal idle settings. Stable totals do not establish identical features, packet attribution, attack recall, or detection superiority.
+\clearpage
+\section*{S4. Matched MD3 warning-stage comparison}
+CF denotes continuous first-request MD3; WR denotes the window-reset diagnostic. Condition is the native warning; Condition Only requires a condition warning absent from its clean baseline. Each ordering has sixteen rows; the three subtables contain all 48 summary rows.
+\textbf{Table S4a. Historical hash: both variants and warning rules}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.073892\linewidth - 4.8768pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.177340\linewidth - 11.7044pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.083744\linewidth - 5.5271pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.083744\linewidth - 5.5271pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.108374\linewidth - 7.1527pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Variant} & \textbf{Delay (s)} & \textbf{Warning rule} & \textbf{Eligible} & \textbf{Paired} & \textbf{Coverage} & \textbf{TP} & \textbf{FN} & \textbf{FP} & \textbf{TN} & \textbf{TPR} & \textbf{FPR} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Variant} & \textbf{Delay (s)} & \textbf{Warning rule} & \textbf{Eligible} & \textbf{Paired} & \textbf{Coverage} & \textbf{TP} & \textbf{FN} & \textbf{FP} & \textbf{TN} & \textbf{TPR} & \textbf{FPR} \\
+\midrule\endhead
+\bottomrule\endfoot
+CF & 0 & Condition & 24 & 24 & 1 & 0 & 0 & 3 & 21 & NA & 0.125 \\
+CF & 0 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+CF & 1 & Condition & 24 & 24 & 1 & 0 & 0 & 3 & 21 & NA & 0.125 \\
+CF & 1 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+CF & 3 & Condition & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+CF & 3 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+CF & 10 & Condition & 24 & 24 & 1 & 3 & 21 & 0 & 0 & 0.125 & NA \\
+CF & 10 & Condition Only & 24 & 24 & 1 & 0 & 24 & 0 & 0 & 0 & NA \\
+WR & 0 & Condition & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 0 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 1 & Condition & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 1 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 3 & Condition & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 3 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 10 & Condition & 24 & 24 & 1 & 0 & 24 & 0 & 0 & 0 & NA \\
+WR & 10 & Condition Only & 24 & 24 & 1 & 0 & 24 & 0 & 0 & 0 & NA \\
+\end{longtable}
+}
+Coverage and rates are fractions. TPR = TP/(TP + FN); FPR = FP/(FP + TN). NA denotes a zero denominator. Delay 10 s supplies harmful appearances; delays 0/1/3 s supply no-damage controls, not benign-only traffic. The MD3-named hash is an ordering, not an estimator. CF stops at the first request for oracle labels; subsequent unavailable windows are not counted as silent negatives. WR restarts from the same source reference per window and is not the continuous algorithm. Reused seeds and orderings are dependent appearances.
+\clearpage
+\section*{S4. Matched MD3 warning-stage comparison}
+CF denotes continuous first-request MD3; WR denotes the window-reset diagnostic. Condition is the native warning; Condition Only requires a condition warning absent from its clean baseline. Each ordering has sixteen rows; the three subtables contain all 48 summary rows.
+\textbf{Table S4b. MD3-named hash: both variants and warning rules}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.073892\linewidth - 4.8768pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.177340\linewidth - 11.7044pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.083744\linewidth - 5.5271pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.083744\linewidth - 5.5271pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.108374\linewidth - 7.1527pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Variant} & \textbf{Delay (s)} & \textbf{Warning rule} & \textbf{Eligible} & \textbf{Paired} & \textbf{Coverage} & \textbf{TP} & \textbf{FN} & \textbf{FP} & \textbf{TN} & \textbf{TPR} & \textbf{FPR} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Variant} & \textbf{Delay (s)} & \textbf{Warning rule} & \textbf{Eligible} & \textbf{Paired} & \textbf{Coverage} & \textbf{TP} & \textbf{FN} & \textbf{FP} & \textbf{TN} & \textbf{TPR} & \textbf{FPR} \\
+\midrule\endhead
+\bottomrule\endfoot
+CF & 0 & Condition & 24 & 24 & 1 & 0 & 0 & 3 & 21 & NA & 0.125 \\
+CF & 0 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+CF & 1 & Condition & 24 & 24 & 1 & 0 & 0 & 3 & 21 & NA & 0.125 \\
+CF & 1 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+CF & 3 & Condition & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+CF & 3 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+CF & 10 & Condition & 24 & 24 & 1 & 3 & 21 & 0 & 0 & 0.125 & NA \\
+CF & 10 & Condition Only & 24 & 24 & 1 & 0 & 24 & 0 & 0 & 0 & NA \\
+WR & 0 & Condition & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 0 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 1 & Condition & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 1 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 3 & Condition & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 3 & Condition Only & 24 & 24 & 1 & 0 & 0 & 0 & 24 & NA & 0 \\
+WR & 10 & Condition & 24 & 24 & 1 & 0 & 24 & 0 & 0 & 0 & NA \\
+WR & 10 & Condition Only & 24 & 24 & 1 & 0 & 24 & 0 & 0 & 0 & NA \\
+\end{longtable}
+}
+Coverage and rates are fractions. TPR = TP/(TP + FN); FPR = FP/(FP + TN). NA denotes a zero denominator. Delay 10 s supplies harmful appearances; delays 0/1/3 s supply no-damage controls, not benign-only traffic. The MD3-named hash is an ordering, not an estimator. CF stops at the first request for oracle labels; subsequent unavailable windows are not counted as silent negatives. WR restarts from the same source reference per window and is not the continuous algorithm. Reused seeds and orderings are dependent appearances.
+\clearpage
+\section*{S4. Matched MD3 warning-stage comparison}
+CF denotes continuous first-request MD3; WR denotes the window-reset diagnostic. Condition is the native warning; Condition Only requires a condition warning absent from its clean baseline. Each ordering has sixteen rows; the three subtables contain all 48 summary rows.
+\textbf{Table S4c. Saved order: both variants and warning rules}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.073892\linewidth - 4.8768pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.177340\linewidth - 11.7044pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.083744\linewidth - 5.5271pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.083744\linewidth - 5.5271pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.108374\linewidth - 7.1527pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.059113\linewidth - 3.9015pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.078818\linewidth - 5.2020pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Variant} & \textbf{Delay (s)} & \textbf{Warning rule} & \textbf{Eligible} & \textbf{Paired} & \textbf{Coverage} & \textbf{TP} & \textbf{FN} & \textbf{FP} & \textbf{TN} & \textbf{TPR} & \textbf{FPR} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Variant} & \textbf{Delay (s)} & \textbf{Warning rule} & \textbf{Eligible} & \textbf{Paired} & \textbf{Coverage} & \textbf{TP} & \textbf{FN} & \textbf{FP} & \textbf{TN} & \textbf{TPR} & \textbf{FPR} \\
+\midrule\endhead
+\bottomrule\endfoot
+CF & 0 & Condition & 12 & 12 & 1 & 0 & 0 & 3 & 9 & NA & 0.25 \\
+CF & 0 & Condition Only & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+CF & 1 & Condition & 12 & 12 & 1 & 0 & 0 & 3 & 9 & NA & 0.25 \\
+CF & 1 & Condition Only & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+CF & 3 & Condition & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+CF & 3 & Condition Only & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+CF & 10 & Condition & 12 & 12 & 1 & 3 & 9 & 0 & 0 & 0.25 & NA \\
+CF & 10 & Condition Only & 12 & 12 & 1 & 0 & 12 & 0 & 0 & 0 & NA \\
+WR & 0 & Condition & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+WR & 0 & Condition Only & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+WR & 1 & Condition & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+WR & 1 & Condition Only & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+WR & 3 & Condition & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+WR & 3 & Condition Only & 12 & 12 & 1 & 0 & 0 & 0 & 12 & NA & 0 \\
+WR & 10 & Condition & 12 & 12 & 1 & 0 & 12 & 0 & 0 & 0 & NA \\
+WR & 10 & Condition Only & 12 & 12 & 1 & 0 & 12 & 0 & 0 & 0 & NA \\
+\end{longtable}
+}
+Coverage and rates are fractions. TPR = TP/(TP + FN); FPR = FP/(FP + TN). NA denotes a zero denominator. Delay 10 s supplies harmful appearances; delays 0/1/3 s supply no-damage controls, not benign-only traffic. The MD3-named hash is an ordering, not an estimator. CF stops at the first request for oracle labels; subsequent unavailable windows are not counted as silent negatives. WR restarts from the same source reference per window and is not the continuous algorithm. Reused seeds and orderings are dependent appearances.
+\clearpage
+\section*{S5. Legacy warnings and reporting coverage}
+The harmful populations at 10 s comprise 24 historical-hash, 24 MD3-named-hash, and 12 saved-order seed-window appearances. AC denotes average confidence, DoC difference of confidences, ATC average thresholded confidence, and CBPE confidence-based performance estimation.
+\textbf{Table S5. Warning outcomes by ordering}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.192308\linewidth - 5.7692pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.153846\linewidth - 4.6154pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.163462\linewidth - 4.9038pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.144231\linewidth - 4.3269pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.115385\linewidth - 3.4615pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.230769\linewidth - 6.9231pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Estimator} & \textbf{Historical hash: TP, FN} & \textbf{MD3-named hash: TP, FN} & \textbf{Saved order: TP, FN} & \textbf{Paired coverage} & \textbf{No-damage warnings / appearances} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Estimator} & \textbf{Historical hash: TP, FN} & \textbf{MD3-named hash: TP, FN} & \textbf{Saved order: TP, FN} & \textbf{Paired coverage} & \textbf{No-damage warnings / appearances} \\
+\midrule\endhead
+\bottomrule\endfoot
+AC & 4, 20 & 2, 22 & 8, 4 & 1 & 0/72; 0/72; 0/36 \\
+DoC & 4, 20 & 2, 22 & 8, 4 & 1 & 0/72; 0/72; 0/36 \\
+ATC & 8, 16 & 8, 16 & 4, 8 & 1 & 0/72; 0/72; 0/36 \\
+CBPE (source-Platt) & 0, 24 & 0, 24 & 0, 12 & 1 & 0/72; 0/72; 0/36 \\
+Competence-only & 20, 4 & 19, 5 & 12, 0 & 1 & 0/72; 0/72; 0/36 \\
+Semantic agreement & 20, 4 & 19, 5 & 12, 0 & 1 & 0/72; 0/72; 0/36 \\
+Drift-only & 24, 0 & 24, 0 & 12, 0 & 1 & 0/72; 0/72; 0/36 \\
+Combined hard gate & NA & NA & NA & 0 & NA \\
+\end{longtable}
+}
+TP and FN are count pairs, not ratios. No-damage warning fractions pool the 0/1/3-s conditions and are listed in historical-hash, MD3-named-hash, saved-order sequence. Their denominators are 72, 72, and 36. These are dependent appearances, not independent deployments. Seven reporting configurations have full clean, condition, and paired coverage, including CBPE despite its zero warnings. The hard gate has zero clean coverage, approximately 0.3333 mean condition coverage, zero paired coverage, and 96 clean-reject/condition-accept appearances; its sensitivity and false-warning fraction are undefined.
+\clearpage
+\section*{S6. Capture-35 temporal results}
+The protocol uses four equal-duration periods, six windows per later period, and nominal levels 0.01 and 0.05. Period-1 published-benign records supply calibration. The protocol was frozen before scoring after preliminary label-count inspection; the reproduced run is not a fresh unexposed confirmation.
+\textbf{Table S6a. Later-window check outcomes and attack-window recall}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.066327\linewidth - 2.7857pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.086735\linewidth - 3.6429pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.091837\linewidth - 3.8571pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.102041\linewidth - 4.2857pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.102041\linewidth - 4.2857pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.183673\linewidth - 7.7143pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.173469\linewidth - 7.2857pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.193878\linewidth - 8.1429pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Model} & \textbf{Nominal level} & \textbf{Eligible windows} & \textbf{With-slack pass} & \textbf{Strict pass} & \textbf{Legacy statistic <= observed TP} & \textbf{Minimum later-period AUROC} & \textbf{Median attack-positive-window recall} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Model} & \textbf{Nominal level} & \textbf{Eligible windows} & \textbf{With-slack pass} & \textbf{Strict pass} & \textbf{Legacy statistic <= observed TP} & \textbf{Minimum later-period AUROC} & \textbf{Median attack-positive-window recall} \\
+\midrule\endhead
+\bottomrule\endfoot
+HGB & 0.01 & 18 & 18/18 & 18/18 & 18/18 & 0.556459 & 0.114741 \\
+HGB & 0.05 & 18 & 18/18 & 18/18 & 18/18 & 0.556459 & 0.114741 \\
+LR & 0.01 & 18 & 18/18 & 15/18 & 15/18 & 0.674232 & 0.713449 \\
+LR & 0.05 & 18 & 17/18 & 14/18 & 15/18 & 0.674232 & 0.714080 \\
+\end{longtable}
+}
+\textbf{Table S6b. Period composition and threshold-independent AUROC}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.089744\linewidth - 2.6923pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.192308\linewidth - 5.7692pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.192308\linewidth - 5.7692pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.192308\linewidth - 5.7692pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.166667\linewidth - 5.0000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.166667\linewidth - 5.0000pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Period} & \textbf{Records} & \textbf{Benign} & \textbf{Malicious} & \textbf{HGB AUROC} & \textbf{LR AUROC} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Period} & \textbf{Records} & \textbf{Benign} & \textbf{Malicious} & \textbf{HGB AUROC} & \textbf{LR AUROC} \\
+\midrule\endhead
+\bottomrule\endfoot
+1 & 2,024,537 & 2,024,442 & 95 & 0.376848 & 0.444494 \\
+2 & 2,078,796 & 2,078,796 & 0 & NA & NA \\
+3 & 2,985,051 & 2,076,504 & 908,547 & 0.556459 & 0.674232 \\
+4 & 3,359,403 & 2,082,647 & 1,276,756 & 0.584294 & 0.763435 \\
+\end{longtable}
+}
+All rates and recall values are fractions. Strict checks compare empirical benign FPR with the calibration envelope; with-slack counts use the saved additional evaluation tolerance. These empirical checks do not establish the sampling assumptions. Window-median recall and period-level AUROC are different aggregates. Period 2 has no malicious annotations, so recall and AUROC are undefined. The legacy statistic max(0, alerts - N times bound) is a diagnostic, not a certified realized attack count. It exceeds observed true positives in 3/18 LR windows at each nominal level. At nominal level 0.05, zero-based window 12 has 346,530 benign records, zero attacks, 18,997 false alarms, and an asserted lower count of approximately 1,339. False-alarm check compliance does not imply high attack recall.
+\clearpage
+\section*{S7. Raw-only pilot}
+The pilot uses a separate frozen model bank and reference cohorts. Outcomes follow its native pure-witness and deadline rules; these rows are not interchangeable with the historical or fresh 512-unit tracks.
+\textbf{Table S7. Malicious-unit detection and clean-minus-paced change}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.093333\linewidth - 2.8000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.080000\linewidth - 2.4000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.120000\linewidth - 3.6000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.146667\linewidth - 4.4000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.266667\linewidth - 8.0000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.293333\linewidth - 8.8000pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Capture} & \textbf{Model} & \textbf{Malicious units} & \textbf{Clean detection} & \textbf{10-s detection} & \textbf{Clean minus 10 s} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Capture} & \textbf{Model} & \textbf{Malicious units} & \textbf{Clean detection} & \textbf{10-s detection} & \textbf{Clean minus 10 s} \\
+\midrule\endhead
+\bottomrule\endfoot
+34 & HGB & 1,492 & 0.729223 & [0.616622, 0.977882] & [-0.248660, 0.112601] \\
+34 & LR & 1,492 & 0.739946 & [0.638740, 1] & [-0.260054, 0.101206] \\
+49 & HGB & 2,001 & 1 & 0.331334 & [0.668666, 0.668666] \\
+49 & LR & 2,001 & 1 & 1 & [0, 0] \\
+7 & HGB & 2,031 & 0 & 0 & [0, 0] \\
+7 & LR & 2,031 & 0.999015 & 1 & [-0.000985, -0.000985] \\
+\end{longtable}
+}
+Values are fractions. Intervals represent attribution uncertainty, not sampling confidence. Capture 34 contains 2,048 panel units: 1,492 malicious, 521 benign, and 35 unlabelled. At 10 s, 539 malicious and four benign outcomes are unresolved. The change intervals span zero and establish neither improvement nor deterioration. Endpoints retain the reported precision; rounding displayed rates before subtraction can change the last decimal. The very small benign pilot cohorts in captures 49 and 7 do not support specificity claims.
+\clearpage
+\section*{S8. NF-ToN-IoT-v2 family-transfer results}
+This is a same-parent tabular study, not the paired Zeek/NFStream packet-extraction experiment. Each held-out attack-family panel contains 2,560 records. The semantic views group protocol/service, transport-state, size/volume, and timing/rate features; views and attack-family panels are distinct.
+\textbf{Table S8a. Clean held-out-family classifier outcomes and acceptance coverage}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.160494\linewidth - 5.7778pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.098765\linewidth - 3.5556pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.135802\linewidth - 4.8889pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.104938\linewidth - 3.7778pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.154321\linewidth - 5.5556pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.160494\linewidth - 5.7778pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.185185\linewidth - 6.6667pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Held-out family} & \textbf{Records} & \textbf{Accuracy (\%)} & \textbf{AUROC} & \textbf{Normal FPR (\%)} & \textbf{Attack recall (\%)} & \textbf{Accepted coverage (\%)} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Held-out family} & \textbf{Records} & \textbf{Accuracy (\%)} & \textbf{AUROC} & \textbf{Normal FPR (\%)} & \textbf{Attack recall (\%)} & \textbf{Accepted coverage (\%)} \\
+\midrule\endhead
+\bottomrule\endfoot
+Injection & 2,560 & 72.54 & 0.8296 & 10.63 & 55.70 & 0 \\
+XSS & 2,560 & 71.80 & 0.8463 & 9.84 & 53.44 & 40 \\
+Ransomware & 2,560 & 48.01 & 0.5295 & 10.00 & 6.02 & 0 \\
+Backdoor & 2,560 & 44.45 & 0.1793 & 11.80 & 0.70 & 0 \\
+MITM & 2,560 & 66.13 & 0.5198 & 8.05 & 40.31 & 0 \\
+\end{longtable}
+}
+\textbf{Table S8b. Primary-classifier attack recall under report corruption (\%)}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.223881\linewidth - 5.3731pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.149254\linewidth - 3.5821pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.208955\linewidth - 5.0149pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.208955\linewidth - 5.0149pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.208955\linewidth - 5.0149pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Held-out family} & \textbf{Clean} & \textbf{epsilon = 0.10} & \textbf{epsilon = 0.25} & \textbf{epsilon = 0.50} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Held-out family} & \textbf{Clean} & \textbf{epsilon = 0.10} & \textbf{epsilon = 0.25} & \textbf{epsilon = 0.50} \\
+\midrule\endhead
+\bottomrule\endfoot
+Injection & 55.70 & 51.17 & 38.83 & 34.14 \\
+XSS & 53.44 & 50.55 & 45.47 & 32.34 \\
+Ransomware & 6.02 & 5.16 & 5.00 & 5.00 \\
+Backdoor & 0.70 & 0.70 & 0.70 & 0.63 \\
+MITM & 40.31 & 39.14 & 36.56 & 6.80 \\
+\end{longtable}
+}
+Coverage is the reported acceptance diagnostic, not primary-classifier recall or validated packet membership. Accepted-error fields at zero coverage are undefined, not zero error. Epsilon indexes the saved report-corruption conditions; it is not a pacing delay or an established packet-valid perturbation budget. No new model fitting or threshold changes were made during that evaluation. Family panels share one parent representation and are not established independent sampling units, corpora, or deployments.
+\clearpage
+\section*{S8. NF-ToN-IoT-v2 source-view and boundary results}
+The source-test table characterizes five saved models. These source outcomes are not substituted for held-out-family results.
+\textbf{Table S8c. Source-test metrics}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.289855\linewidth - 6.9565pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.144928\linewidth - 3.4783pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.188406\linewidth - 4.5217pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.188406\linewidth - 4.5217pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.188406\linewidth - 4.5217pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{View/model} & \textbf{Records} & \textbf{Accuracy (\%)} & \textbf{Normal FPR (\%)} & \textbf{Attack recall (\%)} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{View/model} & \textbf{Records} & \textbf{Accuracy (\%)} & \textbf{Normal FPR (\%)} & \textbf{Attack recall (\%)} \\
+\midrule\endhead
+\bottomrule\endfoot
+Primary & 4,000 & 63.40 & 5.50 & 32.30 \\
+Protocol/service & 4,000 & 50.18 & 2.60 & 2.95 \\
+Transport state & 4,000 & 67.85 & 3.90 & 39.60 \\
+Size/volume & 4,000 & 54.28 & 3.20 & 11.75 \\
+Timing/rate & 4,000 & 58.45 & 5.05 & 21.95 \\
+\end{longtable}
+}
+\textbf{Table S8d. Semantic-view boundary summaries}\par
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{\dimexpr 0.750000\linewidth - 4.5000pt\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.250000\linewidth - 1.5000pt\relax}@{}}
+\toprule\rowcolor{gray!15}
+\textbf{Quantity} & \textbf{Reported value} \\
+\midrule\endfirsthead
+\toprule\rowcolor{gray!15}
+\textbf{Quantity} & \textbf{Reported value} \\
+\midrule\endhead
+\bottomrule\endfoot
+Mean natural semantic-view accuracy & 0.5620 \\
+Declared view-accuracy threshold & 0.8 \\
+Equal-family mean differential-error gain: ANCH versus AC & -0.02595 \\
+Families with positive descriptive gain & Injection only \\
+\end{longtable}
+}
+ANCH is the saved development-monitor identifier; AC denotes average confidence. The reported equal-family gain is negative, and no positive independent clustered gain was established. The summary gain is not a primary-classifier accuracy or recall improvement. Packet validity and NetFlow semantic validity of report-corruption conditions were not established. The outcome tables alone do not establish an implementable acceptance gate, a perturbation construction, or a deployable detector-selection policy.
+\end{document}
