@@ -1,0 +1,3431 @@
+why do you need zip what zip do you need the zip file i gave have you check it it yet what inside it, do you even know what are thing done and what have to. what is the plan what we have to do.
+
+let me give you the details what are we doing and what we need to do.
+
+
+"code: ""from pathlib import Path
+from datetime import datetime, timezone
+from contextlib import contextmanager
+import collections
+import gzip
+import hashlib
+import importlib.metadata
+import io
+import json
+import os
+import platform
+import shutil
+import traceback
+import warnings
+import zipfile
+
+import joblib
+import numpy as np
+import pandas as pd
+from threadpoolctl import threadpool_limits
+
+VERSION = "capture49_association_screen_v1"
+SCENARIO = "CTU-IoT-Malware-Capture-49-1"
+OWNER = Path("/kaggle/input/datasets/mdhamidborkottulla")
+ROOTS = [OWNER / n for n in [
+    "all-kaggle-work", "complete-backup", "full-backup", "last-day-backup",
+    "one-last", "ran-files", "the-last-update", "whole-in-one",
+    "the-last-days-backup", "research-closing-code", "research-experiment-suite"
+]] + [Path("/kaggle/working")]
+FEATURES = ["duration", "orig_bytes", "resp_bytes", "orig_pkts", "resp_pkts",
+            "orig_ip_bytes", "resp_ip_bytes", "missed_bytes", "proto"]
+SEEDS = [8101, 8102, 8103]
+MAX_MEMBER = 256 * 1024**2
+
+class Blocked(Exception):
+    pass
+
+def save_json(path, obj):
+    path.write_text(json.dumps(obj, indent=2, default=str), encoding="utf-8")
+
+@contextmanager
+def opened(asset):
+    if asset["member"]:
+        with zipfile.ZipFile(asset["path"]) as z, z.open(asset["member"]) as f:
+            yield f
+    else:
+        with open(asset["path"], "rb") as f:
+            yield f
+
+def digest(asset):
+    h = hashlib.sha256()
+    with opened(asset) as f:
+        for b in iter(lambda: f.read(4 * 1024**2), b""):
+            h.update(b)
+    return h.hexdigest()
+
+def category(path):
+    s = str(path).replace("\\", "/")
+    name = s.split("/")[-1]
+    if name == "frozen_source_models.joblib" and "TRACE_CONFIRMATORY_SOURCE_MODELS_v1_1/" in s:
+        return "models"
+    if SCENARIO in s and "E5_EXPLORATORY_REAL_PCAP_PACING_SEARCH_v1/" in s:
+        if s.endswith("/delay_0s/candidate_selected_features.csv"):
+            return "clean"
+        if s.endswith("/delay_10s/candidate_selected_features.csv"):
+            return "selected10"
+    if "E5_CAPTURE49_FRAGMENT_DIAGNOSTIC_" in s:
+        if name == "associated_connection_records.csv":
+            return "associated"
+        if name == "per_original_flow_counter_reconciliation.csv":
+            return "reconciliation"
+    return None
+
+def discover(out):
+    assets, errors, mounts = [], [], []
+    archives = []
+    for root in ROOTS:
+        mounts.append({"path": str(root), "exists": root.is_dir()})
+        if not root.is_dir():
+            continue
+        for current, dirs, files in os.walk(root, followlinks=False):
+            dirs[:] = [d for d in dirs if d not in {".git", "__pycache__"}
+                       and not d.startswith("LINEAGE_SCREEN_BATCH1_")]
+            for name in files:
+                p = Path(current) / name
+                if p.is_symlink():
+                    continue
+                try:
+                    kind = category(p)
+                    if kind:
+                        assets.append(dict(kind=kind, path=str(p), member="", bytes=p.stat().st_size))
+                    elif p.suffix.lower() == ".zip":
+                        archives.append(p)
+                except Exception as e:
+                    errors.append({"path": str(p), "error": repr(e)})
+    # Read ZIP directories, not their dataset contents; no archive is unpacked.
+    for p in archives:
+        try:
+            with zipfile.ZipFile(p) as z:
+                for info in z.infolist():
+                    if info.is_dir():
+                        continue
+                    kind = category(info.filename)
+                    if kind:
+                        assets.append(dict(kind=kind, path=str(p), member=info.filename,
+                                           bytes=info.file_size))
+        except Exception as e:
+            errors.append({"path": str(p), "error": repr(e)})
+    pd.DataFrame(mounts).to_csv(out / "mounts.csv", index=False)
+    pd.DataFrame(errors, columns=["path", "error"]).to_csv(out / "discovery_errors.csv", index=False)
+    pd.DataFrame(assets, columns=["kind", "path", "member", "bytes"]).to_csv(out / "candidates.csv", index=False)
+    selected, resolution = {}, []
+    for kind in ["clean", "selected10", "associated", "reconciliation", "models"]:
+        candidates = [a for a in assets if a["kind"] == kind]
+        variants = collections.defaultdict(list)
+        for a in candidates:
+            if a["bytes"] > MAX_MEMBER:
+                resolution.append({**a, "sha256": "", "status": "OVER_SIZE_LIMIT"})
+                continue
+            try:
+                a = dict(a, sha256=digest(a))
+                variants[a["sha256"]].append(a)
+                resolution.append({**a, "status": "HASHED"})
+            except Exception as e:
+                resolution.append({**a, "sha256": "", "status": repr(e)})
+        if len(variants) == 1:
+            copies = next(iter(variants.values()))
+            selected[kind] = min(copies, key=lambda a: (bool(a["member"]), len(a["path"]), a["path"]))
+        elif len(variants) > 1:
+            selected[kind] = {"conflict": True, "distinct_hashes": list(variants)}
+    pd.DataFrame(resolution).to_csv(out / "candidate_hashes.csv", index=False)
+    save_json(out / "resolved_inputs.json", selected)
+    missing = [k for k in ["clean", "selected10", "associated", "reconciliation", "models"]
+               if k not in selected or selected[k].get("conflict")]
+    if missing:
+        raise Blocked("Missing or content-conflicting exact inputs: " + ", ".join(missing)
+                      + ". See candidates.csv and candidate_hashes.csv; no arbitrary version selected.")
+    return selected
+
+def frame(asset):
+    with opened(asset) as f:
+        data = f.read(MAX_MEMBER + 1)
+    if len(data) > MAX_MEMBER:
+        raise Blocked("Input exceeds bounded read limit")
+    if data[:2] == b"\x1f\x8b":
+        data = gzip.decompress(data)
+        if len(data) > MAX_MEMBER:
+            raise Blocked("Decompressed table exceeds limit")
+    return pd.read_csv(io.BytesIO(data), dtype=str, keep_default_na=False)
+
+def require(df, columns, name):
+    missing = set(columns) - set(df.columns)
+    if missing:
+        raise Blocked(name + " lacks columns: " + ", ".join(sorted(missing)))
+
+def booleans(series):
+    v = series.astype(str).str.strip().str.lower()
+    if not v.isin(["true", "false", "1", "0"]).all():
+        raise Blocked("Invalid boolean values in " + str(series.name))
+    return v.isin(["true", "1"])
+
+def normalize(df):
+    out = df.copy()
+    require(out, FEATURES, "feature table")
+    out["proto"] = out.proto.str.lower()
+    if not out.proto.isin(["tcp", "udp", "icmp"]).all():
+        raise Blocked("Unexpected protocol outside historical encoder")
+    for c in FEATURES[:-1]:
+        # Historical inference encoded Zeek '-' as zero. Do not coerce malformed numbers.
+        x = pd.to_numeric(out[c].replace({"-": "0", "": "0"}), errors="raise").astype(float)
+        if not np.isfinite(x).all() or (x < 0).any():
+            raise Blocked("Invalid numeric predictor: " + c)
+        out[c] = x
+    return out
+
+def matrix(df):
+    return np.column_stack([np.log1p(df[FEATURES[:-1]].to_numpy(float)),
+                            *[df.proto.eq(p).to_numpy(float) for p in ["tcp", "udp", "icmp"]]])
+
+def p1(model, df):
+    if list(model.classes_) != [0, 1]:
+        raise Blocked("Unexpected model class ordering")
+    p = model.predict_proba(matrix(df))[:, 1]
+    if not np.isfinite(p).all():
+        raise Blocked("Nonfinite model output")
+    return p
+
+def main():
+    work = Path("/kaggle/working")
+    if not work.is_dir():
+        raise RuntimeError("Run this script inside your Kaggle notebook, not this chat environment.")
+    out = work / ("LINEAGE_SCREEN_BATCH1_" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ"))
+    out.mkdir(exist_ok=False)
+    tests = {"test1": "NOT_RUN", "test2": "NOT_RUN", "test3": "NOT_RUN"}
+    receipt = dict(version=VERSION, scenario=SCENARIO, tests=tests,
+        models_retrained=False, new_PCAP_replays=0, original_files_overwritten=False,
+        packet_lineage_proved=False, malicious_functionality_tested=False,
+        scope="Exposed-case screening using historical endpoint/time associations; not activity-recall certification",
+        output_directory=str(out))
+    save_json(out / "environment.json", {
+        "python": platform.python_version(),
+        "packages": {p: importlib.metadata.version(p) for p in ["numpy", "pandas", "scikit-learn", "joblib"]},
+        "free_GiB": shutil.disk_usage(work).free / 1024**3})
+    try:
+        if shutil.disk_usage(work).free < 1024**3:
+            raise Blocked("Less than 1 GiB free; no data copied or extracted")
+        print("Resolving only the five exact capture-49 inputs; no bulk restoration.", flush=True)
+        a = discover(out)
+        clean, selected = normalize(frame(a["clean"])), normalize(frame(a["selected10"]))
+        frag, rec = frame(a["associated"]), frame(a["reconciliation"])
+        require(clean, ["ks", "y"], "clean sample")
+        require(selected, ["ks", "y"], "10s selected sample")
+        if len(clean) != 1024 or clean.ks.duplicated().any() or selected.ks.duplicated().any():
+            raise Blocked("Historical 1024-row sample/key contract failed")
+        if set(clean.ks) != set(selected.ks):
+            raise Blocked("Clean and 10s key sets differ")
+        selected = selected.set_index("ks").loc[clean.ks].reset_index()
+        y = pd.to_numeric(clean.y, errors="raise").to_numpy(int)
+        if set(y) != {0, 1} or not np.array_equal(y, pd.to_numeric(selected.y).to_numpy(int)):
+            raise Blocked("Binary label/membership contract failed")
+        if (y == 1).sum() != 512:
+            raise Blocked("Expected 512 historical malicious rows")
+        require(frag, ["associated_original_ks", "association_ambiguous", "is_original_start_key",
+                       "original_direction_pkts", "original_direction_ip_bytes", "uid", "ts"] + FEATURES,
+                "associated records")
+        require(rec, ["ks", "associated_records", "ambiguous_association",
+                      "packet_counter_reconciles", "IP_byte_counter_reconciles"], "reconciliation")
+        if rec.ks.duplicated().any():
+            raise Blocked("Duplicate original keys in reconciliation")
+        keys = set(clean.loc[y == 1, "ks"])
+        if set(rec.ks) != keys or not set(frag.associated_original_ks).issubset(keys):
+            raise Blocked("Association/reconciliation population differs from selected malicious units")
+        if frag.duplicated(["associated_original_ks", "uid"]).any():
+            raise Blocked("Duplicate associated connection rows")
+        frag = normalize(frag)
+        frag["ambiguous"] = booleans(frag.association_ambiguous)
+        frag["start_key"] = booleans(frag.is_original_start_key)
+        for c in ["original_direction_pkts", "original_direction_ip_bytes"]:
+            frag[c] = pd.to_numeric(frag[c], errors="raise")
+            if not np.isfinite(frag[c]).all() or (frag[c] < 0).any():
+                raise Blocked("Invalid association counter")
+        shared_uids = set(frag.groupby("uid").associated_original_ks.nunique().loc[lambda x: x > 1].index)
+        ci, si, ri = clean.set_index("ks"), selected.set_index("ks"), rec.set_index("ks")
+        audit = []
+        for k in sorted(keys):
+            g = frag[frag.associated_original_ks.eq(k)]
+            start = g[g.start_key]
+            count_ok = (len(g) == int(ri.loc[k, "associated_records"]))
+            pk_ok = bool(np.isclose(g.original_direction_pkts.sum(), ci.loc[k, "orig_pkts"], atol=0, rtol=0))
+            byte_ok = bool(np.isclose(g.original_direction_ip_bytes.sum(), ci.loc[k, "orig_ip_bytes"], atol=0, rtol=0))
+            numerical_match = len(start) == 1 and np.allclose(
+                start[FEATURES[:-1]].to_numpy(float)[0], si.loc[k, FEATURES[:-1]].to_numpy(float), atol=1e-9, rtol=1e-9)
+            proto_match = len(start) == 1 and start.iloc[0].proto == si.loc[k, "proto"]
+            unambiguous = len(g) > 0 and not g.ambiguous.any() and not g.uid.isin(shared_uids).any()
+            audit.append(dict(ks=k, associated_records=len(g), count_matches_summary=count_ok,
+                packet_counter_reconciles=pk_ok, IP_byte_counter_reconciles=byte_ok,
+                unique_start_key=len(start)==1, start_matches_selected=bool(numerical_match and proto_match),
+                association_unambiguous=unambiguous,
+                usable_for_conditional_screen=bool(count_ok and pk_ok and byte_ok and unambiguous
+                                                  and numerical_match and proto_match)))
+        audit = pd.DataFrame(audit)
+        audit.to_csv(out / "test1_association_audit.csv", index=False)
+        tests["test1"] = "COMPLETED"
+        print("\nTEST 1: ASSOCIATION ACCOUNTING", flush=True)
+        print(audit.drop(columns="ks").sum(numeric_only=True).to_string())
+        # Load only the user's own exact historical model artifact, never recovered code.
+        from sklearn.exceptions import InconsistentVersionWarning
+        with opened(a["models"]) as f, warnings.catch_warnings():
+            warnings.simplefilter("error", InconsistentVersionWarning)
+            bundle = joblib.load(io.BytesIO(f.read(MAX_MEMBER + 1)))
+        if not isinstance(bundle, dict) or not isinstance(bundle.get("models"), dict):
+            raise Blocked("Unexpected historical bundle schema")
+        banks = {int(k): v for k, v in bundle["models"].items()}
+        if set(banks) != set(SEEDS):
+            raise Blocked("Historical model seeds differ; no substitution allowed")
+        all_rows, repro = [], []
+        with threadpool_limits(limits=2):
+            for seed in SEEDS:
+                bank = banks[seed]
+                if "PRIMARY" not in bank:
+                    raise Blocked("PRIMARY model missing")
+                model = bank["PRIMARY"]
+                p0, p10, pf = p1(model, clean), p1(model, selected), p1(model, frag)
+                d0, d10 = p0 >= .5, p10 >= .5
+                damage = float((d0 == y).mean() - (d10 == y).mean())
+                repro.append(dict(seed=seed, clean_accuracy=float((d0==y).mean()),
+                                  selected_record_accuracy=float((d10==y).mean()),
+                                  selected_record_damage=damage,
+                                  reproduces_historical_half_point_drop=bool(np.isclose(damage,.5,atol=1e-12,rtol=0))))
+                fp = frag.assign(probability=pf, prediction=pf>=.5)
+                clean_predictions = dict(zip(clean.ks, d0))
+                selected_predictions = dict(zip(clean.ks, d10))
+                good = audit.set_index("ks").usable_for_conditional_screen.to_dict()
+                for k in sorted(keys):
+                    g = fp[fp.associated_original_ks.eq(k)]
+                    ok = bool(good[k])
+                    all_rows.append(dict(seed=seed, ks=k, association_usable=ok,
+                        associated_records=len(g), clean_detected=bool(clean_predictions[k]),
+                        selected_record_detected=bool(selected_predictions[k]),
+                        any_associated_record_alarm=bool(g.prediction.any()) if ok else None,
+                        max_associated_probability=float(g.probability.max()) if len(g) else None))
+        repro = pd.DataFrame(repro)
+        repro.to_csv(out / "test2_historical_reproduction.csv", index=False)
+        per = pd.DataFrame(all_rows)
+        per.to_csv(out / "test2_per_original_unit_predictions.csv", index=False)
+        tests["test2"] = "COMPLETED" if repro.reproduces_historical_half_point_drop.all() else "REPRODUCTION_MISMATCH"
+        print("\nTEST 2: FROZEN-MODEL REPRODUCTION", flush=True)
+        print(repro.to_string(index=False))
+        if tests["test2"] != "COMPLETED":
+            raise Blocked("Historical damage did not reproduce. No new result interpreted as same experiment.")
+        summary = []
+        for seed, g in per.groupby("seed"):
+            good = g.association_usable
+            detected = g.any_associated_record_alarm.fillna(False).astype(bool)
+            lost_selected = g.clean_detected & ~g.selected_record_detected
+            recovered = good & lost_selected & detected
+            residual = good & lost_selected & ~detected
+            unresolved = ~good
+            clean_n = int(g.clean_detected.sum())
+            associated_n = int((good & detected).sum())
+            summary.append(dict(seed=int(seed), original_malicious_units=len(g), usable_associations=int(good.sum()),
+                unresolved_units=int(unresolved.sum()), clean_detected_units=clean_n,
+                selected_record_detected_units=int(g.selected_record_detected.sum()),
+                any_associated_alarm_units=associated_n,
+                selected_losses_recovered_by_other_records=int(recovered.sum()),
+                selected_losses_without_associated_alarm=int(residual.sum()),
+                selected_losses_unresolved=int((lost_selected & unresolved).sum()),
+                conditional_alarm_fraction_lower=associated_n/len(g),
+                conditional_alarm_fraction_upper=(associated_n+int(unresolved.sum()))/len(g),
+                original_unit_detection_not_certified=True))
+        summary = pd.DataFrame(summary)
+        summary.to_csv(out / "test3_association_sensitivity.csv", index=False)
+        tests["test3"] = "COMPLETED_CONDITIONAL_ASSOCIATION_ANALYSIS"
+        receipt["status"] = "BATCH1_COMPLETED_NOT_PACKET_LINEAGE_PROOF"
+        receipt["result_interpretation"] = (
+            "An alarm in an associated record is an offline sensitivity result. Counter reconciliation and "
+            "endpoint/time matching do not prove packet lineage, alert attribution, completeness, or functionality.")
+        print("\nTEST 3: DOES INCLUDING ASSOCIATED RECORDS CHANGE THE RESULT?", flush=True)
+        print(summary.to_string(index=False))
+    except Blocked as e:
+        receipt["status"] = "BLOCKED_WITH_EXACT_REASON"
+        receipt["reason"] = str(e)
+        print("\nBLOCKED:", str(e), flush=True)
+    except Exception as e:
+        receipt["status"] = "FAILED_WITH_SAVED_TRACEBACK"
+        receipt["reason"] = repr(e)
+        (out / "error.txt").write_text(traceback.format_exc(), encoding="utf-8")
+        print("\nFAILED:", repr(e), flush=True)
+    finally:
+        receipt["files"] = sorted(p.name for p in out.iterdir() if p.is_file())
+        save_json(out / "receipt.json", receipt)
+        print("\nRECEIPT\n" + json.dumps(receipt, indent=2, default=str), flush=True)
+
+if __name__ == "__main__":
+    main()
+
+output: Resolving only the five exact capture-49 inputs; no bulk restoration.
+
+BLOCKED: Missing or content-conflicting exact inputs: clean. See candidates.csv and candidate_hashes.csv; no arbitrary version selected.
+
+RECEIPT
+{
+  "version": "capture49_association_screen_v1",
+  "scenario": "CTU-IoT-Malware-Capture-49-1",
+  "tests": {
+    "test1": "NOT_RUN",
+    "test2": "NOT_RUN",
+    "test3": "NOT_RUN"
+  },
+  "models_retrained": false,
+  "new_PCAP_replays": 0,
+  "original_files_overwritten": false,
+  "packet_lineage_proved": false,
+  "malicious_functionality_tested": false,
+  "scope": "Exposed-case screening using historical endpoint/time associations; not activity-recall certification",
+  "output_directory": "/kaggle/working/LINEAGE_SCREEN_BATCH1_20261015T181408845591Z",
+  "status": "BLOCKED_WITH_EXACT_REASON",
+  "reason": "Missing or content-conflicting exact inputs: clean. See candidates.csv and candidate_hashes.csv; no arbitrary version selected.",
+  "files": [
+    "candidate_hashes.csv",
+    "candidates.csv",
+    "discovery_errors.csv",
+    "environment.json",
+    "mounts.csv",
+    "resolved_inputs.json"
+  ]
+}
+
+
+2. # Self-contained replacement for Batch 1.
+# Fix: resolve the original frozen clean sample as well as the E5 delay-0 copy.
+# Compare actual model inputs, not CSV byte hashes, when deduplicating clean samples.
+# Source contract: uploaded notebook, cells 249–251. [5]
+# No training, PCAP replay, deletion, bulk extraction, or historical-output overwrite.
+
+from pathlib import Path
+from datetime import datetime, timezone
+from contextlib import contextmanager
+import collections
+import gzip
+import hashlib
+import importlib.metadata
+import io
+import json
+import os
+import platform
+import shutil
+import traceback
+import warnings
+import zipfile
+
+import joblib
+import numpy as np
+import pandas as pd
+from threadpoolctl import threadpool_limits
+
+
+SCENARIO = "CTU-IoT-Malware-Capture-49-1"
+WORK = Path("/kaggle/working")
+OWNER = Path("/kaggle/input/datasets/mdhamidborkottulla")
+BACKUPS = [
+    OWNER / name for name in [
+        "all-kaggle-work",
+        "complete-backup",
+        "full-backup",
+        "last-day-backup",
+        "one-last",
+        "ran-files",
+        "the-last-update",
+        "whole-in-one",
+        "the-last-days-backup",
+    ]
+]
+FEATURES = [
+    "duration", "orig_bytes", "resp_bytes", "orig_pkts", "resp_pkts",
+    "orig_ip_bytes", "resp_ip_bytes", "missed_bytes", "proto",
+]
+SEEDS = {8101, 8102, 8103}
+LIMIT = 256 * 1024**2
+
+
+class InputProblem(Exception):
+    pass
+
+
+def write_json(path, value):
+    path.write_text(
+        json.dumps(value, indent=2, default=str),
+        encoding="utf-8",
+    )
+
+
+@contextmanager
+def open_asset(asset):
+    member = asset.get("member", "")
+    if member:
+        with zipfile.ZipFile(asset["path"]) as archive:
+            with archive.open(member) as handle:
+                yield handle
+    else:
+        with open(asset["path"], "rb") as handle:
+            yield handle
+
+
+def asset_id(asset):
+    return str(asset["path"]), str(asset.get("member", ""))
+
+
+def asset_hash(asset):
+    digest = hashlib.sha256()
+    with open_asset(asset) as handle:
+        for block in iter(lambda: handle.read(4 * 1024**2), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def read_bytes(asset):
+    with open_asset(asset) as handle:
+        data = handle.read(LIMIT + 1)
+    if len(data) > LIMIT:
+        raise InputProblem("Input exceeds the 256 MiB limit: " + str(asset))
+    return data
+
+
+def read_table(asset):
+    data = read_bytes(asset)
+    if data[:2] == b"\x1f\x8b":
+        with gzip.GzipFile(fileobj=io.BytesIO(data)) as handle:
+            data = handle.read(LIMIT + 1)
+        if len(data) > LIMIT:
+            raise InputProblem("Decompressed CSV exceeds the size limit.")
+    return pd.read_csv(
+        io.BytesIO(data),
+        dtype=str,
+        keep_default_na=False,
+    )
+
+
+def require(frame, columns, name):
+    missing = sorted(set(columns) - set(frame.columns))
+    if missing:
+        raise InputProblem(f"{name}: missing columns {missing}")
+
+
+def numeric(series):
+    values = pd.to_numeric(
+        series.replace({"-": "0", "": "0"}),
+        errors="raise",
+    ).astype(float)
+    if not np.isfinite(values.to_numpy()).all():
+        raise InputProblem("Nonfinite numbers in " + str(series.name))
+    return values
+
+
+def normalize(frame, labelled=False):
+    frame = frame.copy()
+    require(frame, FEATURES, "Feature table")
+    for column in FEATURES[:-1]:
+        frame[column] = numeric(frame[column])
+        if frame[column].lt(0).any():
+            raise InputProblem("Negative predictor: " + column)
+
+    frame["proto"] = frame.proto.str.strip().str.lower()
+    if not frame.proto.isin(["tcp", "udp", "icmp"]).all():
+        raise InputProblem("Protocol outside the historical encoder.")
+
+    if labelled:
+        require(frame, ["ks", "y"], "Labelled sample")
+        frame["ks"] = frame.ks.astype(str)
+        labels = numeric(frame.y)
+        if not labels.isin([0, 1]).all():
+            raise InputProblem("Labels must be exactly 0 or 1.")
+        frame["y"] = labels.astype(int)
+        if frame.ks.eq("").any() or frame.ks.duplicated().any():
+            raise InputProblem("Empty or duplicated sample keys.")
+    return frame
+
+
+def boolean(series):
+    values = series.astype(str).str.strip().str.lower()
+    if not values.isin(["true", "false", "1", "0"]).all():
+        raise InputProblem("Invalid Boolean field: " + str(series.name))
+    return values.isin(["true", "1"])
+
+
+def model_matrix(frame):
+    return np.column_stack([
+        np.log1p(frame[FEATURES[:-1]].to_numpy(float)),
+        *[
+            frame.proto.eq(protocol).to_numpy(float)
+            for protocol in ["tcp", "udp", "icmp"]
+        ],
+    ])
+
+
+def semantic_hash(frame):
+    ordered = frame.sort_values("ks", kind="stable")
+    digest = hashlib.sha256()
+    for row in ordered[["ks", "y"] + FEATURES].itertuples(
+        index=False, name=None
+    ):
+        key, label, *features = row
+        numbers, protocol = features[:-1], features[-1]
+        canonical = [
+            str(key), str(int(label)),
+            *[float(value).hex() for value in numbers],
+            str(protocol),
+        ]
+        digest.update(
+            json.dumps(canonical, separators=(",", ":")).encode("utf-8")
+        )
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
+def classify_asset(path):
+    value = str(path).replace("\\", "/")
+    name = value.rsplit("/", 1)[-1]
+
+    if (
+        name == "frozen_source_models.joblib"
+        and "TRACE_CONFIRMATORY_SOURCE_MODELS_v1_1/" in value
+    ):
+        return "models"
+
+    if (
+        SCENARIO in value
+        and "TRACE_CONFIRMATORY_E2_E3_CLEAN_TARGETS_v1_1" in value
+        and name in {
+            "frozen_clean_target_sample.csv",
+            "frozen_clean_target_sample.csv.gz",
+        }
+    ):
+        return "clean"
+
+    if (
+        SCENARIO in value
+        and "E5_EXPLORATORY_REAL_PCAP_PACING_SEARCH_v1/" in value
+        and name in {
+            "candidate_selected_features.csv",
+            "candidate_selected_features.csv.gz",
+        }
+    ):
+        if "/delay_0s/" in value:
+            return "clean"
+        if "/delay_10s/" in value:
+            return "selected10"
+
+    if "E5_CAPTURE49_FRAGMENT_DIAGNOSTIC_" in value:
+        if name == "associated_connection_records.csv":
+            return "associated"
+        if name == "per_original_flow_counter_reconciliation.csv":
+            return "reconciliation"
+
+    return None
+
+
+def load_previous_manifests():
+    assets = []
+    for directory in sorted(WORK.glob("LINEAGE_SCREEN_BATCH1_*")):
+        for filename in ["candidates.csv", "candidate_hashes.csv"]:
+            path = directory / filename
+            if not path.is_file():
+                continue
+            try:
+                table = pd.read_csv(
+                    path, dtype=str, keep_default_na=False
+                )
+                for row in table.to_dict("records"):
+                    if row.get("kind") and row.get("path"):
+                        assets.append({
+                            "kind": row["kind"],
+                            "path": row["path"],
+                            "member": row.get("member", ""),
+                        })
+            except (pd.errors.EmptyDataError, ValueError):
+                pass
+
+        path = directory / "resolved_inputs.json"
+        if path.is_file():
+            try:
+                resolved = json.loads(path.read_text())
+                for kind, asset in resolved.items():
+                    if isinstance(asset, dict) and asset.get("path"):
+                        assets.append({
+                            "kind": kind,
+                            "path": asset["path"],
+                            "member": asset.get("member", ""),
+                        })
+            except (ValueError, OSError):
+                pass
+    return assets
+
+
+def scan_inputs(assets, scan_kinds, out):
+    errors = []
+    archives = []
+
+    for root in BACKUPS + [WORK]:
+        if not root.is_dir():
+            continue
+
+        for current, directories, filenames in os.walk(
+            root, followlinks=False
+        ):
+            directories[:] = [
+                name for name in directories
+                if name not in {".git", "__pycache__"}
+                and not name.startswith("LINEAGE_SCREEN_BATCH")
+            ]
+
+            for filename in filenames:
+                path = Path(current) / filename
+                if path.is_symlink():
+                    continue
+
+                kind = classify_asset(path)
+                if kind in scan_kinds:
+                    assets.append({
+                        "kind": kind,
+                        "path": str(path),
+                        "member": "",
+                    })
+                elif path.suffix.lower() == ".zip":
+                    archives.append(path)
+
+    for path in archives:
+        try:
+            with zipfile.ZipFile(path) as archive:
+                for member in archive.infolist():
+                    if member.is_dir() or member.file_size > LIMIT:
+                        continue
+                    kind = classify_asset(member.filename)
+                    if kind in scan_kinds:
+                        assets.append({
+                            "kind": kind,
+                            "path": str(path),
+                            "member": member.filename,
+                        })
+        except (OSError, zipfile.BadZipFile) as error:
+            errors.append({
+                "path": str(path),
+                "error": repr(error),
+            })
+
+    pd.DataFrame(errors, columns=["path", "error"]).to_csv(
+        out / "archive_read_errors.csv", index=False
+    )
+
+    unique = {}
+    for asset in assets:
+        unique[(asset["kind"],) + asset_id(asset)] = asset
+    return list(unique.values())
+
+
+def resolve_binary(kind, assets, audit):
+    variants = collections.defaultdict(list)
+
+    for asset in assets:
+        if asset["kind"] != kind:
+            continue
+        try:
+            digest = asset_hash(asset)
+            variants[digest].append(dict(asset, sha256=digest))
+            audit.append({
+                **asset,
+                "sha256": digest,
+                "status": "READABLE",
+            })
+        except Exception as error:
+            audit.append({
+                **asset,
+                "sha256": "",
+                "status": repr(error),
+            })
+
+    if len(variants) != 1:
+        raise InputProblem(
+            f"{kind}: found {len(variants)} distinct readable contents. "
+            "No arbitrary version will be selected."
+        )
+
+    return min(
+        next(iter(variants.values())),
+        key=lambda asset: (
+            bool(asset.get("member")),
+            len(asset["path"]),
+            asset["path"],
+            asset.get("member", ""),
+        ),
+    )
+
+
+def resolve_clean(assets, selected, reconciliation, out):
+    audit = []
+    variants = collections.defaultdict(list)
+    target_keys = set(selected.ks)
+    target_labels = selected.set_index("ks").y.sort_index()
+    required_keys = set(reconciliation.ks)
+
+    require(
+        reconciliation,
+        ["ks", "clean_orig_pkts", "clean_orig_ip_bytes"],
+        "Saved reconciliation",
+    )
+    reference = reconciliation.set_index("ks")
+
+    for asset in assets:
+        if asset["kind"] != "clean":
+            continue
+
+        record = dict(asset)
+        try:
+            frame = normalize(read_table(asset), labelled=True)
+            if len(frame) != 1024 or set(frame.ks) != target_keys:
+                raise InputProblem("Does not match the frozen target key set.")
+
+            frame = frame.set_index("ks").loc[selected.ks].reset_index()
+
+            labels = frame.set_index("ks").y.sort_index()
+            if not labels.equals(target_labels):
+                raise InputProblem("Labels differ from the frozen target.")
+
+            if not required_keys.issubset(set(frame.ks)):
+                raise InputProblem("Missing reconciliation keys.")
+
+            indexed = frame.set_index("ks")
+            pkts = numeric(reference.clean_orig_pkts)
+            byte_counts = numeric(reference.clean_orig_ip_bytes)
+
+            if not np.array_equal(
+                indexed.loc[reference.index, "orig_pkts"].to_numpy(float),
+                pkts.to_numpy(float),
+            ):
+                raise InputProblem("Clean packet counters differ.")
+
+            if not np.array_equal(
+                indexed.loc[
+                    reference.index, "orig_ip_bytes"
+                ].to_numpy(float),
+                byte_counts.to_numpy(float),
+            ):
+                raise InputProblem("Clean byte counters differ.")
+
+            benign = frame.y.eq(0)
+            if not np.array_equal(
+                frame.loc[benign, FEATURES[:-1]].to_numpy(float),
+                selected.loc[benign, FEATURES[:-1]].to_numpy(float),
+            ):
+                raise InputProblem(
+                    "Benign predictors differ although this pacing "
+                    "operation targets selected malicious flows only."
+                )
+
+            if not np.array_equal(
+                frame.loc[benign, "proto"].to_numpy(),
+                selected.loc[benign, "proto"].to_numpy(),
+            ):
+                raise InputProblem("Benign protocols differ.")
+
+            fingerprint = semantic_hash(frame)
+            record.update({
+                "status": "COMPATIBLE",
+                "sha256": asset_hash(asset),
+                "semantic_sha256": fingerprint,
+            })
+            variants[fingerprint].append((dict(record), frame))
+
+        except Exception as error:
+            record.update({
+                "status": repr(error),
+                "sha256": "",
+                "semantic_sha256": "",
+            })
+
+        audit.append(record)
+
+    pd.DataFrame(audit).to_csv(
+        out / "clean_resolution.csv", index=False
+    )
+
+    if len(variants) != 1:
+        readable = [
+            row for row in audit if row["status"] == "COMPATIBLE"
+        ]
+        print("\nCLEAN INPUT RESOLUTION")
+        print(pd.DataFrame(audit).to_string(index=False))
+        raise InputProblem(
+            f"Clean resolution found {len(variants)} distinct compatible "
+            f"model-input tables from {len(readable)} compatible copies. "
+            "Nothing was chosen using prediction accuracy."
+        )
+
+    copies = next(iter(variants.values()))
+    asset, frame = min(
+        copies,
+        key=lambda pair: (
+            bool(pair[0].get("member")),
+            len(pair[0]["path"]),
+            pair[0]["path"],
+            pair[0].get("member", ""),
+        ),
+    )
+    return asset, frame
+
+
+def predict(model, frame):
+    if list(model.classes_) != [0, 1]:
+        raise InputProblem("Unexpected model class ordering.")
+    probabilities = model.predict_proba(model_matrix(frame))[:, 1]
+    if (
+        not np.isfinite(probabilities).all()
+        or (probabilities < 0).any()
+        or (probabilities > 1).any()
+    ):
+        raise InputProblem("Invalid model probabilities.")
+    return probabilities
+
+
+def main():
+    if not WORK.is_dir():
+        raise RuntimeError("Run this cell in your Kaggle runtime.")
+
+    out = WORK / (
+        "LINEAGE_SCREEN_BATCH1_REPAIRED_"
+        + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    )
+    out.mkdir(exist_ok=False)
+
+    tests = {
+        "test1": "NOT_RUN",
+        "test2": "NOT_RUN",
+        "test3": "NOT_RUN",
+    }
+    receipt = {
+        "version": "capture49_association_screen_v1_1",
+        "scenario": SCENARIO,
+        "tests": tests,
+        "models_retrained": False,
+        "new_PCAP_replays": 0,
+        "files_deleted": 0,
+        "historical_outputs_overwritten": False,
+        "packet_lineage_proved": False,
+        "malicious_functionality_tested": False,
+        "selection_uses_prediction_results": False,
+        "scope": (
+            "Conditional endpoint/time association sensitivity; "
+            "not certified activity-level recall"
+        ),
+        "output_directory": str(out),
+    }
+    resolution_audit = []
+
+    try:
+        if shutil.disk_usage(WORK).free < 1024**3:
+            raise InputProblem("Less than 1 GiB of free working space.")
+
+        write_json(out / "environment.json", {
+            "python": platform.python_version(),
+            "packages": {
+                name: importlib.metadata.version(name)
+                for name in ["numpy", "pandas", "joblib", "scikit-learn"]
+            },
+        })
+
+        assets = load_previous_manifests()
+        present = {asset["kind"] for asset in assets}
+        required = {
+            "selected10", "associated", "reconciliation", "models"
+        }
+        scan_kinds = {"clean"} | (required - present)
+
+        print(
+            "[1/3] Reusing the previous manifest and resolving the "
+            "original frozen clean sample.",
+            flush=True,
+        )
+        assets = scan_inputs(assets, scan_kinds, out)
+        pd.DataFrame(assets).to_csv(
+            out / "input_candidates.csv", index=False
+        )
+
+        resolved = {}
+        for kind in [
+            "selected10", "associated", "reconciliation", "models"
+        ]:
+            resolved[kind] = resolve_binary(
+                kind, assets, resolution_audit
+            )
+
+        selected = normalize(
+            read_table(resolved["selected10"]), labelled=True
+        )
+        reconciliation = read_table(resolved["reconciliation"])
+        fragments = read_table(resolved["associated"])
+
+        require(
+            reconciliation,
+            [
+                "ks", "associated_records", "clean_orig_pkts",
+                "clean_orig_ip_bytes",
+            ],
+            "Reconciliation",
+        )
+        if reconciliation.ks.duplicated().any():
+            raise InputProblem("Duplicate reconciliation keys.")
+
+        resolved["clean"], clean = resolve_clean(
+            assets, selected, reconciliation, out
+        )
+        write_json(out / "resolved_inputs.json", resolved)
+
+        y = clean.y.to_numpy(int)
+        if (
+            len(clean) != 1024
+            or int((y == 1).sum()) != 512
+            or int((y == 0).sum()) != 512
+        ):
+            raise InputProblem("Historical balanced-sample contract failed.")
+
+        keys = set(clean.loc[clean.y.eq(1), "ks"])
+        if set(reconciliation.ks) != keys:
+            raise InputProblem(
+                "Reconciliation does not cover the selected malicious keys."
+            )
+
+        require(
+            fragments,
+            FEATURES + [
+                "associated_original_ks", "association_ambiguous",
+                "is_original_start_key", "original_direction_pkts",
+                "original_direction_ip_bytes", "uid",
+            ],
+            "Associated records",
+        )
+        if not set(fragments.associated_original_ks).issubset(keys):
+            raise InputProblem(
+                "Associated records contain unexpected original-unit keys."
+            )
+        if fragments.duplicated(
+            ["associated_original_ks", "uid"]
+        ).any():
+            raise InputProblem("Duplicate original-unit/UID associations.")
+
+        fragments = normalize(fragments)
+        fragments["ambiguous"] = boolean(
+            fragments.association_ambiguous
+        )
+        fragments["start_key"] = boolean(
+            fragments.is_original_start_key
+        )
+        for column in [
+            "original_direction_pkts",
+            "original_direction_ip_bytes",
+        ]:
+            fragments[column] = numeric(fragments[column])
+            if fragments[column].lt(0).any():
+                raise InputProblem("Negative association counters.")
+
+        uid_groups = fragments.groupby("uid")[
+            "associated_original_ks"
+        ].nunique()
+        shared_uids = set(uid_groups[uid_groups.gt(1)].index)
+
+        ci = clean.set_index("ks")
+        si = selected.set_index("ks")
+        ri = reconciliation.set_index("ks")
+        audits = []
+
+        for key in sorted(keys):
+            group = fragments[
+                fragments.associated_original_ks.eq(key)
+            ]
+            start = group[group.start_key]
+
+            count_ok = (
+                len(group) == int(ri.loc[key, "associated_records"])
+            )
+            packet_ok = (
+                float(group.original_direction_pkts.sum())
+                == float(ci.loc[key, "orig_pkts"])
+            )
+            byte_ok = (
+                float(group.original_direction_ip_bytes.sum())
+                == float(ci.loc[key, "orig_ip_bytes"])
+            )
+            start_ok = (
+                len(start) == 1
+                and np.allclose(
+                    start[FEATURES[:-1]].to_numpy(float)[0],
+                    si.loc[key, FEATURES[:-1]].to_numpy(float),
+                    atol=1e-9,
+                    rtol=1e-9,
+                )
+                and start.iloc[0].proto == si.loc[key, "proto"]
+            )
+            unambiguous = (
+                len(group) > 0
+                and not group.ambiguous.any()
+                and not group.uid.isin(shared_uids).any()
+            )
+
+            audits.append({
+                "ks": key,
+                "associated_records": len(group),
+                "count_matches_saved_summary": bool(count_ok),
+                "packet_counter_reconciles": bool(packet_ok),
+                "IP_byte_counter_reconciles": bool(byte_ok),
+                "start_matches_selected": bool(start_ok),
+                "association_unambiguous": bool(unambiguous),
+                "usable_for_conditional_screen": bool(
+                    count_ok and packet_ok and byte_ok
+                    and start_ok and unambiguous
+                ),
+            })
+
+        audit = pd.DataFrame(audits)
+        audit.to_csv(
+            out / "test1_association_audit.csv", index=False
+        )
+        tests["test1"] = "COMPLETED"
+
+        print("\nTEST 1 — ASSOCIATION AUDIT")
+        print(
+            audit.drop(columns="ks")
+            .sum(numeric_only=True)
+            .to_string()
+        )
+
+        print(
+            "\n[2/3] Loading the unchanged frozen models and predicting "
+            "on selected and associated records.",
+            flush=True,
+        )
+
+        from sklearn.exceptions import InconsistentVersionWarning
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", InconsistentVersionWarning)
+            bundle = joblib.load(
+                io.BytesIO(read_bytes(resolved["models"]))
+            )
+
+        if (
+            not isinstance(bundle, dict)
+            or not isinstance(bundle.get("models"), dict)
+        ):
+            raise InputProblem("Unexpected model-bundle structure.")
+
+        banks = {
+            int(seed): bank
+            for seed, bank in bundle["models"].items()
+        }
+        if set(banks) != SEEDS:
+            raise InputProblem(
+                f"Unexpected frozen seeds: {sorted(banks)}"
+            )
+
+        usable = audit.set_index("ks")[
+            "usable_for_conditional_screen"
+        ].to_dict()
+        predictions = []
+        reproduction = []
+
+        with threadpool_limits(limits=2):
+            for seed in sorted(SEEDS):
+                model = banks[seed]["PRIMARY"]
+
+                p0 = predict(model, clean)
+                p10 = predict(model, selected)
+                pf = predict(model, fragments)
+
+                d0 = p0 >= 0.5
+                d10 = p10 >= 0.5
+                clean_accuracy = float((d0 == y).mean())
+                selected_accuracy = float((d10 == y).mean())
+                damage = clean_accuracy - selected_accuracy
+
+                reproduction.append({
+                    "seed": seed,
+                    "clean_accuracy": clean_accuracy,
+                    "selected_record_accuracy": selected_accuracy,
+                    "selected_record_damage": damage,
+                    "historical_damage_reproduced": bool(
+                        np.isclose(
+                            damage, 0.5, atol=1e-12, rtol=0
+                        )
+                    ),
+                })
+
+                clean_decisions = dict(zip(clean.ks, d0))
+                selected_decisions = dict(zip(selected.ks, d10))
+                predicted_fragments = fragments.assign(
+                    probability=pf,
+                    predicted_malicious=pf >= 0.5,
+                )
+
+                for key in sorted(keys):
+                    group = predicted_fragments[
+                        predicted_fragments
+                        .associated_original_ks.eq(key)
+                    ]
+                    good = bool(usable[key])
+
+                    predictions.append({
+                        "seed": seed,
+                        "ks": key,
+                        "association_usable": good,
+                        "associated_records": len(group),
+                        "clean_detected": bool(clean_decisions[key]),
+                        "selected_record_detected": bool(
+                            selected_decisions[key]
+                        ),
+                        "any_associated_record_alarm": (
+                            bool(group.predicted_malicious.any())
+                            if good else None
+                        ),
+                        "maximum_associated_probability": (
+                            float(group.probability.max())
+                            if len(group) else None
+                        ),
+                    })
+
+        reproduction = pd.DataFrame(reproduction)
+        per_unit = pd.DataFrame(predictions)
+
+        reproduction.to_csv(
+            out / "test2_historical_reproduction.csv", index=False
+        )
+        per_unit.to_csv(
+            out / "test2_per_original_unit_predictions.csv",
+            index=False,
+        )
+
+        print("\nTEST 2 — HISTORICAL RESULT REPRODUCTION")
+        print(reproduction.to_string(index=False))
+
+        if not reproduction.historical_damage_reproduced.all():
+            tests["test2"] = "REPRODUCTION_MISMATCH"
+            raise InputProblem(
+                "The historical selected-record damage did not reproduce. "
+                "Inputs were not selected or changed to force agreement."
+            )
+        tests["test2"] = "COMPLETED"
+
+        print(
+            "\n[3/3] Comparing selected-record losses with alarms "
+            "in all usable associated records.",
+            flush=True,
+        )
+
+        summaries = []
+        for seed, group in per_unit.groupby("seed"):
+            good = group.association_usable.to_numpy(bool)
+            clean_positive = group.clean_detected.to_numpy(bool)
+            selected_positive = (
+                group.selected_record_detected.to_numpy(bool)
+            )
+            associated_positive = np.array([
+                bool(value) if value is not None else False
+                for value in group.any_associated_record_alarm
+            ], dtype=bool)
+
+            lost = clean_positive & ~selected_positive
+            unresolved = ~good
+            alarm_count = int((good & associated_positive).sum())
+
+            summaries.append({
+                "seed": int(seed),
+                "original_malicious_units": len(group),
+                "usable_associations": int(good.sum()),
+                "unresolved_units": int(unresolved.sum()),
+                "clean_detected_units": int(clean_positive.sum()),
+                "selected_record_detected_units": int(
+                    selected_positive.sum()
+                ),
+                "units_with_associated_alarm": alarm_count,
+                "selected_losses_with_other_associated_alarm": int(
+                    (good & lost & associated_positive).sum()
+                ),
+                "selected_losses_without_associated_alarm": int(
+                    (good & lost & ~associated_positive).sum()
+                ),
+                "selected_losses_unresolved": int(
+                    (lost & unresolved).sum()
+                ),
+                "conditional_associated_alarm_fraction_lower": (
+                    alarm_count / len(group)
+                ),
+                "conditional_associated_alarm_fraction_upper": (
+                    (alarm_count + int(unresolved.sum())) / len(group)
+                ),
+                "packet_lineage_certified": False,
+            })
+
+        summary = pd.DataFrame(summaries)
+        summary.to_csv(
+            out / "test3_association_sensitivity.csv",
+            index=False,
+        )
+        tests["test3"] = "COMPLETED_CONDITIONAL_ANALYSIS"
+
+        print("\nTEST 3 — ASSOCIATED-RECORD SENSITIVITY")
+        print(summary.to_string(index=False))
+
+        receipt["status"] = (
+            "BATCH1_COMPLETED_NOT_PACKET_LINEAGE_PROOF"
+        )
+        receipt["interpretation_limit"] = (
+            "Counter reconciliation and endpoint/time association do not "
+            "prove packet lineage, completeness, alert attribution, or "
+            "malicious functionality. These are conditional screening "
+            "results, not certified activity-level recall."
+        )
+
+    except InputProblem as error:
+        receipt["status"] = "INPUT_OR_VALIDATION_BLOCKER"
+        receipt["reason"] = str(error)
+        print("\nVALIDATION ISSUE:", error, flush=True)
+
+    except Exception as error:
+        receipt["status"] = "FAILED_WITH_SAVED_TRACEBACK"
+        receipt["reason"] = repr(error)
+        (out / "error.txt").write_text(
+            traceback.format_exc(), encoding="utf-8"
+        )
+        print("\nERROR:", repr(error), flush=True)
+        print(traceback.format_exc(), flush=True)
+
+    finally:
+        if resolution_audit:
+            pd.DataFrame(resolution_audit).to_csv(
+                out / "input_hash_audit.csv", index=False
+            )
+        write_json(out / "receipt.json", receipt)
+        print(
+            "\nRECEIPT\n"
+            + json.dumps(receipt, indent=2, default=str),
+            flush=True,
+        )
+
+
+main()
+
+output: "
+[1/3] Reusing the previous manifest and resolving the original frozen clean sample.
+
+TEST 1 — ASSOCIATION AUDIT
+associated_records               1024
+count_matches_saved_summary       512
+packet_counter_reconciles         512
+IP_byte_counter_reconciles        512
+start_matches_selected            512
+association_unambiguous           512
+usable_for_conditional_screen     512
+
+[2/3] Loading the unchanged frozen models and predicting on selected and associated records.
+
+TEST 2 — HISTORICAL RESULT REPRODUCTION
+ seed  clean_accuracy  selected_record_accuracy  selected_record_damage  historical_damage_reproduced
+ 8101        0.976562                  0.476562                     0.5                          True
+ 8102        0.976562                  0.476562                     0.5                          True
+ 8103        0.991211                  0.491211                     0.5                          True
+
+[3/3] Comparing selected-record losses with alarms in all usable associated records.
+
+TEST 3 — ASSOCIATED-RECORD SENSITIVITY
+ seed  original_malicious_units  usable_associations  unresolved_units  clean_detected_units  selected_record_detected_units  units_with_associated_alarm  selected_losses_with_other_associated_alarm  selected_losses_without_associated_alarm  selected_losses_unresolved  conditional_associated_alarm_fraction_lower  conditional_associated_alarm_fraction_upper  packet_lineage_certified
+ 8101                       512                  512                 0                   512                               0                          157                                          157                                       355                           0                                     0.306641                                     0.306641                     False
+ 8102                       512                  512                 0                   512                               0                          157                                          157                                       355                           0                                     0.306641                                     0.306641                     False
+ 8103                       512                  512                 0                   512                               0                          157                                          157                                       355                           0                                     0.306641                                     0.306641                     False
+
+RECEIPT
+{
+  "version": "capture49_association_screen_v1_1",
+  "scenario": "CTU-IoT-Malware-Capture-49-1",
+  "tests": {
+    "test1": "COMPLETED",
+    "test2": "COMPLETED",
+    "test3": "COMPLETED_CONDITIONAL_ANALYSIS"
+  },
+  "models_retrained": false,
+  "new_PCAP_replays": 0,
+  "files_deleted": 0,
+  "historical_outputs_overwritten": false,
+  "packet_lineage_proved": false,
+  "malicious_functionality_tested": false,
+  "selection_uses_prediction_results": false,
+  "scope": "Conditional endpoint/time association sensitivity; not certified activity-level recall",
+  "output_directory": "/kaggle/working/LINEAGE_SCREEN_BATCH1_REPAIRED_20261015T182132627020Z",
+  "status": "BATCH1_COMPLETED_NOT_PACKET_LINEAGE_PROOF",
+  "interpretation_limit": "Counter reconciliation and endpoint/time association do not prove packet lineage, completeness, alert attribution, or malicious functionality. These are conditional screening results, not certified activity-level recall."
+}"
+
+3. code: "# Install the historical Zeek version and resume Batch 2.
+# No model training, dataset deletion, or experimental-setting changes.
+
+from pathlib import Path
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+import re
+import shutil
+import subprocess
+import urllib.request
+
+TARGET_VERSION = "8.0.10"
+WORK = Path("/kaggle/working")
+OUT = WORK / (
+    "ZEEK_DEPENDENCY_REPAIR_"
+    + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+)
+OUT.mkdir(parents=True, exist_ok=False)
+
+receipt = {
+    "status": "STARTED",
+    "requested_zeek_version": TARGET_VERSION,
+    "experiment_settings_changed": False,
+    "models_retrained": False,
+    "previous_results_deleted": False,
+    "batch2_resumed": False,
+    "output_directory": str(OUT),
+}
+
+
+def save_receipt():
+    (OUT / "receipt.json").write_text(
+        json.dumps(receipt, indent=2), encoding="utf-8"
+    )
+
+
+def run_command(arguments, label, timeout=600):
+    print(f"\n{label}", flush=True)
+    log = OUT / f"{label.lower().replace(' ', '_')}.log"
+
+    with log.open("w", encoding="utf-8") as handle:
+        result = subprocess.run(
+            arguments,
+            stdout=handle,
+            stderr=subprocess.STDOUT,
+            timeout=timeout,
+            env={
+                **os.environ,
+                "DEBIAN_FRONTEND": "noninteractive",
+            },
+        )
+
+    text = log.read_text(encoding="utf-8", errors="replace")
+    if result.returncode:
+        print("\n".join(text.splitlines()[-45:]), flush=True)
+        raise RuntimeError(
+            f"{label} failed; complete log: {log}"
+        )
+    return text
+
+
+def find_zeek():
+    candidates = [
+        shutil.which("zeek"),
+        "/opt/zeek/bin/zeek",
+        "/usr/local/zeek/bin/zeek",
+    ]
+    for candidate in candidates:
+        if candidate and Path(candidate).is_file():
+            result = subprocess.run(
+                [candidate, "--version"],
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            if result.returncode == 0:
+                return candidate, (
+                    result.stdout + result.stderr
+                ).strip()
+    return None, None
+
+
+try:
+    executable, version_text = find_zeek()
+    exact_version = re.compile(
+        r"(?<![\d.])" + re.escape(TARGET_VERSION) + r"(?![\d.])"
+    )
+
+    if not executable or not exact_version.search(version_text):
+        if os.geteuid() != 0:
+            raise RuntimeError(
+                "Package installation needs root privileges. "
+                "This cell will not attempt an unverified portable build."
+            )
+
+        os_release = {}
+        for line in Path("/etc/os-release").read_text().splitlines():
+            if "=" in line:
+                key, value = line.split("=", 1)
+                os_release[key] = value.strip('"')
+
+        distro = os_release.get("ID", "")
+        release = os_release.get("VERSION_ID", "")
+        receipt["operating_system"] = os_release
+
+        if distro != "ubuntu" or release not in {
+            "20.04", "22.04", "24.04", "26.04"
+        }:
+            raise RuntimeError(
+                f"Unsupported automatic installation target: "
+                f"{distro} {release}. No repository was guessed."
+            )
+
+        if shutil.disk_usage(WORK).free < 2 * 1024**3:
+            raise RuntimeError(
+                "Less than 2 GiB free; refusing package installation."
+            )
+
+        repository = (
+            "https://download.opensuse.org/repositories/"
+            f"security:/zeek/xUbuntu_{release}/"
+        )
+
+        print(
+            f"Installing Zeek {TARGET_VERSION} for Ubuntu {release}. "
+            "Kaggle Internet must be ON.",
+            flush=True,
+        )
+
+        request = urllib.request.Request(
+            repository + "Release.key",
+            headers={"User-Agent": "Kaggle-Zeek-Dependency-Repair"},
+        )
+        try:
+            with urllib.request.urlopen(
+                request, timeout=60
+            ) as response:
+                key_bytes = response.read(1024 * 1024)
+        except Exception as error:
+            raise RuntimeError(
+                "Could not reach the official package repository. "
+                "Enable Kaggle Internet, then rerun this same cell. "
+                f"Original error: {error}"
+            ) from error
+
+        if b"BEGIN PGP PUBLIC KEY BLOCK" not in key_bytes:
+            raise RuntimeError(
+                "Repository did not return an ASCII-armored signing key."
+            )
+
+        key_path = Path("/etc/apt/keyrings/zeek-lineage.asc")
+        key_path.parent.mkdir(parents=True, exist_ok=True)
+        key_path.write_bytes(key_bytes)
+        key_path.chmod(0o644)
+
+        source_path = Path(
+            "/etc/apt/sources.list.d/zeek-lineage.list"
+        )
+        source_path.write_text(
+            f"deb [signed-by={key_path}] {repository} /\n",
+            encoding="utf-8",
+        )
+
+        run_command(
+            [
+                "apt-get",
+                "-o", "Acquire::Retries=2",
+                "-o", "Acquire::http::Timeout=40",
+                "-o", "Acquire::https::Timeout=40",
+                "update",
+            ],
+            "Refresh package metadata",
+            timeout=600,
+        )
+
+        available = subprocess.run(
+            ["apt-cache", "madison", "zeek-8.0"],
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=True,
+        ).stdout
+
+        (OUT / "available_zeek_versions.txt").write_text(
+            available, encoding="utf-8"
+        )
+
+        versions = []
+        for line in available.splitlines():
+            fields = line.split("|")
+            if len(fields) >= 2:
+                package_version = fields[1].strip()
+                upstream = package_version.split(":")[-1]
+                if re.match(
+                    re.escape(TARGET_VERSION) + r"(?=$|[-+~])",
+                    upstream,
+                ):
+                    versions.append(package_version)
+
+        if not versions:
+            raise RuntimeError(
+                f"Zeek {TARGET_VERSION} is not available in this "
+                "repository. No alternative version was installed.\n"
+                + available
+            )
+
+        package_version = versions[0]
+        receipt["installed_package_version"] = package_version
+
+        run_command(
+            [
+                "apt-get",
+                "-y",
+                "--no-install-recommends",
+                "-o", "Acquire::Retries=2",
+                "install",
+                f"zeek-8.0={package_version}",
+            ],
+            "Install Zeek",
+            timeout=900,
+        )
+
+        executable, version_text = find_zeek()
+
+    if not executable or not exact_version.search(version_text):
+        raise RuntimeError(
+            "The requested Zeek executable did not pass verification. "
+            f"Found: {version_text!r}"
+        )
+
+    os.environ["PATH"] = (
+        str(Path(executable).parent)
+        + os.pathsep
+        + os.environ.get("PATH", "")
+    )
+
+    receipt.update({
+        "status": "ZEEK_READY",
+        "zeek_executable": executable,
+        "zeek_version": version_text,
+    })
+    save_receipt()
+
+    print(f"\nVERIFIED: {version_text}", flush=True)
+    print(f"Executable: {executable}", flush=True)
+
+    # Resume only the specifically identified Batch 2 source.
+    batch2_source = None
+    try:
+        history = get_ipython().history_manager.input_hist_raw
+        marker = (
+            "# Batch 2: instrumented clean-PCAP replay "
+            "and packet-to-Zeek-UID baseline."
+        )
+        for cell in reversed(history):
+            if (
+                cell.lstrip().startswith(marker)
+                and "def main():" in cell
+                and "CLEAN_BASELINE_VALIDATED" in cell
+            ):
+                batch2_source = cell
+                break
+    except (NameError, AttributeError):
+        pass
+
+    if batch2_source is not None:
+        source_path = OUT / "resumed_batch2_source.py"
+        source_path.write_text(batch2_source, encoding="utf-8")
+        receipt["batch2_source_sha256"] = hashlib.sha256(
+            batch2_source.encode("utf-8")
+        ).hexdigest()
+        receipt["batch2_resumed"] = True
+        save_receipt()
+
+        print(
+            "\nResuming the unchanged Batch 2 experiment now.",
+            flush=True,
+        )
+        namespace = {
+            "__name__": "__main__",
+            "__file__": str(source_path),
+        }
+        exec(
+            compile(batch2_source, str(source_path), "exec"),
+            namespace,
+        )
+    else:
+        print(
+            "\nZeek is ready. Rerun your previous Batch 2 cell unchanged. "
+            "Its source was not present in this session's cell history.",
+            flush=True,
+        )
+
+except Exception as error:
+    receipt["status"] = "DEPENDENCY_REPAIR_FAILED"
+    receipt["reason"] = str(error)
+    print("\nINSTALLATION ISSUE:", error, flush=True)
+
+finally:
+    save_receipt()
+    print(
+        "\nDEPENDENCY RECEIPT\n"
+        + json.dumps(receipt, indent=2),
+        flush=True,
+    )"
+
+output: "Installing Zeek 8.0.10 for Ubuntu 24.04. Kaggle Internet must be ON.
+
+Refresh package metadata
+
+Install Zeek
+
+VERIFIED: /opt/zeek/bin/zeek version 8.0.10
+Executable: /opt/zeek/bin/zeek
+
+Resuming the unchanged Batch 2 experiment now.
+[1/3] Resolving and hashing the original E1 Capture-49 slice.
+[2/3] One instrumented clean replay; original PCAP bytes are unchanged.
+
+BLOCKED: Instrumentation produced no watched packet events
+
+RECEIPT
+{
+  "status": "BLOCKED",
+  "tests": {
+    "instrumentation_compile": "PASSED"
+  },
+  "models_retrained": false,
+  "new_PCAP_replays": 1,
+  "transformed_trace_evaluated": false,
+  "malicious_functionality_tested": false,
+  "output_directory": "/kaggle/working/LINEAGE_PACKET_BASELINE_20261015T183412113781Z",
+  "zeek_version": "/opt/zeek/bin/zeek version 8.0.10",
+  "input_packets": 3391734,
+  "indexed_packet_occurrences": 1540,
+  "reason": "Instrumentation produced no watched packet events",
+  "only_this_run_temporary_replay_removed": true
+}
+
+DEPENDENCY RECEIPT
+{
+  "status": "ZEEK_READY",
+  "requested_zeek_version": "8.0.10",
+  "experiment_settings_changed": false,
+  "models_retrained": false,
+  "previous_results_deleted": false,
+  "batch2_resumed": true,
+  "output_directory": "/kaggle/working/ZEEK_DEPENDENCY_REPAIR_20261015T183334643044Z",
+  "operating_system": {
+    "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+    "NAME": "Ubuntu",
+    "VERSION_ID": "24.04",
+    "VERSION": "24.04.5 LTS (Noble Numbat)",
+    "VERSION_CODENAME": "noble",
+    "ID": "ubuntu",
+    "ID_LIKE": "debian",
+    "HOME_URL": "https://www.ubuntu.com/",
+    "SUPPORT_URL": "https://help.ubuntu.com/",
+    "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+    "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+    "UBUNTU_CODENAME": "noble",
+    "LOGO": "ubuntu-logo"
+  },
+  "installed_package_version": "1:8.0.10-0",
+  "zeek_executable": "/opt/zeek/bin/zeek",
+  "zeek_version": "/opt/zeek/bin/zeek version 8.0.10",
+  "batch2_source_sha256": "d5ef88d35c02d652ec62b2ec75e65b0a3b0840061ddf4129d18229da957c2f98"
+}"
+
+4 code: "# Targeted Batch 2 repair.
+# No installation, retraining, attack changes, or historical-file overwrite.
+# A full replay is resumed ONLY if saved output confirms a delimiter problem.
+
+from pathlib import Path
+from datetime import datetime, timezone
+import ast
+import hashlib
+import json
+import subprocess
+import traceback
+
+WORK = Path("/kaggle/working")
+OUT = WORK / (
+    "ZEEK_EVENT_PARSER_REPAIR_"
+    + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+)
+OUT.mkdir(parents=True, exist_ok=False)
+
+receipt = {
+    "status": "STARTED",
+    "delimiter_problem_confirmed": False,
+    "batch2_resumed": False,
+    "models_retrained": False,
+    "experimental_settings_changed": False,
+    "output_directory": str(OUT),
+}
+
+
+def save_json(path, value):
+    path.write_text(
+        json.dumps(value, indent=2, default=str),
+        encoding="utf-8",
+    )
+
+
+def normalize_packet_event(line):
+    """Normalize output delimiters, not packet contents or timestamps."""
+    if not line.startswith("PACKET"):
+        return line
+    return (
+        line.replace("\\\\t", "\t")
+        .replace("\\t", "\t")
+        .replace("|", "\t")
+    )
+
+
+def find_failed_batch():
+    candidates = []
+    for directory in WORK.glob("LINEAGE_PACKET_BASELINE_*"):
+        path = directory / "receipt.json"
+        if not path.is_file():
+            continue
+        try:
+            previous = json.loads(path.read_text())
+        except (OSError, ValueError):
+            continue
+        if (
+            previous.get("reason")
+            == "Instrumentation produced no watched packet events"
+            and (directory / "packet_uid_events.tsv").is_file()
+        ):
+            candidates.append(directory)
+
+    if not candidates:
+        raise RuntimeError(
+            "The reported failed Batch 2 output was not found."
+        )
+    return max(candidates, key=lambda path: path.name)
+
+
+def find_verified_source():
+    candidates = []
+    for directory in WORK.glob("ZEEK_DEPENDENCY_REPAIR_*"):
+        source_path = directory / "resumed_batch2_source.py"
+        receipt_path = directory / "receipt.json"
+        if not source_path.is_file() or not receipt_path.is_file():
+            continue
+
+        try:
+            previous = json.loads(receipt_path.read_text())
+        except (OSError, ValueError):
+            continue
+
+        source = source_path.read_text(encoding="utf-8")
+        actual_hash = hashlib.sha256(
+            source.encode("utf-8")
+        ).hexdigest()
+
+        if (
+            previous.get("batch2_source_sha256") == actual_hash
+            and source.lstrip().startswith(
+                "# Batch 2: instrumented clean-PCAP replay"
+            )
+        ):
+            candidates.append((directory, source_path, source))
+
+    if not candidates:
+        raise RuntimeError(
+            "The verified Batch 2 source saved by the installer "
+            "was not found. No guessed script will be executed."
+        )
+    return max(candidates, key=lambda item: item[0].name)
+
+
+class RepairEventParser(ast.NodeTransformer):
+    def __init__(self):
+        self.parser_loops_patched = 0
+        self.cleanup_calls_guarded = 0
+
+    def visit_For(self, node):
+        self.generic_visit(node)
+
+        # Only patch the loop parsing the packet-event output.
+        # The loop must contain the original PACKET startswith check.
+        if not (
+            isinstance(node.target, ast.Name)
+            and node.target.id == "line"
+        ):
+            return node
+
+        contains_packet_check = any(
+            isinstance(child, ast.Call)
+            and isinstance(child.func, ast.Attribute)
+            and child.func.attr == "startswith"
+            and isinstance(child.func.value, ast.Name)
+            and child.func.value.id == "line"
+            and child.args
+            and isinstance(child.args[0], ast.Constant)
+            and isinstance(child.args[0].value, str)
+            and child.args[0].value.startswith("PACKET")
+            for child in ast.walk(node)
+        )
+
+        if contains_packet_check:
+            normalization = ast.parse(
+                "line = normalize_packet_event(line)"
+            ).body[0]
+            node.body.insert(0, normalization)
+            self.parser_loops_patched += 1
+
+        return node
+
+    def visit_Expr(self, node):
+        self.generic_visit(node)
+
+        # Preserve this new run's replay artifacts if another validation
+        # issue occurs. Never touch the earlier failed output directory.
+        call = node.value
+        if (
+            isinstance(call, ast.Call)
+            and isinstance(call.func, ast.Attribute)
+            and isinstance(call.func.value, ast.Name)
+            and call.func.value.id == "shutil"
+            and call.func.attr == "rmtree"
+            and call.args
+            and isinstance(call.args[0], ast.Name)
+            and call.args[0].id == "temp"
+        ):
+            condition = ast.parse(
+                "receipt.get('status') == 'CLEAN_BASELINE_VALIDATED'",
+                mode="eval",
+            ).body
+            self.cleanup_calls_guarded += 1
+            return ast.If(
+                test=condition,
+                body=[node],
+                orelse=[],
+            )
+
+        return node
+
+
+try:
+    failed = find_failed_batch()
+    event_path = failed / "packet_uid_events.tsv"
+    script_path = failed / "packet_membership.zeek"
+    stderr_path = failed / "zeek_replay_stderr.txt"
+
+    counts = {
+        "total_stdout_lines": 0,
+        "lines_starting_PACKET": 0,
+        "original_parser_accepted_lines": 0,
+        "normalized_valid_packet_lines": 0,
+        "literal_backslash_t_packet_lines": 0,
+    }
+    samples = []
+
+    with event_path.open(
+        encoding="utf-8", errors="replace"
+    ) as handle:
+        for line in handle:
+            counts["total_stdout_lines"] += 1
+
+            if len(samples) < 5:
+                samples.append(repr(line[:350]))
+
+            if not line.startswith("PACKET"):
+                continue
+
+            counts["lines_starting_PACKET"] += 1
+
+            if line.startswith("PACKET\t"):
+                counts["original_parser_accepted_lines"] += 1
+
+            if "\\t" in line:
+                counts["literal_backslash_t_packet_lines"] += 1
+
+            normalized = normalize_packet_event(line)
+            fields = normalized.rstrip("\r\n").split("\t")
+
+            if len(fields) == 12 and fields[0] == "PACKET":
+                try:
+                    float(fields[1])
+                    for position in [4, 6, 7, 8, 9, 10, 11]:
+                        int(fields[position])
+                    counts["normalized_valid_packet_lines"] += 1
+                except ValueError:
+                    pass
+
+    diagnostic = {
+        "failed_batch_directory": str(failed),
+        "stdout_bytes": event_path.stat().st_size,
+        "counts": counts,
+        "first_stdout_lines_repr": samples,
+    }
+
+    if script_path.is_file():
+        diagnostic["zeek_script"] = script_path.read_text(
+            encoding="utf-8", errors="replace"
+        )
+    if stderr_path.is_file():
+        diagnostic["stderr_tail"] = "\n".join(
+            stderr_path.read_text(
+                encoding="utf-8", errors="replace"
+            ).splitlines()[-30:]
+        )
+
+    save_json(OUT / "event_output_diagnostic.json", diagnostic)
+
+    print("SAVED EVENT OUTPUT CHECK", flush=True)
+    print(json.dumps(counts, indent=2), flush=True)
+    print("\nFIRST OUTPUT LINES:", flush=True)
+    for sample in samples:
+        print(sample, flush=True)
+
+    confirmed = (
+        counts["original_parser_accepted_lines"] == 0
+        and counts["normalized_valid_packet_lines"] > 0
+    )
+    receipt["delimiter_problem_confirmed"] = confirmed
+    receipt["event_counts"] = counts
+    receipt["failed_batch_directory"] = str(failed)
+
+    if not confirmed:
+        receipt["status"] = "NO_AUTOMATIC_PATCH_WITHOUT_EVIDENCE"
+
+        print(
+            "\nThe saved output does not confirm a delimiter-only "
+            "failure. No full replay was repeated.",
+            flush=True,
+        )
+        print("\nZEEK STDERR:", flush=True)
+        print(diagnostic.get("stderr_tail", "(not available)"))
+        print("\nEXACT ZEEK SCRIPT:", flush=True)
+        print(diagnostic.get("zeek_script", "(not available)"))
+
+    else:
+        _, source_path, source = find_verified_source()
+        tree = ast.parse(source)
+        patcher = RepairEventParser()
+        tree = patcher.visit(tree)
+        ast.fix_missing_locations(tree)
+
+        if patcher.parser_loops_patched != 1:
+            raise RuntimeError(
+                "Expected exactly one packet-output parser loop; "
+                f"found {patcher.parser_loops_patched}. "
+                "No experiment was resumed."
+            )
+
+        patched_source = ast.unparse(tree)
+        patched_path = OUT / "batch2_parser_repaired.py"
+        patched_path.write_text(
+            patched_source, encoding="utf-8"
+        )
+
+        receipt.update({
+            "status": "DELIMITER_REPAIR_CONFIRMED",
+            "original_source": str(source_path),
+            "patched_source_sha256": hashlib.sha256(
+                patched_source.encode("utf-8")
+            ).hexdigest(),
+            "parser_loops_patched": patcher.parser_loops_patched,
+            "temporary_cleanup_guarded": (
+                patcher.cleanup_calls_guarded
+            ),
+        })
+        save_json(OUT / "receipt.json", receipt)
+
+        namespace = {
+            "__name__": "batch2_parser_repaired",
+            "__file__": str(patched_path),
+            "normalize_packet_event": normalize_packet_event,
+        }
+        exec(
+            compile(tree, str(patched_path), "exec"),
+            namespace,
+        )
+
+        # Reuse the already identified E1 slice location.
+        # Batch 2 still checks its content hash.
+        selected_slice_path = failed / "selected_slice.json"
+        if selected_slice_path.is_file():
+            selected_slice = json.loads(
+                selected_slice_path.read_text()
+            )
+            if not selected_slice.get("path"):
+                raise RuntimeError("Invalid saved slice metadata.")
+
+            namespace["find_slice"] = (
+                lambda asset=selected_slice: [dict(asset)]
+            )
+
+        print(
+            "\nCONFIRMED: packet events exist, but their delimiters "
+            "were not accepted by the old parser.",
+            flush=True,
+        )
+        print(
+            "Resuming the same clean-baseline experiment with "
+            "the parser fixed. One replay is needed because the "
+            "previous run removed its temporary conn.log.",
+            flush=True,
+        )
+
+        receipt["batch2_resumed"] = True
+        save_json(OUT / "receipt.json", receipt)
+        namespace["main"]()
+
+except Exception as error:
+    receipt["status"] = "REPAIR_FAILED_WITH_SAVED_DETAILS"
+    receipt["reason"] = str(error)
+    (OUT / "error.txt").write_text(
+        traceback.format_exc(), encoding="utf-8"
+    )
+    print("\nREPAIR ERROR:", error, flush=True)
+
+finally:
+    save_json(OUT / "receipt.json", receipt)
+    print(
+        "\nPARSER REPAIR RECEIPT\n"
+        + json.dumps(receipt, indent=2),
+        flush=True,
+    )"
+
+output: uploaded another file.
+
+5. code: "# Batch 2: fix confirmed Zeek \x09 output escaping and resume.
+# Uses saved verified source; no retraining, installation, or bulk recovery.
+# Retains this new run's temporary replay files if validation fails.
+
+from pathlib import Path
+from datetime import datetime, timezone
+from decimal import Decimal
+import ast
+import hashlib
+import json
+import re
+import traceback
+
+WORK = Path("/kaggle/working")
+OUT = WORK / (
+    "ZEEK_HEX_SEPARATOR_FIX_"
+    + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+)
+OUT.mkdir(parents=True, exist_ok=False)
+
+receipt = {
+    "status": "STARTED",
+    "saved_event_schema_validated": False,
+    "batch2_resumed": False,
+    "models_retrained": False,
+    "experimental_settings_changed": False,
+    "historical_files_overwritten": False,
+    "output_directory": str(OUT),
+}
+
+
+def save_json(path, value):
+    path.write_text(
+        json.dumps(value, indent=2, default=str),
+        encoding="utf-8",
+    )
+
+
+def decode_packet_event(line):
+    if not line.startswith("PACKET"):
+        return line
+
+    # Zeek print output escapes tab characters as the literal text \x09.
+    line = re.sub(
+        r"\\+x09", "\t", line, flags=re.IGNORECASE
+    )
+    line = re.sub(r"\\+t", "\t", line)
+    return line.replace("|", "\t")
+
+
+def find_failed_run():
+    found = []
+    for directory in WORK.glob("LINEAGE_PACKET_BASELINE_*"):
+        rp = directory / "receipt.json"
+        events = directory / "packet_uid_events.tsv"
+        if not rp.is_file() or not events.is_file():
+            continue
+        try:
+            previous = json.loads(rp.read_text())
+        except (OSError, ValueError):
+            continue
+        if previous.get("reason") == (
+            "Instrumentation produced no watched packet events"
+        ):
+            found.append(directory)
+
+    if not found:
+        raise RuntimeError(
+            "The saved failed replay and its packet events were not found."
+        )
+    return max(found, key=lambda path: path.name)
+
+
+def find_source():
+    found = []
+    for directory in WORK.glob("ZEEK_DEPENDENCY_REPAIR_*"):
+        source_path = directory / "resumed_batch2_source.py"
+        rp = directory / "receipt.json"
+        if not source_path.is_file() or not rp.is_file():
+            continue
+        try:
+            metadata = json.loads(rp.read_text())
+            source = source_path.read_text(encoding="utf-8")
+        except (OSError, ValueError):
+            continue
+
+        digest = hashlib.sha256(
+            source.encode("utf-8")
+        ).hexdigest()
+
+        if (
+            digest == metadata.get("batch2_source_sha256")
+            and source.lstrip().startswith(
+                "# Batch 2: instrumented clean-PCAP replay"
+            )
+        ):
+            found.append((directory, source_path, source, digest))
+
+    if not found:
+        raise RuntimeError(
+            "The hash-verified Batch 2 source saved by the "
+            "installation cell was not found."
+        )
+    return max(found, key=lambda item: item[0].name)
+
+
+class TargetedPatch(ast.NodeTransformer):
+    def __init__(self):
+        self.parser_count = 0
+        self.cleanup_count = 0
+        self.cleanup_receipt_count = 0
+
+    def visit_For(self, node):
+        self.generic_visit(node)
+
+        if not (
+            isinstance(node.target, ast.Name)
+            and node.target.id == "line"
+        ):
+            return node
+
+        is_packet_parser = any(
+            isinstance(child, ast.Call)
+            and isinstance(child.func, ast.Attribute)
+            and child.func.attr == "startswith"
+            and isinstance(child.func.value, ast.Name)
+            and child.func.value.id == "line"
+            and child.args
+            and isinstance(child.args[0], ast.Constant)
+            and isinstance(child.args[0].value, str)
+            and child.args[0].value.startswith("PACKET")
+            for child in ast.walk(node)
+        )
+
+        if is_packet_parser:
+            node.body.insert(
+                0,
+                ast.parse(
+                    "line = decode_packet_event(line)"
+                ).body[0],
+            )
+            self.parser_count += 1
+        return node
+
+    def visit_Expr(self, node):
+        self.generic_visit(node)
+        call = node.value
+
+        if (
+            isinstance(call, ast.Call)
+            and isinstance(call.func, ast.Attribute)
+            and isinstance(call.func.value, ast.Name)
+            and call.func.value.id == "shutil"
+            and call.func.attr == "rmtree"
+            and call.args
+            and isinstance(call.args[0], ast.Name)
+            and call.args[0].id == "temp"
+        ):
+            self.cleanup_count += 1
+            return ast.If(
+                test=ast.parse(
+                    "receipt.get('status') == "
+                    "'CLEAN_BASELINE_VALIDATED'",
+                    mode="eval",
+                ).body,
+                body=[node],
+                orelse=[],
+            )
+        return node
+
+    def visit_Assign(self, node):
+        self.generic_visit(node)
+
+        # Keep cleanup reporting accurate when failed-run files are retained.
+        for target in node.targets:
+            if (
+                isinstance(target, ast.Subscript)
+                and isinstance(target.value, ast.Name)
+                and target.value.id == "receipt"
+                and isinstance(target.slice, ast.Constant)
+                and target.slice.value
+                == "only_this_run_temporary_replay_removed"
+            ):
+                node.value = ast.parse(
+                    "not temp.is_dir()", mode="eval"
+                ).body
+                self.cleanup_receipt_count += 1
+        return node
+
+
+try:
+    failed = find_failed_run()
+    event_path = failed / "packet_uid_events.tsv"
+
+    total = 0
+    packet_lines = 0
+    valid = 0
+    invalid_examples = []
+
+    for line in event_path.open(
+        encoding="utf-8", errors="strict"
+    ):
+        total += 1
+        if not line.startswith("PACKET"):
+            continue
+
+        packet_lines += 1
+        fields = decode_packet_event(line).rstrip(
+            "\r\n"
+        ).split("\t")
+
+        try:
+            if len(fields) != 12 or fields[0] != "PACKET":
+                raise ValueError("Expected 12 fields")
+            if not Decimal(fields[1]).is_finite():
+                raise ValueError("Invalid timestamp")
+            if not fields[2]:
+                raise ValueError("Missing connection UID")
+            for column in [4, 6, 7, 8, 9, 10, 11]:
+                int(fields[column])
+            valid += 1
+        except Exception as error:
+            if len(invalid_examples) < 3:
+                invalid_examples.append({
+                    "line": repr(line[:300]),
+                    "reason": str(error),
+                })
+
+    schema_result = {
+        "stdout_lines": total,
+        "packet_lines": packet_lines,
+        "valid_decoded_packet_lines": valid,
+        "invalid_packet_lines": packet_lines - valid,
+        "invalid_examples": invalid_examples,
+    }
+    save_json(OUT / "saved_event_schema_check.json", schema_result)
+
+    print("CHECK 1 — SAVED PACKET-EVENT SCHEMA")
+    print(json.dumps(schema_result, indent=2), flush=True)
+
+    if packet_lines == 0 or valid != packet_lines:
+        raise RuntimeError(
+            "Saved events did not all pass decoding. "
+            "No additional full replay was started."
+        )
+
+    receipt["saved_event_schema_validated"] = True
+    receipt["saved_packet_events"] = valid
+
+    _, original_path, source, original_hash = find_source()
+    tree = ast.parse(source)
+    patch = TargetedPatch()
+    tree = patch.visit(tree)
+    ast.fix_missing_locations(tree)
+
+    if patch.parser_count != 1:
+        raise RuntimeError(
+            f"Expected one parser loop, found {patch.parser_count}. "
+            "No replay started."
+        )
+    if patch.cleanup_count != 1:
+        raise RuntimeError(
+            f"Expected one temporary cleanup call, "
+            f"found {patch.cleanup_count}. No replay started."
+        )
+
+    patched_source = ast.unparse(tree)
+    patched_path = OUT / "batch2_hex_separator_fixed.py"
+    patched_path.write_text(patched_source, encoding="utf-8")
+
+    receipt.update({
+        "status": "PARSER_VALIDATED_READY_TO_RESUME",
+        "original_source": str(original_path),
+        "original_source_sha256": original_hash,
+        "patched_source_sha256": hashlib.sha256(
+            patched_source.encode("utf-8")
+        ).hexdigest(),
+        "parser_loops_patched": patch.parser_count,
+        "cleanup_calls_guarded": patch.cleanup_count,
+    })
+    save_json(OUT / "receipt.json", receipt)
+
+    namespace = {
+        "__name__": "batch2_hex_separator_fixed",
+        "__file__": str(patched_path),
+        "decode_packet_event": decode_packet_event,
+    }
+    exec(
+        compile(tree, str(patched_path), "exec"),
+        namespace,
+    )
+
+    # Avoid repeating the backup search. The experiment still hashes
+    # the previously selected PCAP before using it.
+    slice_path = failed / "selected_slice.json"
+    if not slice_path.is_file():
+        raise RuntimeError(
+            "The previous replay's selected_slice.json is missing."
+        )
+
+    selected_slice = json.loads(slice_path.read_text())
+    if not selected_slice.get("path") or not selected_slice.get(
+        "sha256"
+    ):
+        raise RuntimeError("Incomplete saved PCAP identity.")
+
+    actual_hash = namespace["sha"](selected_slice)
+    if actual_hash != selected_slice["sha256"]:
+        raise RuntimeError(
+            "The saved original PCAP no longer matches its recorded hash."
+        )
+
+    namespace["find_slice"] = (
+        lambda asset=selected_slice: [dict(asset)]
+    )
+
+    print(
+        "\nDecoded all saved packet events successfully.",
+        flush=True,
+    )
+    print(
+        "Continuing the two pending experiments:\n"
+        "  2. Clean packet-to-connection membership.\n"
+        "  3. Clean feature and detector-prediction invariance.\n"
+        "One clean replay is required because the earlier code "
+        "removed its temporary conn.log.",
+        flush=True,
+    )
+
+    receipt["batch2_resumed"] = True
+    save_json(OUT / "receipt.json", receipt)
+    namespace["main"]()
+
+except Exception as error:
+    receipt["status"] = "STOPPED_WITH_EXACT_REASON"
+    receipt["reason"] = str(error)
+    (OUT / "error.txt").write_text(
+        traceback.format_exc(), encoding="utf-8"
+    )
+    print("\nERROR:", error, flush=True)
+
+finally:
+    save_json(OUT / "receipt.json", receipt)
+    print(
+        "\nREPAIR RECEIPT\n"
+        + json.dumps(receipt, indent=2),
+        flush=True,
+    )"
+
+output: "CHECK 1 — SAVED PACKET-EVENT SCHEMA
+{
+  "stdout_lines": 1540,
+  "packet_lines": 1540,
+  "valid_decoded_packet_lines": 1540,
+  "invalid_packet_lines": 0,
+  "invalid_examples": []
+}
+
+Decoded all saved packet events successfully.
+Continuing the two pending experiments:
+  2. Clean packet-to-connection membership.
+  3. Clean feature and detector-prediction invariance.
+One clean replay is required because the earlier code removed its temporary conn.log.
+[1/3] Resolving and hashing the original E1 Capture-49 slice.
+[2/3] One instrumented clean replay; original PCAP bytes are unchanged.
+
+TEST 2: CLEAN PACKET MEMBERSHIP
+clean_log_found                           512
+expected_total_packets                   1506
+source_packets_assigned                  1506
+packets_uniquely_mapped                  1506
+unmapped_or_collision_packets               0
+ambiguous_original_assignment_packets       0
+mapped_UID_count                          512
+mixed_or_unassigned_UID                     0
+clean_membership_validated                512
+[3/3] Checking predictor and detector invariance on all 512 selected malicious units.
+
+TEST 3: CLEAN REPLAY INVARIANCE
+ seed  units  feature_equal_units  clean_decisions_changed  max_probability_difference  clean_detected_before  clean_detected_replay
+ 8101    512                  512                        0                         0.0                    512                    512
+ 8102    512                  512                        0                         0.0                    512                    512
+ 8103    512                  512                        0                         0.0                    512                    512
+
+RECEIPT
+{
+  "status": "CLEAN_BASELINE_VALIDATED",
+  "tests": {
+    "instrumentation_compile": "PASSED",
+    "clean_packet_membership": "COMPLETED",
+    "clean_invariance": "PASSED"
+  },
+  "models_retrained": false,
+  "new_PCAP_replays": 1,
+  "transformed_trace_evaluated": false,
+  "malicious_functionality_tested": false,
+  "output_directory": "/kaggle/working/LINEAGE_PACKET_BASELINE_20261015T184553636821Z",
+  "zeek_version": "/opt/zeek/bin/zeek version 8.0.10",
+  "input_packets": 3391734,
+  "indexed_packet_occurrences": 1540,
+  "validated_original_units": 512,
+  "next_step": "Rebuild the exact 10s PCAP with packet-occurrence bookkeeping and replay the same instrumentation; do not claim transformed lineage from this baseline.",
+  "only_this_run_temporary_replay_removed": true
+}
+
+REPAIR RECEIPT
+{
+  "status": "PARSER_VALIDATED_READY_TO_RESUME",
+  "saved_event_schema_validated": true,
+  "batch2_resumed": true,
+  "models_retrained": false,
+  "experimental_settings_changed": false,
+  "historical_files_overwritten": false,
+  "output_directory": "/kaggle/working/ZEEK_HEX_SEPARATOR_FIX_20261015T184552356754Z",
+  "saved_packet_events": 1540,
+  "original_source": "/kaggle/working/ZEEK_DEPENDENCY_REPAIR_20261015T183334643044Z/resumed_batch2_source.py",
+  "original_source_sha256": "d5ef88d35c02d652ec62b2ec75e65b0a3b0840061ddf4129d18229da957c2f98",
+  "patched_source_sha256": "6e4fa0b0e55959782cfa99c50a9e078bb76e67d1c4666f12a801de2faddff550",
+  "parser_loops_patched": 1,
+  "cleanup_calls_guarded": 1
+}"
+
+6. code: "# Batch 3: exact 10-second transformation, packet membership, detector outcome.
+# Source transformation contract: uploaded notebook cells 249–251. [file:5]
+from pathlib import Path
+from datetime import datetime, timezone
+from collections import defaultdict, Counter
+import ast, hashlib, io, json, re, shutil, sqlite3, struct, subprocess, traceback
+import numpy as np
+import pandas as pd
+import joblib
+from threadpoolctl import threadpool_limits
+
+WORK=Path('/kaggle/working')
+OUT=WORK/('LINEAGE_TRANSFORM_BATCH3_'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ'))
+OUT.mkdir(parents=True,exist_ok=False)
+R={'status':'STARTED','tests':{},'models_retrained':False,'new_PCAP_replays':0,
+   'malicious_functionality_tested':False,'historical_outputs_overwritten':False,
+   'output_directory':str(OUT)}
+class Stop(Exception):pass
+
+def js(p,x):p.write_text(json.dumps(x,indent=2,default=str),encoding='utf-8')
+def file_sha(p):
+    h=hashlib.sha256()
+    with open(p,'rb') as f:
+        for b in iter(lambda:f.read(4*1024**2),b''):h.update(b)
+    return h.hexdigest()
+def decode(line):
+    if not line.startswith('PACKET'):return line
+    return re.sub(r'\\+t','\t',re.sub(r'\\+x09','\t',line,flags=re.I)).replace('|','\t')
+def completed(pattern,status):
+    found=[]
+    for d in WORK.glob(pattern):
+        p=d/'receipt.json'
+        if p.is_file():
+            try:r=json.loads(p.read_text())
+            except (OSError,ValueError):continue
+            if r.get('status')==status:found.append(d)
+    if not found:raise Stop('Required completed stage missing: '+status)
+    return max(found,key=lambda p:p.name)
+def load_helpers():
+    found=[]
+    for d in WORK.glob('ZEEK_DEPENDENCY_REPAIR_*'):
+        p=d/'resumed_batch2_source.py';rp=d/'receipt.json'
+        if not p.is_file() or not rp.is_file():continue
+        meta=json.loads(rp.read_text());s=p.read_text()
+        if hashlib.sha256(s.encode()).hexdigest()==meta.get('batch2_source_sha256'):
+            found.append((d,s,p))
+    if not found:raise Stop('Verified saved Batch 2 source is unavailable')
+    _,s,p=max(found,key=lambda x:x[0].name)
+    ns={'__name__':'batch3_verified_helpers','__file__':str(p)}
+    exec(compile(s,str(p),'exec'),ns)
+    return ns
+
+connection=None;temp=None
+try:
+    base=completed('LINEAGE_PACKET_BASELINE_*','CLEAN_BASELINE_VALIDATED')
+    batch1=completed('LINEAGE_SCREEN_BATCH1_REPAIRED_*','BATCH1_COMPLETED_NOT_PACKET_LINEAGE_PROOF')
+    H=load_helpers();F=H['F']
+    assets=json.loads((batch1/'resolved_inputs.json').read_text())
+    for k in ['clean','selected10','associated','models']:
+        if assets[k].get('sha256') and H['sha'](assets[k])!=assets[k]['sha256']:
+            raise Stop('Changed input artifact: '+k)
+    clean=H['norm'](H['table'](assets['clean'])).set_index('ks')
+    selected=H['norm'](H['table'](assets['selected10'])).set_index('ks')
+    assoc=H['table'](assets['associated'])
+    starts=assoc[H['flag'](assoc.is_original_start_key)].copy()
+    membership=pd.read_csv(base/'test2_clean_packet_membership.csv',dtype={'ks':str})
+    if len(membership)!=512 or not membership.clean_membership_validated.astype(str).str.lower().eq('true').all():
+        raise Stop('Clean packet membership is not fully validated')
+    ledger=pd.read_csv(base/'clean_packet_uid_mapping.csv.gz',dtype={'original_ks':str,'zeek_uid':str})
+    if ledger.packet_index.duplicated().any():raise Stop('Duplicate source packet occurrences')
+    expected=membership.set_index('ks').expected_total_packets.astype(int).to_dict()
+    if set(ledger.original_ks)!=set(expected):raise Stop('Packet ledger population mismatch')
+    actual=ledger.groupby('original_ks').size().to_dict()
+    if actual!=expected:raise Stop('Clean packet ledger counts differ from validated counts')
+    if min(expected.values())<2:raise Stop('Historical pacing eligibility contract violated')
+    owner_by_index=dict(zip(ledger.packet_index.astype(int),ledger.original_ks))
+    first=ledger.groupby('original_ks').packet_index.min().astype(int).to_dict()
+    source_asset=json.loads((base/'selected_slice.json').read_text())
+    source_hash=H['sha'](source_asset)
+    if source_hash!=source_asset['sha256']:raise Stop('Source PCAP hash mismatch')
+    checks_asset=dict(assets['selected10'])
+    if checks_asset.get('member'):
+        checks_asset['member']=str(Path(checks_asset['member']).with_name('packet_checks.json'))
+    else:
+        checks_asset['path']=str(Path(checks_asset['path']).with_name('packet_checks.json'))
+    checks=json.loads(H['data'](checks_asset))
+    if checks.get('source_pcap_sha256')!=source_hash:raise Stop('Historical transformation uses a different source PCAP')
+    target_hash=checks.get('transformed_pcap_sha256')
+    if not target_hash:raise Stop('Historical transformed-PCAP hash missing')
+    R['historical_transformed_pcap_sha256']=target_hash
+    R['source_pcap_sha256']=source_hash
+    if shutil.disk_usage(WORK).free<4*1024**3:raise Stop('At least 4 GiB free space is required for bounded replay/sorting')
+    temp=OUT/'temporary_replay';temp.mkdir()
+    if source_asset.get('member'):
+        original_pcap=temp/'original_slice.pcap'
+        with H['opened'](source_asset) as src,open(original_pcap,'wb') as dst:
+            shutil.copyfileobj(src,dst,4*1024**2)
+    else:original_pcap=Path(source_asset['path'])
+    with open(original_pcap,'rb') as f:header=f.read(24)
+    if header[:4] not in H['MAGIC']:raise Stop('Unsupported PCAP container')
+    endian,unit=H['MAGIC'][header[:4]]
+    link=struct.unpack(endian+'I',header[20:24])[0]&65535
+    if 10*10**9%unit:raise Stop('Delay cannot be represented exactly')
+    endpoints={H['ep'](r['id.orig_h'],r['id.orig_p'],r['id.resp_h'],r['id.resp_p']) for r in starts.to_dict('records')}
+    connection=sqlite3.connect(temp/'schedule.sqlite')
+    connection.execute('PRAGMA journal_mode=OFF');connection.execute('PRAGMA synchronous=OFF')
+    connection.execute('PRAGMA temp_store=FILE');connection.execute('PRAGMA cache_size=-32768')
+    connection.execute('CREATE TABLE packets(ts INTEGER, idx INTEGER, off INTEGER, cap INTEGER, wire INTEGER)')
+    raw=defaultdict(list);rows=[];seen=Counter();count=0;delayed=0;offset=24
+    print('[1/3] Rebuilding the exact historical 10s trace using validated packet indices.',flush=True)
+    with open(original_pcap,'rb') as f:
+        f.seek(24)
+        while True:
+            h=f.read(16)
+            if not h:break
+            if len(h)!=16:raise Stop('Truncated PCAP record')
+            sec,fraction,cap,wire=struct.unpack(endian+'IIII',h)
+            if cap>16*1024**2:raise Stop('Implausible captured packet size')
+            b=f.read(cap)
+            if len(b)!=cap:raise Stop('Truncated packet payload')
+            ts=sec*10**9+fraction*unit
+            owner=owner_by_index.get(count)
+            delta=10*10**9 if owner is not None and count!=first[owner] else 0
+            new_ts=ts+delta
+            if owner is not None:seen[owner]+=1
+            delayed+=int(delta>0)
+            info=H['ipv4_tcp'](b,link)
+            if info is not None and H['ep'](info[0],info[1],info[2],info[3]) in endpoints:
+                # Microsecond fingerprint matches the verified clean event format.
+                fingerprint=((new_ts+500)//1000,)+info
+                raw[fingerprint].append((count,owner))
+            rows.append((new_ts,count,offset+16,cap,wire))
+            offset+=16+cap;count+=1
+            if len(rows)>=50000:
+                connection.executemany('INSERT INTO packets VALUES(?,?,?,?,?)',rows);rows=[]
+            if count%500000==0:print('Scheduled packets:',count,flush=True)
+    if rows:connection.executemany('INSERT INTO packets VALUES(?,?,?,?,?)',rows)
+    if dict(seen)!=expected:raise Stop('Original packet ledger did not fully reproduce')
+    connection.commit();connection.execute('CREATE INDEX ordered ON packets(ts,idx)');connection.commit()
+    transformed=temp/'paced10s.pcap';last_index={};last_ts=-1;written=0
+    with open(original_pcap,'rb') as src,open(transformed,'wb') as dst:
+        dst.write(header)
+        for ts,idx,off,cap,wire in connection.execute('SELECT ts,idx,off,cap,wire FROM packets ORDER BY ts,idx'):
+            if ts<last_ts:raise Stop('Timestamp ordering violation')
+            last_ts=ts;owner=owner_by_index.get(idx)
+            if owner is not None:
+                if idx<=last_index.get(owner,-1):raise Stop('Original-unit packet order changed')
+                last_index[owner]=idx
+            src.seek(off);payload=src.read(cap)
+            if len(payload)!=cap:raise Stop('Incomplete packet copy')
+            dst.write(struct.pack(endian+'IIII',ts//10**9,(ts%10**9)//unit,cap,wire));dst.write(payload);written+=1
+    connection.close();connection=None
+    (temp/'schedule.sqlite').unlink()
+    observed_hash=file_sha(transformed)
+    reconstruction={'source_packets':count,'output_packets':written,'selected_packet_occurrences':len(ledger),
+                    'delayed_packet_occurrences':delayed,'delay_seconds':10,
+                    'historical_hash':target_hash,'reconstructed_hash':observed_hash,
+                    'exact_historical_hash_match':observed_hash==target_hash}
+    js(OUT/'test1_transformation_identity.json',reconstruction)
+    print('\nTEST 1 — TRANSFORMATION IDENTITY\n'+json.dumps(reconstruction,indent=2),flush=True)
+    if observed_hash!=target_hash:raise Stop('Rebuilt trace differs from the historically tested trace; no changed attack substituted')
+    R['tests']['transformation_identity']='PASSED'
+    script=base/'packet_membership.zeek'
+    if not script.is_file():raise Stop('Validated clean instrumentation script missing')
+    shutil.copyfile(script,OUT/'packet_membership.zeek')
+    zeek=shutil.which('zeek') or '/opt/zeek/bin/zeek'
+    version=subprocess.run([zeek,'--version'],capture_output=True,text=True,timeout=30)
+    version_text=(version.stdout+version.stderr).strip()
+    if '8.0.10' not in version_text:raise Stop('Expected the validated Zeek 8.0.10 executable')
+    R['zeek_version']=version_text
+    print('[2/3] One instrumented replay of the hash-identical transformed trace.',flush=True)
+    event_path=OUT/'transformed_packet_events.txt'
+    with open(event_path,'w') as so,open(OUT/'zeek_stderr.txt','w') as se:
+        result=subprocess.run([zeek,'-C','-r',str(transformed),str((OUT/'packet_membership.zeek').resolve())],cwd=temp,stdout=so,stderr=se,timeout=1800)
+    R['new_PCAP_replays']=1
+    if result.returncode or not (temp/'conn.log').is_file():raise Stop('Transformed Zeek replay failed; logs retained')
+    events=defaultdict(list)
+    with open(event_path) as h:
+        for line in h:
+            if not line.startswith('PACKET'):continue
+            x=decode(line).rstrip('\r\n').split('\t')
+            if len(x)!=12:raise Stop('Invalid decoded packet-event schema')
+            fingerprint=(H['us'](x[1]),x[3],int(x[4]),x[5],int(x[6]),*[int(v) for v in x[7:12]])
+            events[fingerprint].append(x[2])
+    if not events:raise Stop('No transformed packet events')
+    mapped=Counter();unresolved=Counter();owner_uids=defaultdict(set);uid_owners=defaultdict(set);packet_rows=[]
+    for fingerprint,uids in events.items():
+        if fingerprint not in raw:
+            for uid in uids:uid_owners[uid].add('UNINDEXED_PACKET')
+    for fingerprint,occurrences in raw.items():
+        uids=events.get(fingerprint,[])
+        if len(occurrences)==1 and len(uids)==1:
+            idx,owner=occurrences[0];uid=uids[0]
+            uid_owners[uid].add(owner if owner is not None else 'OUTSIDE_SELECTED_UNITS')
+            if owner is not None:
+                mapped[owner]+=1;owner_uids[owner].add(uid)
+                packet_rows.append({'packet_index':idx,'original_ks':owner,'transformed_uid':uid,'timestamp_us':fingerprint[0]})
+        else:
+            for _,owner in occurrences:
+                if owner is not None:unresolved[owner]+=1
+            for uid in uids:uid_owners[uid].add('AMBIGUOUS_PACKET_OCCURRENCE')
+    pd.DataFrame(packet_rows,columns=['packet_index','original_ks','transformed_uid','timestamp_us']).to_csv(OUT/'transformed_packet_uid_mapping.csv.gz',index=False,compression='gzip')
+    needed=set().union(*owner_uids.values()) if owner_uids else set()
+    conn_rows={}
+    for r in H['read_conn'](temp/'conn.log'):
+        if r['uid'] in needed:
+            if r['uid'] in conn_rows:raise Stop('Duplicate transformed connection UID')
+            conn_rows[r['uid']]=r
+    # Retain only the actual transformed rows referenced by the packet ledger.
+    if conn_rows:pd.DataFrame(conn_rows.values()).to_csv(OUT/'transformed_selected_connection_records.csv.gz',index=False,compression='gzip')
+    lineage=[]
+    for k in sorted(expected):
+        uids=owner_uids[k]
+        pure=bool(uids) and all(uid_owners[u]=={k} for u in uids)
+        row_packets=sum(int(H['num'](conn_rows[u]['orig_pkts'])+H['num'](conn_rows[u]['resp_pkts'])) for u in uids if u in conn_rows)
+        good=(mapped[k]==expected[k] and unresolved[k]==0 and pure and uids.issubset(conn_rows) and row_packets==expected[k])
+        lineage.append({'ks':k,'expected_packets':expected[k],'uniquely_mapped_packets':mapped[k],
+                        'unresolved_packet_occurrences':unresolved[k],'descendant_records':len(uids),
+                        'descendant_UIDs_pure':pure,'descendant_record_packet_sum':row_packets,
+                        'transformed_membership_validated':bool(good)})
+    lt=pd.DataFrame(lineage);lt.to_csv(OUT/'test2_transformed_membership.csv',index=False)
+    R['tests']['transformed_membership']='COMPLETED'
+    print('\nTEST 2 — TRANSFORMED MEMBERSHIP\n'+lt.drop(columns='ks').sum(numeric_only=True).to_string(),flush=True)
+    print('[3/3] Comparing matched-record decisions with packet-mapped descendant alarms.',flush=True)
+    original_by_key={r['associated_original_ks']:r for r in starts.to_dict('records')}
+    expected_start={H['rowkey'](r):k for k,r in original_by_key.items()}
+    start_rows={}
+    for r in conn_rows.values():
+        k=expected_start.get(H['rowkey'](r))
+        if k:
+            if k in start_rows:raise Stop('Multiple transformed original-start records')
+            start_rows[k]=r
+    ks=sorted(expected)
+    if set(start_rows)!=set(ks):raise Stop('Missing transformed original-start record; see retained connection table')
+    start_frame=H['norm'](pd.DataFrame([start_rows[k] for k in ks]))
+    historical=selected.loc[ks]
+    eq=np.isclose(start_frame[F[:-1]].to_numpy(float),historical[F[:-1]].to_numpy(float),atol=1e-9,rtol=1e-9).all(axis=1)&(start_frame.proto.to_numpy()==historical.proto.to_numpy())
+    pd.DataFrame({'ks':ks,'historical_selected_features_equal':eq}).to_csv(OUT/'test3_historical_feature_reproduction.csv',index=False)
+    if not eq.all():raise Stop('Transformed selected features differ from the historical model inputs; no same-experiment interpretation allowed')
+    uid_order=sorted(conn_rows)
+    all_frame=H['norm'](pd.DataFrame([conn_rows[u] for u in uid_order]))
+    bundle=joblib.load(io.BytesIO(H['data'](assets['models'])))
+    good=lt.set_index('ks').transformed_membership_validated.to_dict()
+    units=[];summaries=[]
+    with threadpool_limits(limits=2):
+        for seed,bank in sorted(bundle['models'].items(),key=lambda kv:int(kv[0])):
+            model=bank['PRIMARY']
+            clean_pred=model.predict_proba(H['matrix'](clean.loc[ks]))[:,1]>=.5
+            start_pred=model.predict_proba(H['matrix'](start_frame))[:,1]>=.5
+            descendant_p=model.predict_proba(H['matrix'](all_frame))[:,1]
+            alarms=dict(zip(uid_order,descendant_p>=.5))
+            n_alarm=0;q=0;recovered=0;residual=0
+            for i,k in enumerate(ks):
+                valid=bool(good[k]);alarm=any(alarms[u] for u in owner_uids[k]) if valid else None
+                n_alarm+=int(alarm is True);q+=int(not valid)
+                recovered+=int(valid and clean_pred[i] and not start_pred[i] and alarm)
+                residual+=int(valid and clean_pred[i] and not start_pred[i] and not alarm)
+                units.append({'seed':int(seed),'ks':k,'membership_validated':valid,'descendant_records':len(owner_uids[k]),
+                              'clean_detected':bool(clean_pred[i]),'selected_record_detected':bool(start_pred[i]),
+                              'any_packet_mapped_descendant_alarm':alarm})
+            summaries.append({'seed':int(seed),'original_units':len(ks),'validated_units':len(ks)-q,'unresolved_units':q,
+                              'clean_detected':int(clean_pred.sum()),'selected_record_detected':int(start_pred.sum()),
+                              'units_with_descendant_alarm':n_alarm,'selected_losses_recovered':recovered,
+                              'selected_losses_without_descendant_alarm':residual,
+                              'detection_fraction_lower':n_alarm/len(ks),'detection_fraction_upper':(n_alarm+q)/len(ks),
+                              'functionality_preservation_proved':False})
+    pd.DataFrame(units).to_csv(OUT/'test3_unit_detection.csv',index=False)
+    st=pd.DataFrame(summaries);st.to_csv(OUT/'test3_detection_summary.csv',index=False)
+    print('\nTEST 3 — PACKET-MAPPED DETECTION\n'+st.to_string(index=False),flush=True)
+    R['tests']['historical_selected_feature_reproduction']='PASSED'
+    R['tests']['original_unit_detection']='COMPLETED'
+    R['validated_original_units']=int(lt.transformed_membership_validated.sum())
+    R['status']='TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED' if lt.transformed_membership_validated.all() else 'TRANSFORMED_PACKET_MEMBERSHIP_PARTIAL'
+    R['interpretation']='Offline detection for the 512 selected original labelled traffic units under an any-descendant-record alarm rule. Not application-functionality validation, a real deployment claim, or independent statistical confirmation.'
+except Exception as e:
+    R['status']='BLOCKED' if isinstance(e,Stop) else 'FAILED'
+    R['reason']=str(e);(OUT/'error.txt').write_text(traceback.format_exc())
+    print('\n'+R['status']+': '+str(e),flush=True)
+finally:
+    if connection is not None:connection.close()
+    if temp is not None and temp.is_dir() and R['status']=='TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED':
+        shutil.rmtree(temp);R['only_this_run_temporary_replay_removed']=True
+    elif temp is not None and temp.is_dir():
+        R['temporary_replay_retained_for_diagnosis']=True
+    js(OUT/'receipt.json',R)
+    print('\nRECEIPT\n'+json.dumps(R,indent=2),flush=True)"
+
+output: "[1/3] Rebuilding the exact historical 10s trace using validated packet indices.
+Scheduled packets: 500000
+Scheduled packets: 1000000
+Scheduled packets: 1500000
+Scheduled packets: 2000000
+Scheduled packets: 2500000
+Scheduled packets: 3000000
+
+TEST 1 — TRANSFORMATION IDENTITY
+{
+  "source_packets": 3391734,
+  "output_packets": 3391734,
+  "selected_packet_occurrences": 1506,
+  "delayed_packet_occurrences": 994,
+  "delay_seconds": 10,
+  "historical_hash": "2755774f6470aa7ce41d281110b5a7bf4ba00c020218f6a9b36239b2e1d8041a",
+  "reconstructed_hash": "2755774f6470aa7ce41d281110b5a7bf4ba00c020218f6a9b36239b2e1d8041a",
+  "exact_historical_hash_match": true
+}
+[2/3] One instrumented replay of the hash-identical transformed trace.
+
+TEST 2 — TRANSFORMED MEMBERSHIP
+expected_packets                    1506
+uniquely_mapped_packets             1506
+unresolved_packet_occurrences          0
+descendant_records                  1024
+descendant_UIDs_pure                 512
+descendant_record_packet_sum        1506
+transformed_membership_validated     512
+[3/3] Comparing matched-record decisions with packet-mapped descendant alarms.
+
+TEST 3 — PACKET-MAPPED DETECTION
+ seed  original_units  validated_units  unresolved_units  clean_detected  selected_record_detected  units_with_descendant_alarm  selected_losses_recovered  selected_losses_without_descendant_alarm  detection_fraction_lower  detection_fraction_upper  functionality_preservation_proved
+ 8101             512              512                 0             512                         0                          157                        157                                       355                  0.306641                  0.306641                              False
+ 8102             512              512                 0             512                         0                          157                        157                                       355                  0.306641                  0.306641                              False
+ 8103             512              512                 0             512                         0                          157                        157                                       355                  0.306641                  0.306641                              False
+
+RECEIPT
+{
+  "status": "TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED",
+  "tests": {
+    "transformation_identity": "PASSED",
+    "transformed_membership": "COMPLETED",
+    "historical_selected_feature_reproduction": "PASSED",
+    "original_unit_detection": "COMPLETED"
+  },
+  "models_retrained": false,
+  "new_PCAP_replays": 1,
+  "malicious_functionality_tested": false,
+  "historical_outputs_overwritten": false,
+  "output_directory": "/kaggle/working/LINEAGE_TRANSFORM_BATCH3_20261015T185400297406Z",
+  "historical_transformed_pcap_sha256": "2755774f6470aa7ce41d281110b5a7bf4ba00c020218f6a9b36239b2e1d8041a",
+  "source_pcap_sha256": "6116a20e4133c3a0669652df6982e4e1558330b8af3fc007ab37038410903414",
+  "zeek_version": "/opt/zeek/bin/zeek version 8.0.10",
+  "validated_original_units": 512,
+  "interpretation": "Offline detection for the 512 selected original labelled traffic units under an any-descendant-record alarm rule. Not application-functionality validation, a real deployment claim, or independent statistical confirmation.",
+  "only_this_run_temporary_replay_removed": true
+}"
+
+
+7. code: "# Batch 4:
+#   Experiment 1: packet-mapped 1-second pacing.
+#   Experiment 2: packet-mapped 3-second pacing.
+#   Analysis 3: compare both with completed 10-second pacing.
+#
+# Reuses the executed Batch 3 source, not lost runtime variables.
+# Saves that source and every parameterized version for future restarts.
+
+from pathlib import Path
+from datetime import datetime, timezone
+import ast
+import hashlib
+import json
+import traceback
+import zipfile
+
+import pandas as pd
+
+WORK = Path("/kaggle/working")
+OUT = WORK / (
+    "LINEAGE_BATCH4_CONTROLS_"
+    + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+)
+OUT.mkdir(parents=True, exist_ok=False)
+
+receipt = {
+    "status": "STARTED",
+    "planned_delays_seconds": [1, 3],
+    "completed_delays_seconds": [],
+    "reused_delays_seconds": [],
+    "models_retrained": False,
+    "eligibility_changed": False,
+    "historical_outputs_overwritten": False,
+    "output_directory": str(OUT),
+}
+
+
+def save_json(path, value):
+    path.write_text(
+        json.dumps(value, indent=2, default=str),
+        encoding="utf-8",
+    )
+
+
+def sha_text(text):
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def asset_hash(asset):
+    digest = hashlib.sha256()
+    if asset.get("member"):
+        with zipfile.ZipFile(asset["path"]) as archive:
+            with archive.open(asset["member"]) as handle:
+                for block in iter(
+                    lambda: handle.read(4 * 1024**2), b""
+                ):
+                    digest.update(block)
+    else:
+        with open(asset["path"], "rb") as handle:
+            for block in iter(
+                lambda: handle.read(4 * 1024**2), b""
+            ):
+                digest.update(block)
+    return digest.hexdigest()
+
+
+def retarget_historical_input(asset, delay):
+    """Select the existing reference for the declared delay."""
+    updated = dict(asset)
+    changed = False
+
+    for field in ["path", "member"]:
+        value = updated.get(field, "")
+        if "/delay_10s/" in value:
+            updated[field] = value.replace(
+                "/delay_10s/",
+                f"/delay_{delay}s/",
+            )
+            changed = True
+
+    if not changed:
+        raise RuntimeError(
+            "Historical input location does not contain the "
+            "expected delay_10s directory. No path was guessed."
+        )
+
+    updated.pop("semantic_sha256", None)
+    updated["sha256"] = asset_hash(updated)
+    return updated
+
+
+def get_batch3_source():
+    candidates = []
+
+    # Prefer an explicitly saved source if available.
+    explicit = WORK / "capture49_batch3_transformed_lineage.py"
+    if explicit.is_file():
+        candidates.append(explicit.read_text(encoding="utf-8"))
+
+    for directory in WORK.glob("LINEAGE_BATCH4_CONTROLS_*"):
+        path = directory / "original_batch3_source.py"
+        if path.is_file():
+            candidates.append(path.read_text(encoding="utf-8"))
+
+    # The current session contains the cell that just completed Batch 3.
+    try:
+        history = get_ipython().history_manager.input_hist_raw
+        candidates.extend(reversed(history))
+    except (NameError, AttributeError):
+        pass
+
+    for source in candidates:
+        if (
+            source.lstrip().startswith(
+                "# Batch 3: exact 10-second transformation"
+            )
+            and "TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED" in source
+            and "historical_selected_features_equal" in source
+        ):
+            ast.parse(source)
+            return source
+
+    raise RuntimeError(
+        "The executed Batch 3 source was not found in cell history "
+        "or its saved script. No guessed replacement will run."
+    )
+
+
+class ParameterizeDelay(ast.NodeTransformer):
+    def __init__(self, delay):
+        self.delay = delay
+        self.delay_operations = 0
+        self.asset_assignments = 0
+        self.output_prefixes = 0
+
+    def visit_BinOp(self, node):
+        self.generic_visit(node)
+
+        # Change only the delay multiplier 10 * 10**9.
+        # The timestamp precision 10**9 remains unchanged.
+        if (
+            isinstance(node.op, ast.Mult)
+            and isinstance(node.left, ast.Constant)
+            and node.left.value == 10
+            and isinstance(node.right, ast.BinOp)
+            and isinstance(node.right.op, ast.Pow)
+            and isinstance(node.right.left, ast.Constant)
+            and node.right.left.value == 10
+            and isinstance(node.right.right, ast.Constant)
+            and node.right.right.value == 9
+        ):
+            node.left = ast.Constant(self.delay)
+            self.delay_operations += 1
+        return node
+
+    def visit_Constant(self, node):
+        if isinstance(node.value, str):
+            value = node.value
+            if "LINEAGE_TRANSFORM_BATCH3_" in value:
+                value = value.replace(
+                    "LINEAGE_TRANSFORM_BATCH3_",
+                    f"LINEAGE_BATCH4_PACE_{self.delay}S_",
+                )
+                self.output_prefixes += 1
+
+            # Update descriptive messages and the temporary PCAP name.
+            # Does not change the model version string "8.0.10".
+            value = value.replace("10s", f"{self.delay}s")
+            node.value = value
+        return node
+
+    def visit_Dict(self, node):
+        self.generic_visit(node)
+        for index, key in enumerate(node.keys):
+            if (
+                isinstance(key, ast.Constant)
+                and key.value == "delay_seconds"
+                and isinstance(node.values[index], ast.Constant)
+                and node.values[index].value == 10
+            ):
+                node.values[index] = ast.Constant(self.delay)
+        return node
+
+    def visit_Assign(self, node):
+        self.generic_visit(node)
+        if any(
+            isinstance(target, ast.Name)
+            and target.id == "assets"
+            for target in node.targets
+        ):
+            self.asset_assignments += 1
+            override = ast.parse(
+                "assets['selected10'] = "
+                "retarget_historical_input("
+                f"assets['selected10'], {self.delay})"
+            ).body[0]
+            return [node, override]
+        return node
+
+
+def find_completed(pattern, expected_status):
+    found = []
+    for directory in WORK.glob(pattern):
+        path = directory / "receipt.json"
+        if not path.is_file():
+            continue
+        try:
+            result = json.loads(path.read_text())
+        except (OSError, ValueError):
+            continue
+        if result.get("status") == expected_status:
+            found.append((directory, result))
+    return sorted(found, key=lambda item: item[0].name)
+
+
+def reusable_run(delay, signature):
+    candidates = find_completed(
+        f"LINEAGE_BATCH4_PACE_{delay}S_*",
+        "TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED",
+    )
+    for directory, result in reversed(candidates):
+        signature_path = directory / "controller_signature.json"
+        if not signature_path.is_file():
+            continue
+        saved = json.loads(signature_path.read_text())
+        if saved.get("parameterized_source_sha256") == signature:
+            return directory, result
+    return None
+
+
+try:
+    reference_runs = find_completed(
+        "LINEAGE_TRANSFORM_BATCH3_*",
+        "TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED",
+    )
+    if not reference_runs:
+        raise RuntimeError(
+            "The completed 10-second Batch 3 result is required."
+        )
+
+    reference_dir, reference_receipt = reference_runs[-1]
+
+    source = get_batch3_source()
+    (OUT / "original_batch3_source.py").write_text(
+        source, encoding="utf-8"
+    )
+    receipt["original_batch3_source_sha256"] = sha_text(source)
+
+    comparison_inputs = [(10, reference_dir)]
+
+    for delay in [1, 3]:
+        transformer = ParameterizeDelay(delay)
+        tree = transformer.visit(ast.parse(source))
+        ast.fix_missing_locations(tree)
+
+        if (
+            transformer.delay_operations != 2
+            or transformer.asset_assignments != 1
+            or transformer.output_prefixes != 1
+        ):
+            raise RuntimeError(
+                "Unexpected Batch 3 structure; refusing a partial patch. "
+                f"delay_operations={transformer.delay_operations}, "
+                f"asset_assignments={transformer.asset_assignments}, "
+                f"output_prefixes={transformer.output_prefixes}"
+            )
+
+        patched = ast.unparse(tree)
+        signature = sha_text(patched)
+        script_path = OUT / f"experiment_pace_{delay}s.py"
+        script_path.write_text(patched, encoding="utf-8")
+
+        previous = reusable_run(delay, signature)
+        if previous is not None:
+            experiment_dir, experiment_receipt = previous
+            receipt["reused_delays_seconds"].append(delay)
+            print(
+                f"\nReusing completed {delay}s packet-mapped experiment.",
+                flush=True,
+            )
+        else:
+            print(
+                f"\n{'=' * 65}\n"
+                f"EXPERIMENT: CAPTURE 49 — {delay}s PACING\n"
+                f"{'=' * 65}",
+                flush=True,
+            )
+
+            namespace = {
+                "__name__": "__main__",
+                "__file__": str(script_path),
+                "retarget_historical_input": retarget_historical_input,
+            }
+            exec(
+                compile(tree, str(script_path), "exec"),
+                namespace,
+            )
+
+            experiment_receipt = namespace.get("R", {})
+            if not experiment_receipt.get("output_directory"):
+                raise RuntimeError(
+                    f"{delay}s experiment did not produce a receipt."
+                )
+
+            experiment_dir = Path(
+                experiment_receipt["output_directory"]
+            )
+            save_json(
+                experiment_dir / "controller_signature.json",
+                {
+                    "delay_seconds": delay,
+                    "parameterized_source_sha256": signature,
+                    "original_batch3_source_sha256": sha_text(source),
+                },
+            )
+
+        status = experiment_receipt.get("status")
+        if status not in {
+            "TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED",
+            "TRANSFORMED_PACKET_MEMBERSHIP_PARTIAL",
+        }:
+            receipt["failed_delay_seconds"] = delay
+            receipt["experiment_receipt"] = experiment_receipt
+            raise RuntimeError(
+                f"The {delay}s experiment stopped with status {status}. "
+                "The next experiment was not launched."
+            )
+
+        receipt["completed_delays_seconds"].append(delay)
+        comparison_inputs.append((delay, experiment_dir))
+        save_json(OUT / "receipt.json", receipt)
+
+    summaries = []
+
+    for delay, directory in sorted(comparison_inputs):
+        table = pd.read_csv(
+            directory / "test3_detection_summary.csv"
+        )
+        membership = pd.read_csv(
+            directory / "test2_transformed_membership.csv"
+        )
+        identity = json.loads(
+            (directory / "test1_transformation_identity.json")
+            .read_text()
+        )
+
+        if not identity.get("exact_historical_hash_match"):
+            raise RuntimeError(
+                f"The {delay}s trace did not reproduce its historical hash."
+            )
+
+        table.insert(0, "delay_seconds", delay)
+        table["descendant_records"] = int(
+            membership.descendant_records.sum()
+        )
+        table["units_with_multiple_descendants"] = int(
+            membership.descendant_records.gt(1).sum()
+        )
+        table["delayed_packet_occurrences"] = int(
+            identity["delayed_packet_occurrences"]
+        )
+        table["experiment_directory"] = str(directory)
+        summaries.append(table)
+
+    comparison = pd.concat(summaries, ignore_index=True)
+    comparison.to_csv(
+        OUT / "pacing_boundary_comparison.csv", index=False
+    )
+
+    print(
+        "\nANALYSIS 3 — 1s / 3s / 10s PACKET-MAPPED COMPARISON",
+        flush=True,
+    )
+    print(
+        comparison[
+            [
+                "delay_seconds",
+                "seed",
+                "original_units",
+                "validated_units",
+                "unresolved_units",
+                "descendant_records",
+                "units_with_multiple_descendants",
+                "clean_detected",
+                "selected_record_detected",
+                "units_with_descendant_alarm",
+                "selected_losses_recovered",
+                "selected_losses_without_descendant_alarm",
+                "detection_fraction_lower",
+                "detection_fraction_upper",
+            ]
+        ].to_string(index=False),
+        flush=True,
+    )
+
+    receipt["status"] = "BATCH4_CONTROLS_AND_COMPARISON_COMPLETE"
+    receipt["interpretation_limit"] = (
+        "Same exposed capture and frozen models. These are extraction "
+        "and detection controls, not independent generalization or "
+        "malicious-functionality validation."
+    )
+
+except Exception as error:
+    receipt["status"] = "STOPPED_WITH_SAVED_REASON"
+    receipt["reason"] = str(error)
+    (OUT / "error.txt").write_text(
+        traceback.format_exc(), encoding="utf-8"
+    )
+    print("\nSTOPPED:", error, flush=True)
+
+finally:
+    save_json(OUT / "receipt.json", receipt)
+    print(
+        "\nBATCH 4 RECEIPT\n"
+        + json.dumps(receipt, indent=2),
+        flush=True,
+    )"
+
+output: "
+=================================================================
+EXPERIMENT: CAPTURE 49 — 1s PACING
+=================================================================
+[1/3] Rebuilding the exact historical 1s trace using validated packet indices.
+Scheduled packets: 500000
+Scheduled packets: 1000000
+Scheduled packets: 1500000
+Scheduled packets: 2000000
+Scheduled packets: 2500000
+Scheduled packets: 3000000
+
+TEST 1 — TRANSFORMATION IDENTITY
+{
+  "source_packets": 3391734,
+  "output_packets": 3391734,
+  "selected_packet_occurrences": 1506,
+  "delayed_packet_occurrences": 994,
+  "delay_seconds": 1,
+  "historical_hash": "8a6b22f385620bb72edb42db886ae2364ea2036104a0dea8d38e6aa1c0afb92b",
+  "reconstructed_hash": "8a6b22f385620bb72edb42db886ae2364ea2036104a0dea8d38e6aa1c0afb92b",
+  "exact_historical_hash_match": true
+}
+[2/3] One instrumented replay of the hash-identical transformed trace.
+
+TEST 2 — TRANSFORMED MEMBERSHIP
+expected_packets                    1506
+uniquely_mapped_packets             1506
+unresolved_packet_occurrences          0
+descendant_records                   512
+descendant_UIDs_pure                 512
+descendant_record_packet_sum        1506
+transformed_membership_validated     512
+[3/3] Comparing matched-record decisions with packet-mapped descendant alarms.
+
+TEST 3 — PACKET-MAPPED DETECTION
+ seed  original_units  validated_units  unresolved_units  clean_detected  selected_record_detected  units_with_descendant_alarm  selected_losses_recovered  selected_losses_without_descendant_alarm  detection_fraction_lower  detection_fraction_upper  functionality_preservation_proved
+ 8101             512              512                 0             512                       512                          512                          0                                         0                       1.0                       1.0                              False
+ 8102             512              512                 0             512                       512                          512                          0                                         0                       1.0                       1.0                              False
+ 8103             512              512                 0             512                       512                          512                          0                                         0                       1.0                       1.0                              False
+
+RECEIPT
+{
+  "status": "TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED",
+  "tests": {
+    "transformation_identity": "PASSED",
+    "transformed_membership": "COMPLETED",
+    "historical_selected_feature_reproduction": "PASSED",
+    "original_unit_detection": "COMPLETED"
+  },
+  "models_retrained": false,
+  "new_PCAP_replays": 1,
+  "malicious_functionality_tested": false,
+  "historical_outputs_overwritten": false,
+  "output_directory": "/kaggle/working/LINEAGE_BATCH4_PACE_1S_20261015T190110325527Z",
+  "historical_transformed_pcap_sha256": "8a6b22f385620bb72edb42db886ae2364ea2036104a0dea8d38e6aa1c0afb92b",
+  "source_pcap_sha256": "6116a20e4133c3a0669652df6982e4e1558330b8af3fc007ab37038410903414",
+  "zeek_version": "/opt/zeek/bin/zeek version 8.0.10",
+  "validated_original_units": 512,
+  "interpretation": "Offline detection for the 512 selected original labelled traffic units under an any-descendant-record alarm rule. Not application-functionality validation, a real deployment claim, or independent statistical confirmation.",
+  "only_this_run_temporary_replay_removed": true
+}
+
+=================================================================
+EXPERIMENT: CAPTURE 49 — 3s PACING
+=================================================================
+[1/3] Rebuilding the exact historical 3s trace using validated packet indices.
+Scheduled packets: 500000
+Scheduled packets: 1000000
+Scheduled packets: 1500000
+Scheduled packets: 2000000
+Scheduled packets: 2500000
+Scheduled packets: 3000000
+
+TEST 1 — TRANSFORMATION IDENTITY
+{
+  "source_packets": 3391734,
+  "output_packets": 3391734,
+  "selected_packet_occurrences": 1506,
+  "delayed_packet_occurrences": 994,
+  "delay_seconds": 3,
+  "historical_hash": "8153ddd631ef7b6b40c956990bf9e39226f3157f528fb252d0e4e19a2e5a4631",
+  "reconstructed_hash": "8153ddd631ef7b6b40c956990bf9e39226f3157f528fb252d0e4e19a2e5a4631",
+  "exact_historical_hash_match": true
+}
+[2/3] One instrumented replay of the hash-identical transformed trace.
+
+TEST 2 — TRANSFORMED MEMBERSHIP
+expected_packets                    1506
+uniquely_mapped_packets             1506
+unresolved_packet_occurrences          0
+descendant_records                   512
+descendant_UIDs_pure                 512
+descendant_record_packet_sum        1506
+transformed_membership_validated     512
+[3/3] Comparing matched-record decisions with packet-mapped descendant alarms.
+
+TEST 3 — PACKET-MAPPED DETECTION
+ seed  original_units  validated_units  unresolved_units  clean_detected  selected_record_detected  units_with_descendant_alarm  selected_losses_recovered  selected_losses_without_descendant_alarm  detection_fraction_lower  detection_fraction_upper  functionality_preservation_proved
+ 8101             512              512                 0             512                       512                          512                          0                                         0                       1.0                       1.0                              False
+ 8102             512              512                 0             512                       512                          512                          0                                         0                       1.0                       1.0                              False
+ 8103             512              512                 0             512                       512                          512                          0                                         0                       1.0                       1.0                              False
+
+RECEIPT
+{
+  "status": "TRANSFORMED_PACKET_MEMBERSHIP_VALIDATED",
+  "tests": {
+    "transformation_identity": "PASSED",
+    "transformed_membership": "COMPLETED",
+    "historical_selected_feature_reproduction": "PASSED",
+    "original_unit_detection": "COMPLETED"
+  },
+  "models_retrained": false,
+  "new_PCAP_replays": 1,
+  "malicious_functionality_tested": false,
+  "historical_outputs_overwritten": false,
+  "output_directory": "/kaggle/working/LINEAGE_BATCH4_PACE_3S_20261015T190315370306Z",
+  "historical_transformed_pcap_sha256": "8153ddd631ef7b6b40c956990bf9e39226f3157f528fb252d0e4e19a2e5a4631",
+  "source_pcap_sha256": "6116a20e4133c3a0669652df6982e4e1558330b8af3fc007ab37038410903414",
+  "zeek_version": "/opt/zeek/bin/zeek version 8.0.10",
+  "validated_original_units": 512,
+  "interpretation": "Offline detection for the 512 selected original labelled traffic units under an any-descendant-record alarm rule. Not application-functionality validation, a real deployment claim, or independent statistical confirmation.",
+  "only_this_run_temporary_replay_removed": true
+}
+
+ANALYSIS 3 — 1s / 3s / 10s PACKET-MAPPED COMPARISON
+ delay_seconds  seed  original_units  validated_units  unresolved_units  descendant_records  units_with_multiple_descendants  clean_detected  selected_record_detected  units_with_descendant_alarm  selected_losses_recovered  selected_losses_without_descendant_alarm  detection_fraction_lower  detection_fraction_upper
+             1  8101             512              512                 0                 512                                0             512                       512                          512                          0                                         0                  1.000000                  1.000000
+             1  8102             512              512                 0                 512                                0             512                       512                          512                          0                                         0                  1.000000                  1.000000
+             1  8103             512              512                 0                 512                                0             512                       512                          512                          0                                         0                  1.000000                  1.000000
+             3  8101             512              512                 0                 512                                0             512                       512                          512                          0                                         0                  1.000000                  1.000000
+             3  8102             512              512                 0                 512                                0             512                       512                          512                          0                                         0                  1.000000                  1.000000
+             3  8103             512              512                 0                 512                                0             512                       512                          512                          0                                         0                  1.000000                  1.000000
+            10  8101             512              512                 0                1024                              512             512                         0                          157                        157                                       355                  0.306641                  0.306641
+            10  8102             512              512                 0                1024                              512             512                         0                          157                        157                                       355                  0.306641                  0.306641
+            10  8103             512              512                 0                1024                              512             512                         0                          157                        157                                       355                  0.306641                  0.306641
+
+BATCH 4 RECEIPT
+{
+  "status": "BATCH4_CONTROLS_AND_COMPARISON_COMPLETE",
+  "planned_delays_seconds": [
+    1,
+    3
+  ],
+  "completed_delays_seconds": [
+    1,
+    3
+  ],
+  "reused_delays_seconds": [],
+  "models_retrained": false,
+  "eligibility_changed": false,
+  "historical_outputs_overwritten": false,
+  "output_directory": "/kaggle/working/LINEAGE_BATCH4_CONTROLS_20261015T190110271331Z",
+  "original_batch3_source_sha256": "5cb9cb603ee0a4fbe78b97114f134a3b6793e4b1120fb38328d49ab8a9ecc8e6",
+  "interpretation_limit": "Same exposed capture and frozen models. These are extraction and detection controls, not independent generalization or malicious-functionality validation."
+}"
