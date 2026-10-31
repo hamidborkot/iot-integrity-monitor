@@ -1,0 +1,79 @@
+dataset,feature,dtype,missing_fraction,numeric,nunique_sample,candidate_semantic_view,candidate_source_type,candidate_mutability,manual_review_required
+CSE-CIC-IDS2018,Protocol,int8,0.0,True,3,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Flow Duration,int32,0.0,True,3610,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Total Fwd Packets,int32,0.0,True,98,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Total Backward Packets,int32,0.0,True,101,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Fwd Packets Length Total,int32,0.0,True,399,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Bwd Packets Length Total,float32,0.0,True,454,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Fwd Packet Length Max,int16,0.0,True,281,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Packet Length Min,int16,0.0,True,29,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Packet Length Mean,float32,0.0,True,486,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Packet Length Std,float32,0.0,True,480,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Packet Length Max,int16,0.0,True,136,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Packet Length Min,int16,0.0,True,47,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Packet Length Mean,float32,0.0,True,471,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Packet Length Std,float32,0.0,True,434,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow Bytes/s,float64,0.0,True,3008,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow Packets/s,float64,0.0,True,3626,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Flow IAT Mean,float32,0.0,True,3612,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow IAT Std,float32,0.0,True,4271,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow IAT Max,float32,0.0,True,3174,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow IAT Min,float32,0.0,True,666,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Total,float32,0.0,True,1193,timing_rate,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Mean,float32,0.0,True,1816,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Std,float32,0.0,True,1355,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Max,float32,0.0,True,1282,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Min,float32,0.0,True,917,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Total,float32,0.0,True,2300,timing_rate,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Mean,float32,0.0,True,2637,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Std,float32,0.0,True,3738,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Max,float32,0.0,True,2281,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Min,float32,0.0,True,336,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd PSH Flags,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Bwd PSH Flags,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Fwd URG Flags,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Bwd URG Flags,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Fwd Header Length,int32,0.0,True,129,protocol_state,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Header Length,int32,0.0,True,160,protocol_state,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Packets/s,float32,0.0,True,3627,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Bwd Packets/s,float32,0.0,True,3058,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Packet Length Min,int16,0.0,True,26,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Packet Length Max,int16,0.0,True,158,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Packet Length Mean,float32,0.0,True,578,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Packet Length Std,float32,0.0,True,569,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Packet Length Variance,float32,0.0,True,569,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,FIN Flag Count,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,SYN Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,RST Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,PSH Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,ACK Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,URG Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,CWE Flag Count,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,ECE Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Down/Up Ratio,int16,0.0,True,8,directionality,derived,manual_review_required,True
+CSE-CIC-IDS2018,Avg Packet Size,float32,0.0,True,583,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Avg Fwd Segment Size,float32,0.0,True,486,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Avg Bwd Segment Size,float32,0.0,True,471,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Avg Bytes/Bulk,int8,0.0,True,1,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Avg Packets/Bulk,int8,0.0,True,1,volume_size,derived,immutable_or_excluded,False
+CSE-CIC-IDS2018,Fwd Avg Bulk Rate,int8,0.0,True,1,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Avg Bytes/Bulk,int8,0.0,True,1,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Avg Packets/Bulk,int8,0.0,True,1,volume_size,derived,immutable_or_excluded,False
+CSE-CIC-IDS2018,Bwd Avg Bulk Rate,int8,0.0,True,1,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Subflow Fwd Packets,int32,0.0,True,98,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Subflow Fwd Bytes,int32,0.0,True,399,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Subflow Bwd Packets,int32,0.0,True,101,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Subflow Bwd Bytes,int32,0.0,True,454,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Init Fwd Win Bytes,int32,0.0,True,101,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Init Bwd Win Bytes,int32,0.0,True,173,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Act Data Packets,int16,0.0,True,46,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Fwd Seg Size Min,int8,0.0,True,3,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Active Mean,float32,0.0,True,500,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Active Std,float32,0.0,True,428,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Active Max,float32,0.0,True,502,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Active Min,float32,0.0,True,480,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Idle Mean,float32,0.0,True,261,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Idle Std,float32,0.0,True,448,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Idle Max,float32,0.0,True,140,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Idle Min,float32,0.0,True,308,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Label,category,0.0,False,2,label_or_metadata,primitive_or_unknown,immutable_or_excluded,False

@@ -1,0 +1,47 @@
+dataset,feature,dtype,missing_fraction,numeric,nunique_sample,candidate_semantic_view,candidate_source_type,candidate_mutability,manual_review_required
+CICIoMT2024,Header_Length,float64,0.0,True,4772,protocol_state,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,Protocol Type,float64,0.0,True,17,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,Duration,float64,0.0,True,20,timing_rate,derived,mutable_or_recomputed,False
+CICIoMT2024,Rate,float64,0.0,True,4997,timing_rate,derived,mutable_or_recomputed,False
+CICIoMT2024,Srate,float64,0.0,True,4997,timing_rate,derived,mutable_or_recomputed,False
+CICIoMT2024,Drate,int64,0.0,True,1,timing_rate,derived,mutable_or_recomputed,False
+CICIoMT2024,fin_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,syn_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,rst_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,psh_flag_number,float64,0.0,True,9,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,ack_flag_number,float64,0.0,True,15,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,ece_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,cwr_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,ack_count,float64,0.0,True,1,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,syn_count,float64,0.0,True,1,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,fin_count,float64,0.0,True,1,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,rst_count,float64,0.0,True,80,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,HTTP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,HTTPS,float64,0.0,True,12,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,DNS,float64,0.0,True,2,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Telnet,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,SMTP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,SSH,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,IRC,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,TCP,float64,0.0,True,15,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,UDP,float64,0.0,True,15,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,DHCP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,ARP,float64,0.0,True,3,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,ICMP,float64,0.0,True,1,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,IGMP,float64,0.0,True,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,IPv,float64,0.0,True,3,manual_review_required,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,LLC,float64,0.0,True,3,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Tot sum,float64,0.0,True,52,volume_size,derived,manual_review_required,True
+CICIoMT2024,Min,float64,0.0,True,14,count_burst,derived,manual_review_required,True
+CICIoMT2024,Max,float64,0.0,True,69,count_burst,derived,manual_review_required,True
+CICIoMT2024,AVG,float64,0.0,True,62,manual_review_required,derived,manual_review_required,True
+CICIoMT2024,Std,float64,0.0,True,96,count_burst,derived,manual_review_required,True
+CICIoMT2024,Tot size,float64,0.0,True,43,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,IAT,float64,0.0,True,7,timing_rate,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,Number,float64,0.0,True,3,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Magnitue,float64,0.0,True,36,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Radius,float64,0.0,True,96,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Covariance,float64,0.0,True,97,count_burst,derived,manual_review_required,True
+CICIoMT2024,Variance,float64,0.0,True,39,count_burst,derived,manual_review_required,True
+CICIoMT2024,Weight,float64,0.0,True,3,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,label,object,0.0,False,1,label_or_metadata,primitive_or_unknown,immutable_or_excluded,False

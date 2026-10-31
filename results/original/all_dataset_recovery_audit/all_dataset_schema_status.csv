@@ -1,0 +1,6 @@
+dataset,status,sample_rows,feature_count,label_candidates,semantic_views
+CICIoT2023,AUDITED,5000,47,label,"{""timing_rate"": 6, ""protocol_state"": 12, ""count_burst"": 14, ""application_protocol"": 10, ""manual_review_required"": 2, ""volume_size"": 2, ""label_or_metadata"": 1}"
+CICIoMT2024,AUDITED,5000,46,label,"{""protocol_state"": 12, ""timing_rate"": 5, ""count_burst"": 13, ""application_protocol"": 10, ""manual_review_required"": 3, ""volume_size"": 2, ""label_or_metadata"": 1}"
+CSE-CIC-IDS2018,AUDITED,5000,78,Label,"{""protocol_state"": 15, ""timing_rate"": 25, ""volume_size"": 36, ""directionality"": 1, ""label_or_metadata"": 1}"
+NSL-KDD,AUDITED,5000,43,label,"{""timing_rate"": 16, ""protocol_state"": 2, ""application_protocol"": 1, ""volume_size"": 2, ""manual_review_required"": 17, ""count_burst"": 4, ""label_or_metadata"": 1}"
+TON-IoT,AUDITED,5000,45,label,"{""manual_review_required"": 17, ""application_protocol"": 19, ""timing_rate"": 1, ""volume_size"": 6, ""protocol_state"": 1, ""label_or_metadata"": 1}"

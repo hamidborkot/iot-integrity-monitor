@@ -1,0 +1,6 @@
+dataset,status,available_paths,missing_paths
+CICIoT2023,AVAILABLE,/kaggle/input/datasets/himadri07/ciciot2023/CICIOT23/train/train.csv | /kaggle/input/datasets/himadri07/ciciot2023/CICIOT23/validation/validation.csv | /kaggle/input/datasets/himadri07/ciciot2023/CICIOT23/test/test.csv,
+CICIoMT2024,AVAILABLE,/kaggle/input/datasets/amineipad/cic-iomt-dataset-2024/train_iomt.csv | /kaggle/input/datasets/amineipad/cic-iomt-dataset-2024/test_iomt.csv,
+CSE-CIC-IDS2018,AVAILABLE,/kaggle/input/datasets/dhoogla/csecicids2018,
+NSL-KDD,AVAILABLE,/kaggle/input/datasets/shamstahzib/nsl-kdd-dataset/nsl-kdd-dataset/KDDTrain+.txt | /kaggle/input/datasets/shamstahzib/nsl-kdd-dataset/nsl-kdd-dataset/KDDTest+.txt,
+TON-IoT,AVAILABLE,/kaggle/input/datasets/fadiabuzwayed/ton-iot-train-test-network/TON_IoT_Train_Test_Network.csv,

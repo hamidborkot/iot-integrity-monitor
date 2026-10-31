@@ -1,0 +1,260 @@
+dataset,feature,dtype,missing_fraction,numeric,nunique_sample,candidate_semantic_view,candidate_source_type,candidate_mutability,manual_review_required
+CICIoT2023,flow_duration,float64,0.0,True,2273,timing_rate,derived,mutable_or_recomputed,False
+CICIoT2023,Header_Length,float64,0.0,True,1964,protocol_state,primitive_or_unknown,mutable_or_recomputed,False
+CICIoT2023,Protocol Type,float64,0.0,True,224,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoT2023,Duration,float64,0.0,True,430,timing_rate,derived,mutable_or_recomputed,False
+CICIoT2023,Rate,float64,0.0,True,4871,timing_rate,derived,mutable_or_recomputed,False
+CICIoT2023,Srate,float64,0.0,True,4871,timing_rate,derived,mutable_or_recomputed,False
+CICIoT2023,Drate,float64,0.0,True,1,timing_rate,derived,mutable_or_recomputed,False
+CICIoT2023,fin_flag_number,float64,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoT2023,syn_flag_number,float64,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoT2023,rst_flag_number,float64,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoT2023,psh_flag_number,float64,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoT2023,ack_flag_number,float64,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoT2023,ece_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoT2023,cwr_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoT2023,ack_count,float64,0.0,True,42,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoT2023,syn_count,float64,0.0,True,223,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoT2023,fin_count,float64,0.0,True,82,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoT2023,urg_count,float64,0.0,True,263,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoT2023,rst_count,float64,0.0,True,330,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoT2023,HTTP,float64,0.0,True,2,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,HTTPS,float64,0.0,True,2,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,DNS,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,Telnet,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,SMTP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,SSH,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,IRC,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,TCP,float64,0.0,True,2,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoT2023,UDP,float64,0.0,True,2,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoT2023,DHCP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,ARP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,ICMP,float64,0.0,True,2,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoT2023,IPv,float64,0.0,True,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+CICIoT2023,LLC,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoT2023,Tot sum,float64,0.0,True,1200,volume_size,derived,manual_review_required,True
+CICIoT2023,Min,float64,0.0,True,479,count_burst,derived,manual_review_required,True
+CICIoT2023,Max,float64,0.0,True,848,count_burst,derived,manual_review_required,True
+CICIoT2023,AVG,float64,0.0,True,1368,manual_review_required,derived,manual_review_required,True
+CICIoT2023,Std,float64,0.0,True,1285,count_burst,derived,manual_review_required,True
+CICIoT2023,Tot size,float64,0.0,True,856,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CICIoT2023,IAT,float64,0.0,True,5000,timing_rate,primitive_or_unknown,mutable_or_recomputed,False
+CICIoT2023,Number,float64,0.0,True,11,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoT2023,Magnitue,float64,0.0,True,1332,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoT2023,Radius,float64,0.0,True,1252,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoT2023,Covariance,float64,0.0,True,1258,count_burst,derived,manual_review_required,True
+CICIoT2023,Variance,float64,0.0,True,76,count_burst,derived,manual_review_required,True
+CICIoT2023,Weight,float64,0.0,True,11,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoT2023,label,object,0.0,False,29,label_or_metadata,primitive_or_unknown,immutable_or_excluded,False
+CICIoMT2024,Header_Length,float64,0.0,True,4772,protocol_state,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,Protocol Type,float64,0.0,True,17,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,Duration,float64,0.0,True,20,timing_rate,derived,mutable_or_recomputed,False
+CICIoMT2024,Rate,float64,0.0,True,4997,timing_rate,derived,mutable_or_recomputed,False
+CICIoMT2024,Srate,float64,0.0,True,4997,timing_rate,derived,mutable_or_recomputed,False
+CICIoMT2024,Drate,int64,0.0,True,1,timing_rate,derived,mutable_or_recomputed,False
+CICIoMT2024,fin_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,syn_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,rst_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,psh_flag_number,float64,0.0,True,9,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,ack_flag_number,float64,0.0,True,15,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,ece_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,cwr_flag_number,float64,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CICIoMT2024,ack_count,float64,0.0,True,1,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,syn_count,float64,0.0,True,1,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,fin_count,float64,0.0,True,1,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,rst_count,float64,0.0,True,80,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,HTTP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,HTTPS,float64,0.0,True,12,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,DNS,float64,0.0,True,2,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Telnet,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,SMTP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,SSH,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,IRC,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,TCP,float64,0.0,True,15,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,UDP,float64,0.0,True,15,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,DHCP,float64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,ARP,float64,0.0,True,3,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,ICMP,float64,0.0,True,1,protocol_state,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,IGMP,float64,0.0,True,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,IPv,float64,0.0,True,3,manual_review_required,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,LLC,float64,0.0,True,3,application_protocol,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Tot sum,float64,0.0,True,52,volume_size,derived,manual_review_required,True
+CICIoMT2024,Min,float64,0.0,True,14,count_burst,derived,manual_review_required,True
+CICIoMT2024,Max,float64,0.0,True,69,count_burst,derived,manual_review_required,True
+CICIoMT2024,AVG,float64,0.0,True,62,manual_review_required,derived,manual_review_required,True
+CICIoMT2024,Std,float64,0.0,True,96,count_burst,derived,manual_review_required,True
+CICIoMT2024,Tot size,float64,0.0,True,43,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,IAT,float64,0.0,True,7,timing_rate,primitive_or_unknown,mutable_or_recomputed,False
+CICIoMT2024,Number,float64,0.0,True,3,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Magnitue,float64,0.0,True,36,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Radius,float64,0.0,True,96,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,Covariance,float64,0.0,True,97,count_burst,derived,manual_review_required,True
+CICIoMT2024,Variance,float64,0.0,True,39,count_burst,derived,manual_review_required,True
+CICIoMT2024,Weight,float64,0.0,True,3,count_burst,primitive_or_unknown,manual_review_required,True
+CICIoMT2024,label,object,0.0,False,1,label_or_metadata,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Protocol,int8,0.0,True,3,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Flow Duration,int32,0.0,True,3610,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Total Fwd Packets,int32,0.0,True,98,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Total Backward Packets,int32,0.0,True,101,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Fwd Packets Length Total,int32,0.0,True,399,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Bwd Packets Length Total,float32,0.0,True,454,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Fwd Packet Length Max,int16,0.0,True,281,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Packet Length Min,int16,0.0,True,29,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Packet Length Mean,float32,0.0,True,486,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Packet Length Std,float32,0.0,True,480,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Packet Length Max,int16,0.0,True,136,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Packet Length Min,int16,0.0,True,47,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Packet Length Mean,float32,0.0,True,471,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Packet Length Std,float32,0.0,True,434,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow Bytes/s,float64,0.0,True,3008,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow Packets/s,float64,0.0,True,3626,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Flow IAT Mean,float32,0.0,True,3612,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow IAT Std,float32,0.0,True,4271,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow IAT Max,float32,0.0,True,3174,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Flow IAT Min,float32,0.0,True,666,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Total,float32,0.0,True,1193,timing_rate,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Mean,float32,0.0,True,1816,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Std,float32,0.0,True,1355,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Max,float32,0.0,True,1282,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd IAT Min,float32,0.0,True,917,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Total,float32,0.0,True,2300,timing_rate,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Mean,float32,0.0,True,2637,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Std,float32,0.0,True,3738,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Max,float32,0.0,True,2281,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd IAT Min,float32,0.0,True,336,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd PSH Flags,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Bwd PSH Flags,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Fwd URG Flags,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Bwd URG Flags,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Fwd Header Length,int32,0.0,True,129,protocol_state,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Header Length,int32,0.0,True,160,protocol_state,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Packets/s,float32,0.0,True,3627,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Bwd Packets/s,float32,0.0,True,3058,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Packet Length Min,int16,0.0,True,26,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Packet Length Max,int16,0.0,True,158,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Packet Length Mean,float32,0.0,True,578,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Packet Length Std,float32,0.0,True,569,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Packet Length Variance,float32,0.0,True,569,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,FIN Flag Count,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,SYN Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,RST Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,PSH Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,ACK Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,URG Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,CWE Flag Count,int8,0.0,True,1,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,ECE Flag Count,int8,0.0,True,2,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+CSE-CIC-IDS2018,Down/Up Ratio,int16,0.0,True,8,directionality,derived,manual_review_required,True
+CSE-CIC-IDS2018,Avg Packet Size,float32,0.0,True,583,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Avg Fwd Segment Size,float32,0.0,True,486,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Avg Bwd Segment Size,float32,0.0,True,471,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Avg Bytes/Bulk,int8,0.0,True,1,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Avg Packets/Bulk,int8,0.0,True,1,volume_size,derived,immutable_or_excluded,False
+CSE-CIC-IDS2018,Fwd Avg Bulk Rate,int8,0.0,True,1,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Avg Bytes/Bulk,int8,0.0,True,1,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Bwd Avg Packets/Bulk,int8,0.0,True,1,volume_size,derived,immutable_or_excluded,False
+CSE-CIC-IDS2018,Bwd Avg Bulk Rate,int8,0.0,True,1,timing_rate,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Subflow Fwd Packets,int32,0.0,True,98,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Subflow Fwd Bytes,int32,0.0,True,399,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Subflow Bwd Packets,int32,0.0,True,101,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Subflow Bwd Bytes,int32,0.0,True,454,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Init Fwd Win Bytes,int32,0.0,True,101,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Init Bwd Win Bytes,int32,0.0,True,173,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Fwd Act Data Packets,int16,0.0,True,46,volume_size,primitive_or_unknown,immutable_or_excluded,False
+CSE-CIC-IDS2018,Fwd Seg Size Min,int8,0.0,True,3,volume_size,derived,mutable_or_recomputed,False
+CSE-CIC-IDS2018,Active Mean,float32,0.0,True,500,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Active Std,float32,0.0,True,428,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Active Max,float32,0.0,True,502,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Active Min,float32,0.0,True,480,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Idle Mean,float32,0.0,True,261,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Idle Std,float32,0.0,True,448,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Idle Max,float32,0.0,True,140,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Idle Min,float32,0.0,True,308,timing_rate,derived,manual_review_required,True
+CSE-CIC-IDS2018,Label,category,0.0,False,2,label_or_metadata,primitive_or_unknown,immutable_or_excluded,False
+NSL-KDD,duration,int64,0.0,True,198,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,protocol_type,object,0.0,False,3,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+NSL-KDD,service,object,0.0,False,64,application_protocol,primitive_or_unknown,constrained_not_directly_perturbed,False
+NSL-KDD,flag,object,0.0,False,11,protocol_state,primitive_or_unknown,constrained_not_directly_perturbed,False
+NSL-KDD,src_bytes,int64,0.0,True,682,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+NSL-KDD,dst_bytes,int64,0.0,True,1298,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+NSL-KDD,land,int64,0.0,True,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,wrong_fragment,int64,0.0,True,3,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,urgent,int64,0.0,True,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,hot,int64,0.0,True,15,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,num_failed_logins,int64,0.0,True,3,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,logged_in,int64,0.0,True,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,num_compromised,int64,0.0,True,11,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,root_shell,int64,0.0,True,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,su_attempted,int64,0.0,True,3,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,num_root,int64,0.0,True,12,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,num_file_creations,int64,0.0,True,7,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,num_shells,int64,0.0,True,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,num_access_files,int64,0.0,True,4,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,num_outbound_cmds,int64,0.0,True,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,is_host_login,int64,0.0,True,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,is_guest_login,int64,0.0,True,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+NSL-KDD,count,int64,0.0,True,353,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+NSL-KDD,srv_count,int64,0.0,True,259,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+NSL-KDD,serror_rate,float64,0.0,True,44,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,srv_serror_rate,float64,0.0,True,32,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,rerror_rate,float64,0.0,True,47,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,srv_rerror_rate,float64,0.0,True,27,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,same_srv_rate,float64,0.0,True,76,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,diff_srv_rate,float64,0.0,True,53,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,srv_diff_host_rate,float64,0.0,True,50,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,dst_host_count,int64,0.0,True,251,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+NSL-KDD,dst_host_srv_count,int64,0.0,True,250,count_burst,primitive_or_unknown,mutable_or_recomputed,False
+NSL-KDD,dst_host_same_srv_rate,float64,0.0,True,101,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,dst_host_diff_srv_rate,float64,0.0,True,94,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,dst_host_same_src_port_rate,float64,0.0,True,100,timing_rate,derived,constrained_not_directly_perturbed,False
+NSL-KDD,dst_host_srv_diff_host_rate,float64,0.0,True,49,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,dst_host_serror_rate,float64,0.0,True,64,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,dst_host_srv_serror_rate,float64,0.0,True,44,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,dst_host_rerror_rate,float64,0.0,True,98,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,dst_host_srv_rerror_rate,float64,0.0,True,62,timing_rate,derived,mutable_or_recomputed,False
+NSL-KDD,label,object,0.0,False,15,label_or_metadata,primitive_or_unknown,immutable_or_excluded,False
+NSL-KDD,difficulty,int64,0.0,True,22,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,ts,int64,0.0,True,3909,manual_review_required,primitive_or_unknown,immutable_or_excluded,True
+TON-IoT,src_ip,object,0.0,False,16,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,src_port,int64,0.0,True,1743,manual_review_required,primitive_or_unknown,constrained_not_directly_perturbed,True
+TON-IoT,dst_ip,object,0.0,False,15,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,dst_port,int64,0.0,True,70,manual_review_required,primitive_or_unknown,constrained_not_directly_perturbed,True
+TON-IoT,proto,object,0.0,False,3,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,service,object,0.0,False,2,application_protocol,primitive_or_unknown,constrained_not_directly_perturbed,False
+TON-IoT,duration,float64,0.0,True,601,timing_rate,derived,mutable_or_recomputed,False
+TON-IoT,src_bytes,int64,0.0,True,113,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+TON-IoT,dst_bytes,int64,0.0,True,24,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+TON-IoT,conn_state,object,0.0,False,6,protocol_state,primitive_or_unknown,manual_review_required,True
+TON-IoT,missed_bytes,int64,0.0,True,1,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+TON-IoT,src_pkts,int64,0.0,True,54,manual_review_required,primitive_or_unknown,immutable_or_excluded,True
+TON-IoT,src_ip_bytes,int64,0.0,True,144,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+TON-IoT,dst_pkts,int64,0.0,True,15,manual_review_required,primitive_or_unknown,immutable_or_excluded,True
+TON-IoT,dst_ip_bytes,int64,0.0,True,33,volume_size,primitive_or_unknown,mutable_or_recomputed,False
+TON-IoT,dns_query,object,0.0,False,23,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,dns_qclass,int64,0.0,True,3,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,dns_qtype,int64,0.0,True,6,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,dns_rcode,int64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,dns_AA,object,0.0,False,3,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,dns_RD,object,0.0,False,3,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,dns_RA,object,0.0,False,2,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,dns_rejected,object,0.0,False,2,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,ssl_version,object,0.0,False,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,ssl_cipher,object,0.0,False,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,ssl_resumed,object,0.0,False,2,volume_size,derived,manual_review_required,True
+TON-IoT,ssl_established,object,0.0,False,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,ssl_subject,object,0.0,False,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,ssl_issuer,object,0.0,False,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_trans_depth,object,0.0,False,2,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_method,object,0.0,False,1,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_uri,object,0.0,False,1,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_version,object,0.0,False,2,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_request_body_len,int64,0.0,True,1,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_response_body_len,int64,0.0,True,2,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_status_code,int64,0.0,True,2,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_user_agent,object,0.0,False,1,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_orig_mime_types,object,0.0,False,1,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,http_resp_mime_types,object,0.0,False,2,application_protocol,primitive_or_unknown,manual_review_required,True
+TON-IoT,weird_name,object,0.0,False,6,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,weird_addl,object,0.0,False,1,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,weird_notice,object,0.0,False,2,manual_review_required,primitive_or_unknown,manual_review_required,True
+TON-IoT,label,int64,0.0,True,1,label_or_metadata,primitive_or_unknown,immutable_or_excluded,False
+TON-IoT,type,object,0.0,False,1,manual_review_required,primitive_or_unknown,manual_review_required,True

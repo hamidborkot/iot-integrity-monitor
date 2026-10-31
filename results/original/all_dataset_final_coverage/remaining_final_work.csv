@@ -1,0 +1,13 @@
+item,status
+All five datasets retained,COMPLETE
+CICIoT2023 semantic monitor,COMPLETE_DEVELOPMENT
+CICIoMT2024 semantic monitor,COMPLETE_DEVELOPMENT
+CSE-CIC-IDS2018 negative control,COMPLETE_DEVELOPMENT
+NSL-KDD negative control,COMPLETE_DEVELOPMENT
+TON-IoT fifth-dataset boundary,COMPLETE_DEVELOPMENT
+Actual MD3 baseline,REMAINING
+Domain-AUC baseline,REMAINING
+Semantic-vs-random ablation,REMAINING
+GBDT model-family check,REMAINING
+"Confirmatory seeds 10,11,12",REMAINING
+Clustered bootstrap and Holm correction,REMAINING

@@ -1,0 +1,8 @@
+{
+  "dataset": "CICIoT2023",
+  "damage_collapse_threshold": 0.05,
+  "window_level_support_auc": 0.7595060779092563,
+  "number_windows": 1377,
+  "collapsed_windows": 918,
+  "noncollapsed_windows": 459
+}

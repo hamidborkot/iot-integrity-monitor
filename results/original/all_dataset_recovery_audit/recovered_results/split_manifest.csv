@@ -1,0 +1,6 @@
+split,rows,attack_fraction,row_id_sha256,minimum_row_id,maximum_row_id
+train,40000,0.5,09e30801277432fdd2f7,7,420001
+normal_reference,10000,0.0,da4d34a129f5fc784852,23,420023
+known_reference,20000,0.5,6336d01ce98ea8fac9cb,23,420023
+source_family_test,40000,0.5,02bfa416be2ea740c6e0,4,461036
+balanced_zero_day_test,50000,0.5,29b14b72bd6ad3f06360,0,461042

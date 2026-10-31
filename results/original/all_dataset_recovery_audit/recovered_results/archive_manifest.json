@@ -1,0 +1,374 @@
+{
+  "study": "Unlabeled Integrity Monitoring for Frozen Edge IoT IDS",
+  "archive_type": "development_results_and_protocols",
+  "raw_datasets_included": false,
+  "raw_dataset_locations": "Excluded; datasets remain in /kaggle/input",
+  "directories_copied": [
+    "ton_e1_corrected",
+    "ton_e1_corrected_v2",
+    "e1_primary_iot",
+    "e1_primary_iot_v2",
+    "e1_1_manual_provenance",
+    "e2_e3_clean_calibration",
+    "e2_e3_v2",
+    "e2_e3_v3_calibrated",
+    "e6_constrained_semantic_attacks",
+    "e6_v2_surrogate_transfer",
+    "e7_baseline_comparison",
+    "e7_1_risk_coverage",
+    "e7_1_risk_coverage_v2"
+  ],
+  "file_count": 70,
+  "files": [
+    {
+      "archive_path": "results/ton_e1_corrected/e1_corrected_decision.json",
+      "bytes": 662,
+      "sha256": "0a77de45bd636c24367a58d7778101623ffd239be299e954e2be19e9d3ca655f"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected/feature_provenance_screened.csv",
+      "bytes": 2658,
+      "sha256": "fc0d2e0957e052ecf0faaf6078a90eb1339bd3b1082bcbd8e701939e33369afb"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected/primary_results.csv",
+      "bytes": 781,
+      "sha256": "8245009a44bae8052bc355d04a71dd1d891c7c88f9862f24c378ac687e4a759d"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected/semantic_view_screening_results.csv",
+      "bytes": 2452,
+      "sha256": "294d5c50cdda7a81139f7a0a135e7618ff7b2e1cdb03da380dd616579e64ebb8"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected/split_manifest.csv",
+      "bytes": 354,
+      "sha256": "b16bfbe820616a7a416bebd158a4a8f159ce33629dde096bf01401f4cba5006f"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected_v2/e1_corrected_v2_decision.json",
+      "bytes": 571,
+      "sha256": "662c722a78fcf3bedb2b072b44ffb31da29f5424caa154a6827dad3d854b9305"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected_v2/feature_provenance_screened.csv",
+      "bytes": 2094,
+      "sha256": "4ab1377453c83911a1507d4da7a30df45c2189a00ac555e33485acd31c5b819a"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected_v2/primary_results.csv",
+      "bytes": 791,
+      "sha256": "fba82ec126418de18c884cd8c56f0cdf3598264114ea332fef1e0103dd0c8285"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected_v2/semantic_view_screening_results.csv",
+      "bytes": 1877,
+      "sha256": "7a7dcfb87ef06b160833356c06863bf65e212bfa58d0762044136d12c3045dda"
+    },
+    {
+      "archive_path": "results/ton_e1_corrected_v2/split_manifest.csv",
+      "bytes": 277,
+      "sha256": "e9d69a15b23ddad747b3c2da01b40777c45b13cbb2484b3e3e0c838e453bb9d0"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoMT2024_attack_protocol.csv",
+      "bytes": 634,
+      "sha256": "25e055eb19c3c987836202342c33daf179a0f2e611341c7581a59f4149382721"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoMT2024_decision.json",
+      "bytes": 664,
+      "sha256": "7199d0e6e69e50e4e7a09d34eb7d5d0fe8f9b911faa497c58ab3a0d46ac980b3"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoMT2024_primary_results.csv",
+      "bytes": 616,
+      "sha256": "8bd561a178c6137046bc4979e92481425bb6a379bac207b7bac836ddbba118c7"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoMT2024_semantic_schema.csv",
+      "bytes": 1608,
+      "sha256": "35f58d9416f7b942e053b234146322fb40bf281c224afcf8177bac142e6d6f91"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoMT2024_split_manifest.csv",
+      "bytes": 268,
+      "sha256": "aceac4d77b29fb2edd19b7fa36e98e8a3e013d074caab1af68a2e862a99d3e43"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoMT2024_view_results.csv",
+      "bytes": 1040,
+      "sha256": "cb57c8eba998c8b60e828d4f62fc2d87eef809cfa127b33e1da8b8c450b666b3"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoT2023_attack_protocol.csv",
+      "bytes": 1250,
+      "sha256": "86d8783c00d331510faf1332a8ee71c529f2a8f55719a5fc19d9f53437ab89ce"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoT2023_decision.json",
+      "bytes": 1062,
+      "sha256": "2ccac32877a85cc4560c3e02bb282fde9502807a79c61a980e626bb621101e9d"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoT2023_primary_results.csv",
+      "bytes": 612,
+      "sha256": "9afc5c702ba052098c842a975a16cb27e75f5dbf5f40eb1d1e56765253c447fd"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoT2023_semantic_schema.csv",
+      "bytes": 1596,
+      "sha256": "d47eb8811051c6ded2315bfdcde556d2dba0fef6972cff81b85682977720b514"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoT2023_split_manifest.csv",
+      "bytes": 264,
+      "sha256": "c119bcecf0c1f4d538b49750028f8463249b5addab9aa5679cc781f3547fbc53"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/CICIoT2023_view_results.csv",
+      "bytes": 1056,
+      "sha256": "69af15ff53eaa82aceb7a37c727f84fb53c80890e615659e6b6a1753f336a53d"
+    },
+    {
+      "archive_path": "results/e1_primary_iot_v2/e1_decisions.csv",
+      "bytes": 1247,
+      "sha256": "e757ae398e9fc559305fd853017ad24692071b1a30de6c229514c47b007e70d7"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoMT2024_e1_1_decision.json",
+      "bytes": 701,
+      "sha256": "246db729e165a41e800b69b349e623eca752e83a4956482334ee7468340a2fe6"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoMT2024_manual_schema.csv",
+      "bytes": 1614,
+      "sha256": "c6d74a54421028212b8952d5d0bde5711f0fa531bb34a9bea1e96665e71936df"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoMT2024_manual_view_results.csv",
+      "bytes": 1129,
+      "sha256": "adf316c94e1b684cdedab9a1cc88056f52f6d3121ce6cd4ea6db87d3a55efbf2"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoMT2024_primary_results.csv",
+      "bytes": 559,
+      "sha256": "fb0a64840d18ec4a096a1e1317c08fb78a248e4bc0cd61fa1390525f851d1a4f"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoMT2024_split_manifest.csv",
+      "bytes": 264,
+      "sha256": "1314f679139c0cd6adbd0d65c01b81565165ffd2c1cfa0214f2ee28b64d4fde9"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoT2023_e1_1_decision.json",
+      "bytes": 1118,
+      "sha256": "d78bda7252fad9d24c50b624e150b409adcb6f87fcfca37b474804fd5d4a0326"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoT2023_manual_schema.csv",
+      "bytes": 1602,
+      "sha256": "dcf8294c25ad506fc1258de10902563af552ce96aa57ad94cda09b4b4d465322"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoT2023_manual_view_results.csv",
+      "bytes": 1140,
+      "sha256": "bd61c85922450adfeecb3bb108a023ce5c43fa033521dcec7012186a0e11f4a8"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoT2023_primary_results.csv",
+      "bytes": 555,
+      "sha256": "b626325a751c0c8196a473aa40155b05ac28aed7dcec6779bc856009cbf11209"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/CICIoT2023_split_manifest.csv",
+      "bytes": 260,
+      "sha256": "45a3299c609ba25d97277c2a977534c720bf59681329924ef95ef5ebd4b381be"
+    },
+    {
+      "archive_path": "results/e1_1_manual_provenance/e1_1_decisions.csv",
+      "bytes": 1313,
+      "sha256": "6e6fcc586e52c898ac41d6b1265b979f4a191ba93f01378c3894318afcc1a2ba"
+    },
+    {
+      "archive_path": "results/e2_e3_clean_calibration/CICIoMT2024_e2_e3_decision.json",
+      "bytes": 629,
+      "sha256": "23f10f14194b3f5e21f259d3f3e291bb5537c1165586ba04f3d37eaa4ffe0e60"
+    },
+    {
+      "archive_path": "results/e2_e3_clean_calibration/CICIoMT2024_summary.csv",
+      "bytes": 541,
+      "sha256": "678ac56e918ee87d8c39f07f28ed061b2a7c87c6dee5a6899221518a24b9ce22"
+    },
+    {
+      "archive_path": "results/e2_e3_clean_calibration/CICIoMT2024_window_results.csv",
+      "bytes": 17557,
+      "sha256": "0ae42785060038dd1cf416ccea7fd2ee5d676b453e22d1d08989845f0dab5b31"
+    },
+    {
+      "archive_path": "results/e2_e3_clean_calibration/CICIoT2023_e2_e3_decision.json",
+      "bytes": 1020,
+      "sha256": "ffc831c22c02e6fdc7f96092420d6ecdcd3e9d8185a2d771db0671b6d3507209"
+    },
+    {
+      "archive_path": "results/e2_e3_clean_calibration/CICIoT2023_summary.csv",
+      "bytes": 599,
+      "sha256": "b705c67fbc4446cb663ee28f9794fb79050d850d18a6bb03e0fde53c8f73060c"
+    },
+    {
+      "archive_path": "results/e2_e3_clean_calibration/CICIoT2023_window_results.csv",
+      "bytes": 20366,
+      "sha256": "17d440b353bea3132bd9a190c959fe1bdcbf4afe5aaaec8151b59cca81f9fbe1"
+    },
+    {
+      "archive_path": "results/e2_e3_clean_calibration/e2_e3_decisions.csv",
+      "bytes": 1190,
+      "sha256": "29ac30858d504be47ee01df5ab8d22d4f5242433b8b3ca01bbc64adf6a7b824d"
+    },
+    {
+      "archive_path": "results/e2_e3_v3_calibrated/CICIoMT2024_decision.json",
+      "bytes": 876,
+      "sha256": "3f4cdca346cd6f051cc91490ab74b283f6a9cb6e027ec1887e934ca85003a8b1"
+    },
+    {
+      "archive_path": "results/e2_e3_v3_calibrated/CICIoMT2024_summary.csv",
+      "bytes": 589,
+      "sha256": "22589fc4b93ded1d0c25ff4873016abb292e589f4dd1555ccc5ecfe1d015f66d"
+    },
+    {
+      "archive_path": "results/e2_e3_v3_calibrated/CICIoMT2024_window_results.csv",
+      "bytes": 19235,
+      "sha256": "0b55be8eed22aff6980d3c56749ad35a9b81007ae2b244429a08ba9254ea2ef6"
+    },
+    {
+      "archive_path": "results/e2_e3_v3_calibrated/CICIoT2023_decision.json",
+      "bytes": 1242,
+      "sha256": "15aae6c89ecb9073f7b44677c4c8bb2cbd5041bcba1e0fe8a5b50f433aff99e8"
+    },
+    {
+      "archive_path": "results/e2_e3_v3_calibrated/CICIoT2023_summary.csv",
+      "bytes": 540,
+      "sha256": "2ff14fc09ef2011d93a7cb92f0ed1bbcc8de5218daf190ac8ca88bce43f91f67"
+    },
+    {
+      "archive_path": "results/e2_e3_v3_calibrated/CICIoT2023_window_results.csv",
+      "bytes": 22298,
+      "sha256": "91f5368c238d85c9c71dee68ab9421ab2b8b75f23ee137dc973df2bbc7607640"
+    },
+    {
+      "archive_path": "results/e2_e3_v3_calibrated/e2_e3_v3_decisions.csv",
+      "bytes": 1546,
+      "sha256": "ca7c6cebb39b11d69940433fe3c4bd1fa8781ca1d192e3f76d54f05f2419f871"
+    },
+    {
+      "archive_path": "results/e6_constrained_semantic_attacks/CICIoMT2024_e6_summary.csv",
+      "bytes": 1825,
+      "sha256": "f0e752b1344b411625c628b6bbfaf2099a64834bb04fe680ca2c62679ff3638e"
+    },
+    {
+      "archive_path": "results/e6_constrained_semantic_attacks/CICIoMT2024_e6_window_results.csv",
+      "bytes": 257672,
+      "sha256": "6c4e0d2fe59138768f43b53b7dc9347e48fe9eb389d3b7b8e466a26e856f6ec9"
+    },
+    {
+      "archive_path": "results/e6_constrained_semantic_attacks/CICIoMT2024_e6_window_results_partial.csv",
+      "bytes": 257672,
+      "sha256": "6c4e0d2fe59138768f43b53b7dc9347e48fe9eb389d3b7b8e466a26e856f6ec9"
+    },
+    {
+      "archive_path": "results/e6_constrained_semantic_attacks/CICIoT2023_e6_summary.csv",
+      "bytes": 1781,
+      "sha256": "75de88275bbab3be178dde4b32b1be9d03be241a92b15a8df0a0f9f8b0953817"
+    },
+    {
+      "archive_path": "results/e6_constrained_semantic_attacks/CICIoT2023_e6_window_results.csv",
+      "bytes": 275409,
+      "sha256": "46c8f0f80c5ed1dc639c1e326a3ff3fa9c5d416efe9a2a13461206b5baf94a1f"
+    },
+    {
+      "archive_path": "results/e6_constrained_semantic_attacks/CICIoT2023_e6_window_results_partial.csv",
+      "bytes": 275409,
+      "sha256": "46c8f0f80c5ed1dc639c1e326a3ff3fa9c5d416efe9a2a13461206b5baf94a1f"
+    },
+    {
+      "archive_path": "results/e6_constrained_semantic_attacks/e6_all_datasets_summary.csv",
+      "bytes": 3445,
+      "sha256": "fd63018475fc1c3c4406768320a1e97e6b15bdc6a6b8d2a8e48eb2b8dcc9bee8"
+    },
+    {
+      "archive_path": "results/e6_v2_surrogate_transfer/ciciot2023_e6_v2_partial.csv",
+      "bytes": 284194,
+      "sha256": "66dc0a04108e600f7085a550fb5b76bade9fb71efcc7145c88f24a4bbbe00045"
+    },
+    {
+      "archive_path": "results/e6_v2_surrogate_transfer/ciciot2023_e6_v2_protocol.json",
+      "bytes": 1234,
+      "sha256": "895e3b79d8a05028d69f47e15b0df688411f6fe94e6f1728a147ff97a7a24bbf"
+    },
+    {
+      "archive_path": "results/e6_v2_surrogate_transfer/ciciot2023_e6_v2_summary.csv",
+      "bytes": 1899,
+      "sha256": "6277d8b48b0f04ab8d94005e960df873127e24bc433790e8f14485a6c1691420"
+    },
+    {
+      "archive_path": "results/e6_v2_surrogate_transfer/ciciot2023_e6_v2_window_results.csv",
+      "bytes": 284194,
+      "sha256": "66dc0a04108e600f7085a550fb5b76bade9fb71efcc7145c88f24a4bbbe00045"
+    },
+    {
+      "archive_path": "results/e7_baseline_comparison/e7_baseline_results.csv",
+      "bytes": 40041,
+      "sha256": "f63e4d4136ca4c4e034b6080af4cdc3dca1414b0d8c7446468795bbd0160ec11"
+    },
+    {
+      "archive_path": "results/e7_baseline_comparison/e7_baseline_results_partial.csv",
+      "bytes": 40041,
+      "sha256": "f63e4d4136ca4c4e034b6080af4cdc3dca1414b0d8c7446468795bbd0160ec11"
+    },
+    {
+      "archive_path": "results/e7_baseline_comparison/e7_baseline_summary.csv",
+      "bytes": 8426,
+      "sha256": "09d0706d72698caee15c8395e31e334e0ef9c92a994c2cfe53b47b65ca1b37de"
+    },
+    {
+      "archive_path": "results/e7_baseline_comparison/e7_protocol.json",
+      "bytes": 411,
+      "sha256": "944d52d11322834df37b5b40e89b3f86985d46c48455ce9f4651d7b667a31d77"
+    },
+    {
+      "archive_path": "results/e7_1_risk_coverage_v2/collapse_detection_auc.json",
+      "bytes": 201,
+      "sha256": "a13b611765e3097a4ba114802ae9e755b5731ea51bba9bb0ae331cc7ad11ebcc"
+    },
+    {
+      "archive_path": "results/e7_1_risk_coverage_v2/collapse_detection_summary.csv",
+      "bytes": 530,
+      "sha256": "ffe52039ef935665f5859e24b68ded42f9808470904c64d29ccb66e48da11e5e"
+    },
+    {
+      "archive_path": "results/e7_1_risk_coverage_v2/e7_1_window_input_verified.csv",
+      "bytes": 308693,
+      "sha256": "b9caa8ebefb1b7cfbb6c7f9ec6228cb71e26ad51f09c52f818536163264527a4"
+    },
+    {
+      "archive_path": "results/e7_1_risk_coverage_v2/original_monitor_per_seed.csv",
+      "bytes": 3820,
+      "sha256": "1bd54f9284e60151c1f7b10f6aa26458a4248730ad3a89e49a97d1c68071bd0d"
+    },
+    {
+      "archive_path": "results/e7_1_risk_coverage_v2/original_monitor_summary.csv",
+      "bytes": 1342,
+      "sha256": "fcd52b5aa55d8dd9985ed6b76a99e827102a8c0cfb8d9bf4b7cb8ab4fa47f76d"
+    },
+    {
+      "archive_path": "results/e7_1_risk_coverage_v2/semantic_risk_coverage_per_seed.csv",
+      "bytes": 18112,
+      "sha256": "86c3bba89e28ceb164e381381ddd3d0cdb9c3a35576059928c8f1ac4cc40e4ce"
+    },
+    {
+      "archive_path": "results/e7_1_risk_coverage_v2/semantic_risk_coverage_summary.csv",
+      "bytes": 6043,
+      "sha256": "e2167336e8388da8048d23450f4d5da80b91d06ed1ae6f6172660b3ec0098d73"
+    }
+  ]
+}

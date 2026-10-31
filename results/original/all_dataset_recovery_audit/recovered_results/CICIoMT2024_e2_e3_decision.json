@@ -1,0 +1,33 @@
+{
+  "dataset": "CICIoMT2024",
+  "views": [
+    "protocol_state",
+    "timing_rate",
+    "count_burst"
+  ],
+  "clean_trusted_coverage": 0.9333333333333333,
+  "clean_false_suspect_rate": 0.06666666666666667,
+  "clean_false_abstain_rate": 0.0,
+  "e2_e3_pass": true,
+  "source_labels": [
+    "ARP Spoofing",
+    "DDoS ICMP",
+    "DDoS Publish Flood",
+    "DDoS SYN",
+    "DDoS TCP",
+    "DDoS UDP",
+    "DoS Connect Flood",
+    "DoS ICMP",
+    "DoS Publish Flood",
+    "DoS SYN",
+    "DoS TCP"
+  ],
+  "heldout_labels": [
+    "DoS UDP",
+    "Malformed Data",
+    "OS Scan",
+    "Ping Sweep",
+    "Port Scan",
+    "Recon VulScan"
+  ]
+}

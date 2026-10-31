@@ -1,0 +1,47 @@
+{
+  "dataset": "CICIoT2023",
+  "views": [
+    "protocol_state",
+    "volume_size",
+    "count_burst"
+  ],
+  "clean_trusted_coverage": 0.9375,
+  "clean_false_suspect_rate": 0.0,
+  "clean_false_abstain_rate": 0.0625,
+  "e2_e3_pass": true,
+  "source_labels": [
+    "Backdoor_Malware",
+    "BrowserHijacking",
+    "CommandInjection",
+    "DDoS-ACK_Fragmentation",
+    "DDoS-HTTP_Flood",
+    "DDoS-ICMP_Flood",
+    "DDoS-ICMP_Fragmentation",
+    "DDoS-PSHACK_Flood",
+    "DDoS-RSTFINFlood",
+    "DDoS-SYN_Flood",
+    "DDoS-SlowLoris",
+    "DDoS-SynonymousIP_Flood",
+    "DDoS-TCP_Flood",
+    "DDoS-UDP_Flood",
+    "DDoS-UDP_Fragmentation",
+    "DNS_Spoofing",
+    "DictionaryBruteForce",
+    "DoS-HTTP_Flood",
+    "DoS-SYN_Flood"
+  ],
+  "heldout_labels": [
+    "DoS-TCP_Flood",
+    "DoS-UDP_Flood",
+    "MITM-ArpSpoofing",
+    "Mirai-greeth_flood",
+    "Mirai-greip_flood",
+    "Mirai-udpplain",
+    "Recon-HostDiscovery",
+    "Recon-OSScan",
+    "Recon-PortScan",
+    "SqlInjection",
+    "VulnerabilityScan",
+    "XSS"
+  ]
+}

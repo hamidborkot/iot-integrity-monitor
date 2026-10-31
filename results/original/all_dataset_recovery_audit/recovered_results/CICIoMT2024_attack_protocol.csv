@@ -1,0 +1,18 @@
+dataset,attack_label,role,per_label_used
+CICIoMT2024,ARP Spoofing,source,926
+CICIoMT2024,DDoS ICMP,source,926
+CICIoMT2024,DDoS Publish Flood,source,926
+CICIoMT2024,DDoS SYN,source,926
+CICIoMT2024,DDoS TCP,source,926
+CICIoMT2024,DDoS UDP,source,926
+CICIoMT2024,DoS Connect Flood,source,926
+CICIoMT2024,DoS ICMP,source,926
+CICIoMT2024,DoS Publish Flood,source,926
+CICIoMT2024,DoS SYN,source,926
+CICIoMT2024,DoS TCP,source,926
+CICIoMT2024,DoS UDP,heldout,926
+CICIoMT2024,Malformed Data,heldout,926
+CICIoMT2024,OS Scan,heldout,926
+CICIoMT2024,Ping Sweep,heldout,926
+CICIoMT2024,Port Scan,heldout,926
+CICIoMT2024,Recon VulScan,heldout,926
