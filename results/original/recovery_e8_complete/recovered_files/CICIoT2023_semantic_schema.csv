@@ -1,0 +1,47 @@
+dataset,feature,semantic_view
+CICIoT2023,Header_Length,protocol_state
+CICIoT2023,Protocol Type,protocol_state
+CICIoT2023,fin_flag_number,protocol_state
+CICIoT2023,syn_flag_number,protocol_state
+CICIoT2023,rst_flag_number,protocol_state
+CICIoT2023,psh_flag_number,protocol_state
+CICIoT2023,ack_flag_number,protocol_state
+CICIoT2023,ece_flag_number,protocol_state
+CICIoT2023,cwr_flag_number,protocol_state
+CICIoT2023,TCP,protocol_state
+CICIoT2023,UDP,protocol_state
+CICIoT2023,ICMP,protocol_state
+CICIoT2023,HTTP,application_protocol
+CICIoT2023,HTTPS,application_protocol
+CICIoT2023,DNS,application_protocol
+CICIoT2023,Telnet,application_protocol
+CICIoT2023,SMTP,application_protocol
+CICIoT2023,SSH,application_protocol
+CICIoT2023,IRC,application_protocol
+CICIoT2023,DHCP,application_protocol
+CICIoT2023,ARP,application_protocol
+CICIoT2023,LLC,application_protocol
+CICIoT2023,flow_duration,timing_rate
+CICIoT2023,Duration,timing_rate
+CICIoT2023,Rate,timing_rate
+CICIoT2023,Srate,timing_rate
+CICIoT2023,Drate,timing_rate
+CICIoT2023,IAT,timing_rate
+CICIoT2023,Tot size,volume_size
+CICIoT2023,ack_count,count_burst
+CICIoT2023,syn_count,count_burst
+CICIoT2023,fin_count,count_burst
+CICIoT2023,urg_count,count_burst
+CICIoT2023,rst_count,count_burst
+CICIoT2023,IPv,count_burst
+CICIoT2023,Tot sum,count_burst
+CICIoT2023,Min,count_burst
+CICIoT2023,Max,count_burst
+CICIoT2023,AVG,count_burst
+CICIoT2023,Std,count_burst
+CICIoT2023,Number,count_burst
+CICIoT2023,Magnitue,count_burst
+CICIoT2023,Radius,count_burst
+CICIoT2023,Covariance,count_burst
+CICIoT2023,Variance,count_burst
+CICIoT2023,Weight,count_burst

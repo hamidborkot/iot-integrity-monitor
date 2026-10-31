@@ -1,0 +1,18 @@
+{
+  "study": "IoT_integrity_monitoring",
+  "experiment": "E1_corrected_v2",
+  "dataset": "TON_IoT",
+  "seed": 10,
+  "pass_": false,
+  "primary_threshold": 0.6994734351418557,
+  "primary_clean_normal_fpr": 0.0499,
+  "primary_source_balanced_accuracy": 0.8822,
+  "primary_zero_day_balanced_accuracy": 0.6494,
+  "accepted_views": [
+    "context_state"
+  ],
+  "accepted_view_count": 1,
+  "required_minimum_accepted_views": 4,
+  "next_action_if_pass": "Proceed to E2 only.",
+  "next_action_if_fail": "Do not run attacks; revise schema or declare TON-IoT a boundary failure."
+}

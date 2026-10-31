@@ -1,0 +1,5 @@
+dataset,split,rows,attack_fraction,row_id_sha256
+CICIoT2023,train,10906,0.5,6a930562e897c8c9ad83
+CICIoT2023,normal_reference,2166,0.0,22dce57d76f21249a7e3
+CICIoT2023,source_test,6574,0.5,4ad04ec1489d9e63eb43
+CICIoT2023,zero_test,13776,0.5,0493522cbd771a58c77f

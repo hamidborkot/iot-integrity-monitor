@@ -1,0 +1,19 @@
+{
+  "dataset": "CICIoT2023",
+  "primary_metric": "differential_accuracy_estimation_error",
+  "attack_view": "volume_size",
+  "damage_threshold": 0.05,
+  "estimation_baselines": [
+    "AC",
+    "DoC",
+    "ATC",
+    "GDE",
+    "ALine"
+  ],
+  "selective_baselines": [
+    "primary_confidence_abstention",
+    "drift_only_semantic_monitor",
+    "competence_only_semantic_monitor",
+    "full_semantic_monitor"
+  ]
+}
