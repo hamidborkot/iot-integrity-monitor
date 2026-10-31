@@ -1,0 +1,19 @@
+{
+  "status": "BACKUP_CREATED_AND_VERIFIED",
+  "backup_created_utc": "2026-10-09T14:50:48.886225+00:00",
+  "archive": "/kaggle/working/PRIVATE_FULL_WORKING_BACKUP_20261009T144948Z.zip",
+  "archive_sha256": "e7c8f750a356a8f72b0eab9486535c0bcb6ba46363fe38cb4a0cb8afe7540319",
+  "archive_bytes": 275227295,
+  "archived_regular_file_count": 6758,
+  "zip_member_count": 6758,
+  "zip_integrity_test": "PASSED",
+  "source_manifest": "/kaggle/working/TODAY_BACKUP_FILE_MANIFEST_20261009T144948Z.json",
+  "session_history_snapshot": "/kaggle/working/TODAY_SESSION_INPUT_HISTORY_20261009T144948Z.py",
+  "checksum_file": "/kaggle/working/PRIVATE_FULL_WORKING_BACKUP_20261009T144948Z.zip.sha256",
+  "elapsed_seconds": 41.36,
+  "models_trained": false,
+  "attacks_executed": false,
+  "records_modified": false,
+  "synthetic_data_generated": false,
+  "packet_valid_attack_approved": false
+}

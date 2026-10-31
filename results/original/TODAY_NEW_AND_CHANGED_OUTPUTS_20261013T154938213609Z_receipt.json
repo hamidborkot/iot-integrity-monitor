@@ -1,0 +1,12 @@
+{
+  "status": "DELTA_BACKUP_COMPLETE_AND_SHA256_VERIFIED",
+  "archive": "TODAY_NEW_AND_CHANGED_OUTPUTS_20261013T154938213609Z.zip",
+  "archive_size_MiB": 3.86,
+  "archive_sha256": "37e7ce508c31369eb0ffac8d9b8787895e9abe0cade1d991e8849e010af5a621",
+  "new_or_changed_regular_files_included": 279,
+  "byte_identical_prior_files_skipped": 8320,
+  "baseline_datasets_verified": 8,
+  "session_source_included": true,
+  "research_files_deleted": 0,
+  "restore_requires_existing_baseline_backups": true
+}

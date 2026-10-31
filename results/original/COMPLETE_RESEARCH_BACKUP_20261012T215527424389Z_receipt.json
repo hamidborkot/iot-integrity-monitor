@@ -1,0 +1,19 @@
+{
+  "status": "BACKUP_COMPLETE_AND_VERIFIED",
+  "archive": "COMPLETE_RESEARCH_BACKUP_20261012T215527424389Z.zip",
+  "archive_GiB": 8.1202,
+  "archive_sha256": "4bf72871514db0052b74302b2e4c24dccaede04079a6525afe92950745c13fca",
+  "verified_files": 5206,
+  "deleted_old_split_backup_parts": [
+    {
+      "name": "complete_kaggle_output.z01",
+      "bytes": 2147483648
+    },
+    {
+      "name": "complete_kaggle_output.zip",
+      "bytes": 1175226526
+    }
+  ],
+  "other_research_files_deleted": false,
+  "scope": "/kaggle/working only"
+}

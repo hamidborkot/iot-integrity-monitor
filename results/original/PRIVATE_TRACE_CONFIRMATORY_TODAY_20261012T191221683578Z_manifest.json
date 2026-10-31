@@ -1,0 +1,11 @@
+{
+  "zip_path": "/kaggle/working/PRIVATE_TRACE_CONFIRMATORY_TODAY_20261012T191221683578Z.zip",
+  "zip_bytes": 1110215448,
+  "zip_GiB": 1.034,
+  "zip_sha256": "2110113e63099b60c617909b6804bb7e9115ed6beaa9297d07e7a5ef04e41700",
+  "artifact_count": 267,
+  "source_bytes": 4203983646,
+  "partial_E4_artifacts_included": true,
+  "original_input_datasets_included": false,
+  "status": "VERIFIED_PRIVATE_TRACE_CONFIRMATORY_BACKUP_COMPLETE"
+}

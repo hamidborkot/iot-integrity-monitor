@@ -1,0 +1,19 @@
+{
+  "archive": "/kaggle/working/PRIVATE_ALL_WORKING_20261010T211031179796Z.zip",
+  "checksum_file": "/kaggle/working/PRIVATE_ALL_WORKING_20261010T211031179796Z.zip.sha256",
+  "receipt_file": "/kaggle/working/PRIVATE_ALL_WORKING_20261010T211031179796Z.receipt.json",
+  "archive_bytes": 733130689,
+  "archive_GiB": 0.683,
+  "source_bytes": 3513502483,
+  "archived_regular_files": 8173,
+  "archived_symlinks": 0,
+  "CRC_verified": true,
+  "sha256": "0a198401e8590aead6bb89309685af7715cc88d70addcc52e1dea0b38a28a349",
+  "models_and_results_included": true,
+  "existing_ZIP_backups_included": true,
+  "hidden_directories_included": true,
+  "executed_history_saved": true,
+  "full_notebook_export_still_required": true,
+  "raw_input_datasets_included": false,
+  "private_only": true
+}
