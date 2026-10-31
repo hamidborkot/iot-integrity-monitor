@@ -1,0 +1,46 @@
+dataset,feature,semantic_view
+CICIoMT2024,Protocol Type,protocol_state
+CICIoMT2024,fin_flag_number,protocol_state
+CICIoMT2024,syn_flag_number,protocol_state
+CICIoMT2024,rst_flag_number,protocol_state
+CICIoMT2024,psh_flag_number,protocol_state
+CICIoMT2024,ack_flag_number,protocol_state
+CICIoMT2024,ece_flag_number,protocol_state
+CICIoMT2024,cwr_flag_number,protocol_state
+CICIoMT2024,TCP,protocol_state
+CICIoMT2024,UDP,protocol_state
+CICIoMT2024,ICMP,protocol_state
+CICIoMT2024,HTTP,application_protocol
+CICIoMT2024,HTTPS,application_protocol
+CICIoMT2024,DNS,application_protocol
+CICIoMT2024,Telnet,application_protocol
+CICIoMT2024,SMTP,application_protocol
+CICIoMT2024,SSH,application_protocol
+CICIoMT2024,IRC,application_protocol
+CICIoMT2024,DHCP,application_protocol
+CICIoMT2024,ARP,application_protocol
+CICIoMT2024,IGMP,application_protocol
+CICIoMT2024,IPv,application_protocol
+CICIoMT2024,LLC,application_protocol
+CICIoMT2024,Duration,timing_rate
+CICIoMT2024,Rate,timing_rate
+CICIoMT2024,Srate,timing_rate
+CICIoMT2024,Drate,timing_rate
+CICIoMT2024,IAT,timing_rate
+CICIoMT2024,Header_Length,volume_size
+CICIoMT2024,Tot sum,volume_size
+CICIoMT2024,Tot size,volume_size
+CICIoMT2024,Number,volume_size
+CICIoMT2024,Min,volume_size
+CICIoMT2024,Max,volume_size
+CICIoMT2024,AVG,volume_size
+CICIoMT2024,Std,volume_size
+CICIoMT2024,ack_count,count_burst
+CICIoMT2024,syn_count,count_burst
+CICIoMT2024,fin_count,count_burst
+CICIoMT2024,rst_count,count_burst
+CICIoMT2024,Magnitue,count_burst
+CICIoMT2024,Radius,count_burst
+CICIoMT2024,Covariance,count_burst
+CICIoMT2024,Variance,count_burst
+CICIoMT2024,Weight,count_burst

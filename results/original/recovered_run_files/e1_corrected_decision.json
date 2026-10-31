@@ -1,0 +1,16 @@
+{
+  "study": "IoT_integrity_monitoring",
+  "experiment": "E1_corrected_semantic_view_screening",
+  "dataset": "TON_IoT",
+  "seed": 10,
+  "pass": false,
+  "primary_threshold": 0.6938772594147166,
+  "primary_clean_normal_fpr": 0.05,
+  "primary_source_balanced_accuracy": 0.8995,
+  "primary_zero_day_balanced_accuracy": 0.65644,
+  "accepted_views": [],
+  "accepted_view_count": 0,
+  "required_minimum_accepted_views": 4,
+  "next_action_if_pass": "Proceed only to E2: frozen primary-baseline validation and clean selective-monitor calibration.",
+  "next_action_if_fail": "Do not run attacks. Revise only failed semantic views and rerun this E1-corrected notebook."
+}
