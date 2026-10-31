@@ -1,0 +1,1049 @@
+1. Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libbroker-8.0-dev libdbus-1-dev libmaxminddb-dev libpcap-dev libpcap0.8-dev
+  libpcap0.8t64 python3-git python3-gitdb python3-semantic-version
+  python3-smmap zeek-8.0-btest zeek-8.0-btest-data zeek-8.0-client
+  zeek-8.0-core zeek-8.0-core-dev zeek-8.0-spicy-dev zeek-8.0-zkg zeekctl-8.0
+Suggested packages:
+  python-git-doc python-semantic-version-doc
+Recommended packages:
+  mail-transport-agent
+The following NEW packages will be installed:
+  libbroker-8.0-dev libdbus-1-dev libmaxminddb-dev libpcap-dev libpcap0.8-dev
+  libpcap0.8t64 python3-git python3-gitdb python3-semantic-version
+  python3-smmap zeek-8.0 zeek-8.0-btest zeek-8.0-btest-data zeek-8.0-client
+  zeek-8.0-core zeek-8.0-core-dev zeek-8.0-spicy-dev zeek-8.0-zkg zeekctl-8.0
+0 upgraded, 19 newly installed, 0 to remove and 69 not upgraded.
+Need to get 66.7 MB of archives.
+After this operation, 318 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpcap0.8t64 amd64 1.10.4-4.1ubuntu3.1 [151 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libdbus-1-dev amd64 1.14.10-4ubuntu4.1 [190 kB]
+Get:8 https://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04  zeek-8.0-btest 1:8.0.10-0 [37.0 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 libmaxminddb-dev amd64 1.9.1-1build1 [31.6 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpcap0.8-dev amd64 1.10.4-4.1ubuntu3.1 [269 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpcap-dev amd64 1.10.4-4.1ubuntu3.1 [3,324 B]
+Get:13 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-smmap all 6.0.0-1 [20.5 kB]
+Get:14 https://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04  zeek-8.0-zkg 1:8.0.10-0 [59.6 kB]
+Get:15 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-gitdb all 4.0.11-1 [46.2 kB]
+Get:16 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-git all 3.1.37-3 [138 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-semantic-version all 2.10.0-2 [15.1 kB]
+Get:18 https://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04  zeek-8.0-client 1:8.0.10-0 [29.9 kB]
+Get:19 https://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04  zeek-8.0 1:8.0.10-0 [936 B]
+Get:2 https://slc-mirror.opensuse.org/repositories/security%3A/zeek/xUbuntu_24.04  libbroker-8.0-dev 1:8.0.10-0 [2,097 kB]
+Get:4 https://slc-mirror.opensuse.org/repositories/security%3A/zeek/xUbuntu_24.04  zeek-8.0-core 1:8.0.10-0 [10.8 MB]
+Get:5 https://slc-mirror.opensuse.org/repositories/security%3A/zeek/xUbuntu_24.04  zeekctl-8.0 1:8.0.10-0 [3,437 kB]
+Get:6 https://slc-mirror.opensuse.org/repositories/security%3A/zeek/xUbuntu_24.04  zeek-8.0-core-dev 1:8.0.10-0 [1,084 kB]
+Get:7 https://slc-mirror.opensuse.org/repositories/security%3A/zeek/xUbuntu_24.04  zeek-8.0-spicy-dev 1:8.0.10-0 [30.3 MB]
+Get:11 https://slc-mirror.opensuse.org/repositories/security%3A/zeek/xUbuntu_24.04  zeek-8.0-btest-data 1:8.0.10-0 [18.0 MB]
+Fetched 66.7 MB in 3s (19.6 MB/s)
+Selecting previously unselected package libpcap0.8t64:amd64.
+(Reading database ... 125659 files and directories currently installed.)
+Preparing to unpack .../00-libpcap0.8t64_1.10.4-4.1ubuntu3.1_amd64.deb ...
+Unpacking libpcap0.8t64:amd64 (1.10.4-4.1ubuntu3.1) ...
+Selecting previously unselected package libbroker-8.0-dev.
+Preparing to unpack .../01-libbroker-8.0-dev_1%3a8.0.10-0_amd64.deb ...
+Unpacking libbroker-8.0-dev (1:8.0.10-0) ...
+Selecting previously unselected package libdbus-1-dev:amd64.
+Preparing to unpack .../02-libdbus-1-dev_1.14.10-4ubuntu4.1_amd64.deb ...
+Unpacking libdbus-1-dev:amd64 (1.14.10-4ubuntu4.1) ...
+Selecting previously unselected package libmaxminddb-dev:amd64.
+Preparing to unpack .../03-libmaxminddb-dev_1.9.1-1build1_amd64.deb ...
+Unpacking libmaxminddb-dev:amd64 (1.9.1-1build1) ...
+Selecting previously unselected package libpcap0.8-dev:amd64.
+Preparing to unpack .../04-libpcap0.8-dev_1.10.4-4.1ubuntu3.1_amd64.deb ...
+Unpacking libpcap0.8-dev:amd64 (1.10.4-4.1ubuntu3.1) ...
+Selecting previously unselected package libpcap-dev:amd64.
+Preparing to unpack .../05-libpcap-dev_1.10.4-4.1ubuntu3.1_amd64.deb ...
+Unpacking libpcap-dev:amd64 (1.10.4-4.1ubuntu3.1) ...
+Selecting previously unselected package python3-smmap.
+Preparing to unpack .../06-python3-smmap_6.0.0-1_all.deb ...
+Unpacking python3-smmap (6.0.0-1) ...
+Selecting previously unselected package python3-gitdb.
+Preparing to unpack .../07-python3-gitdb_4.0.11-1_all.deb ...
+Unpacking python3-gitdb (4.0.11-1) ...
+Selecting previously unselected package python3-git.
+Preparing to unpack .../08-python3-git_3.1.37-3_all.deb ...
+Unpacking python3-git (3.1.37-3) ...
+Selecting previously unselected package python3-semantic-version.
+Preparing to unpack .../09-python3-semantic-version_2.10.0-2_all.deb ...
+Unpacking python3-semantic-version (2.10.0-2) ...
+Selecting previously unselected package zeek-8.0-core.
+Preparing to unpack .../10-zeek-8.0-core_1%3a8.0.10-0_amd64.deb ...
+Unpacking zeek-8.0-core (1:8.0.10-0) ...
+Selecting previously unselected package zeekctl-8.0.
+Preparing to unpack .../11-zeekctl-8.0_1%3a8.0.10-0_amd64.deb ...
+Unpacking zeekctl-8.0 (1:8.0.10-0) ...
+Selecting previously unselected package zeek-8.0-core-dev.
+Preparing to unpack .../12-zeek-8.0-core-dev_1%3a8.0.10-0_amd64.deb ...
+Unpacking zeek-8.0-core-dev (1:8.0.10-0) ...
+Selecting previously unselected package zeek-8.0-spicy-dev.
+Preparing to unpack .../13-zeek-8.0-spicy-dev_1%3a8.0.10-0_amd64.deb ...
+Unpacking zeek-8.0-spicy-dev (1:8.0.10-0) ...
+Selecting previously unselected package zeek-8.0-btest.
+Preparing to unpack .../14-zeek-8.0-btest_1%3a8.0.10-0_all.deb ...
+Unpacking zeek-8.0-btest (1:8.0.10-0) ...
+Selecting previously unselected package zeek-8.0-btest-data.
+Preparing to unpack .../15-zeek-8.0-btest-data_1%3a8.0.10-0_all.deb ...
+Unpacking zeek-8.0-btest-data (1:8.0.10-0) ...
+Selecting previously unselected package zeek-8.0-zkg.
+Preparing to unpack .../16-zeek-8.0-zkg_1%3a8.0.10-0_all.deb ...
+Unpacking zeek-8.0-zkg (1:8.0.10-0) ...
+Selecting previously unselected package zeek-8.0-client.
+Preparing to unpack .../17-zeek-8.0-client_1%3a8.0.10-0_all.deb ...
+Unpacking zeek-8.0-client (1:8.0.10-0) ...
+Selecting previously unselected package zeek-8.0.
+Preparing to unpack .../18-zeek-8.0_1%3a8.0.10-0_amd64.deb ...
+Unpacking zeek-8.0 (1:8.0.10-0) ...
+Setting up libmaxminddb-dev:amd64 (1.9.1-1build1) ...
+Setting up zeek-8.0-btest (1:8.0.10-0) ...
+Setting up libbroker-8.0-dev (1:8.0.10-0) ...
+Setting up libdbus-1-dev:amd64 (1.14.10-4ubuntu4.1) ...
+Setting up zeek-8.0-btest-data (1:8.0.10-0) ...
+Setting up python3-semantic-version (2.10.0-2) ...
+Setting up libpcap0.8t64:amd64 (1.10.4-4.1ubuntu3.1) ...
+Setting up python3-smmap (6.0.0-1) ...
+Setting up zeek-8.0-core (1:8.0.10-0) ...
+Setting up zeek-8.0-client (1:8.0.10-0) ...
+Setting up python3-gitdb (4.0.11-1) ...
+Setting up zeekctl-8.0 (1:8.0.10-0) ...
+Setting up python3-git (3.1.37-3) ...
+Processing triggers for sgml-base (1.31) ...
+Setting up libpcap0.8-dev:amd64 (1.10.4-4.1ubuntu3.1) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+/sbin/ldconfig.real: /usr/local/lib/libtbbbind_2_5.so.3 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libur_adapter_level_zero.so.0 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libtcm.so.1 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libtbbbind.so.3 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libur_adapter_level_zero_v2.so.0 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libtbbbind_2_0.so.3 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libur_loader.so.0 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libtbb.so.12 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libumf.so.1 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libtcm_debug.so.1 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libur_adapter_opencl.so.0 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libtbbmalloc_proxy.so.2 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libtbbmalloc.so.2 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libhwloc.so.15 is not a symbolic link
+
+Processing triggers for man-db (2.12.0-4build2) ...
+Setting up libpcap-dev:amd64 (1.10.4-4.1ubuntu3.1) ...
+Setting up zeek-8.0-core-dev (1:8.0.10-0) ...
+Setting up zeek-8.0-spicy-dev (1:8.0.10-0) ...
+Setting up zeek-8.0-zkg (1:8.0.10-0) ...
+Setting up zeek-8.0 (1:8.0.10-0) ...
+{
+  "created_utc": "2026-10-12T10:24:35.242844+00:00",
+  "input": "/kaggle/input/datasets/mdhamidborkottulla/all-kaggle-work",
+  "selected_base": "/kaggle/input/datasets/mdhamidborkottulla/all-kaggle-work",
+  "alternate_bases_not_merged": [],
+  "files_selected": 4540,
+  "copied": 4535,
+  "symlinked_large_read_only": 5,
+  "skipped_existing": 0,
+  "conflicts": 0,
+  "copy_threshold_MiB": 64.0,
+  "free_GiB_after_restore": 17.708,
+  "latest_C0_directory": "/kaggle/working/TRACE_C0_PAIRED_VALIDITY_20261011T193011507508Z",
+  "latest_C0_receipt": {
+    "output_directory": "/kaggle/working/TRACE_C0_PAIRED_VALIDITY_20261011T193011507508Z",
+    "engineering_cases_planned": 2,
+    "engineering_cases_completed": 2,
+    "explicit_errors": 0,
+    "packet_content_identity_checks_computed": 2,
+    "label_mapping_computed": 2,
+    "models_trained": false,
+    "detector_attack_efficacy_evaluated": false,
+    "confirmatory_results_generated": false,
+    "primary_allocation_frozen": false,
+    "published_labels_replaced": false,
+    "NF_changed": false,
+    "packet_valid_attack_approved": false,
+    "next_step": "Review actual format/flow mapping and duration changes, then precommit final transformation budget and trace allocation before training/attack-efficacy outcomes."
+  },
+  "verification_status_counts": {
+    "VERIFIED": 10,
+    "ERROR": 4
+  },
+  "models_trained": false,
+  "attacks_executed": false,
+  "NF_changed": false,
+  "extraction_rerun": false,
+  "zeek_binary": "/opt/zeek/bin/zeek",
+  "zeek_status": "INSTALLED_THIS_RUNTIME",
+  "zeek_version": "/opt/zeek/bin/zeek version 8.0.10"
+}
+
+VERIFICATION
+                                                                       item                                                                                                           path       bytes   status                                                                                                                                                                    error
+                                                   CICIoT2023_bundle.joblib         /kaggle/working/resume_verified_20261011T144807877506Z/development/CICIoT2023/CICIoT2023_bundle.joblib   3896011.0 VERIFIED                                                                                                                                                                      NaN
+                                                  CICIoMT2024_bundle.joblib       /kaggle/working/resume_verified_20261011T144807877506Z/development/CICIoMT2024/CICIoMT2024_bundle.joblib   2236875.0 VERIFIED                                                                                                                                                                      NaN
+                                                          CSE_bundle.joblib                       /kaggle/working/resume_verified_20261011T144807877506Z/development/CSE/CSE_bundle.joblib   7257826.0 VERIFIED                                                                                                                                                                      NaN
+                                                          NSL_bundle.joblib                       /kaggle/working/resume_verified_20261011T144807877506Z/development/NSL/NSL_bundle.joblib    818311.0 VERIFIED                                                                                                                                                                      NaN
+                                                       TONIoT_bundle.joblib                 /kaggle/working/resume_verified_20261011T144807877506Z/development/TONIoT/TONIoT_bundle.joblib    558995.0 VERIFIED                                                                                                                                                                      NaN
+                                                    NF_target_panels.joblib     /kaggle/working/resume_verified_20261011T144807877506Z/nf_step4_target_contract_v2/NF_target_panels.joblib    616924.0 VERIFIED                                                                                                                                                                      NaN
+                                                       boundary_result.json      /kaggle/working/resume_verified_20261011T144807877506Z/nf_step5_locked_evaluation_v1/boundary_result.json       727.0 VERIFIED                                                                                                                                                                      NaN
+         linked:CTU-IoT-Malware-Capture-1-1:2018-05-09-192.168.100.103.pcap     /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv 226060819.0 VERIFIED                                                                                                                                                                      NaN
+                               linked:CTU-IoT-Malware-Capture-3-1:test.pcap     /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv      2107.0 VERIFIED                                                                                                                                                                      NaN
+                 linked:CTU-IoT-Malware-Capture-3-1:2018-05-21_capture.pcap     /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv  37005958.0 VERIFIED                                                                                                                                                                      NaN
+linked:CTU-IoT-Malware-Capture-7-1:2018-07-20-17-31-20-192.168.100.108.pcap /kaggle/working/TRACE_LINKAGE_STREAM_v2/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv.gz         NaN    ERROR FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/working/TRACE_LINKAGE_STREAM_v2/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv.gz'
+linked:CTU-IoT-Malware-Capture-8-1:2018-07-31-15-15-09-192.168.100.113.pcap /kaggle/working/TRACE_LINKAGE_STREAM_v2/CTU-IoT-Malware-Capture-8-1/80dcc2602519479ddcde/linked_records.csv.gz         NaN    ERROR FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/working/TRACE_LINKAGE_STREAM_v2/CTU-IoT-Malware-Capture-8-1/80dcc2602519479ddcde/linked_records.csv.gz'
+                             linked:CTU-IoT-Malware-Capture-9-1:telnet.pcap /kaggle/working/TRACE_LINKAGE_STREAM_v2/CTU-IoT-Malware-Capture-9-1/00fc35fd219f286784bd/linked_records.csv.gz         NaN    ERROR FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/working/TRACE_LINKAGE_STREAM_v2/CTU-IoT-Malware-Capture-9-1/00fc35fd219f286784bd/linked_records.csv.gz'
+linked:CTU-IoT-Malware-Capture-9-1:2018-07-25-10-53-16-192.168.100.111.pcap /kaggle/working/TRACE_LINKAGE_STREAM_v2/CTU-IoT-Malware-Capture-9-1/cee9d9474122b8093a74/linked_records.csv.gz         NaN    ERROR FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/working/TRACE_LINKAGE_STREAM_v2/CTU-IoT-Malware-Capture-9-1/cee9d9474122b8093a74/linked_records.csv.gz'
+
+RESTORED TOP-LEVEL DIRECTORIES
+                                      directory  files      bytes
+                         TRACE_LINKAGE_BATCH_v1     61 1735436300
+         resume_verified_20261011T144807877506Z   3122 1127824583
+      PLAN_CLOSURE_AUDIT_20261011T152520447854Z    410  411800844
+      PLAN_CLOSURE_AUDIT_20261011T153510820175Z    414  411706986
+TRACE_C0_PAIRED_VALIDITY_20261011T193011507508Z     20    9063908
+TRACE_C0_PAIRED_VALIDITY_20261011T192039732033Z     20    9063905
+TRACE_C0_PAIRED_VALIDITY_20261011T191854931117Z     20    9063845
+    TRACE_LABEL_FIDELITY_20261011T162741467074Z      7    4304032
+      TRACE_CLEAN_REPLAY_20261011T161846072286Z     17    3822594
+                             .virtual_documents      1    2201229
+    TRACE_VERSION_SOURCE_20261011T185218378382Z     14     574411
+    TRACE_LABEL_RECOVERY_20261011T153846517131Z    123     446342
+    TRACE_LABEL_RECOVERY_20261011T154804055259Z    123     446342
+    TRACE_LABEL_RECOVERY_20261011T155635986648Z    123     446342
+                        TRACE_LINKAGE_STREAM_v2     33     250416
+       TRACE_RULE_FORMAT_20261011T161233521891Z      6      53631
+ TRACE_PUBLIC_SOURCE_FIX_20261011T190202227298Z     13      29668
+      TRACE_CLOSING_PAIR_20261011T183842019633Z      8      21290
+                                    trace_tools      3       4600
+
+2. 
+{
+  "output_directory": "/kaggle/working/TRACE_TRANSFORMABILITY_CENSUS_20261012T105053007876Z",
+  "sources_counted": 5,
+  "sources_incompatible": 0,
+  "models_trained": false,
+  "attacks_executed": false,
+  "Zeek_rerun": false,
+  "selection_by_model_outcome": false,
+  "purpose": "Design evidence for padding/injection feasibility only"
+}
+
+SOURCES
+                   scenario                                                                                                       path  status    rows
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv COUNTED 1008710
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv COUNTED       8
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv COUNTED  156103
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv COUNTED   77395
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv COUNTED   10403
+
+TRANSFORMABILITY SUMMARY
+                   scenario    rows  malicious  benign  malicious_tcp_fraction  malicious_udp_fraction  malicious_icmp_fraction  benign_tcp_fraction  benign_udp_fraction  malicious_single_packet_fraction  malicious_over_3_packets_fraction
+CTU-IoT-Malware-Capture-1-1 1008710     539473  469237                  0.9999                  0.0001                      0.0               0.0930               0.8698                            0.6558                             0.0153
+CTU-IoT-Malware-Capture-3-1       8          8       0                  1.0000                  0.0000                      0.0                  NaN                  NaN                            0.0000                             0.7500
+CTU-IoT-Malware-Capture-3-1  156103     151567    4536                  1.0000                  0.0000                      0.0               0.5712               0.1627                            0.4813                             0.0391
+CTU-IoT-Malware-Capture-7-1   77395      77225     170                  1.0000                  0.0000                      0.0               0.0176               0.6824                            0.9996                             0.0000
+CTU-IoT-Malware-Capture-8-1   10403       8222    2181                  1.0000                  0.0000                      0.0               0.0009               0.9991                            0.7499                             0.0000
+
+PROTO x LABEL
+                   scenario                                                                                                     source proto     label  flows
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv   tcp malicious 539439
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv   udp    benign 408159
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv   tcp    benign  43657
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv  icmp    benign  17421
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv   udp malicious     34
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv   tcp malicious 151567
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv   tcp    benign   2591
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv  icmp    benign   1207
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv   udp    benign    738
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv   tcp malicious      8
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv   tcp malicious  77225
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv   udp    benign    116
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv  icmp    benign     51
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv   tcp    benign      3
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv   tcp malicious   8222
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv   udp    benign   2179
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv   tcp    benign      2
+
+ORIG PACKETS x LABEL
+                   scenario                                                                                                     source orig_pkt_bucket     label  flows
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv               1    benign 452994
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv               1 malicious 353775
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv             2-3 malicious 177442
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv             2-3    benign  15850
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv             >10 malicious   4157
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv            4-10 malicious   4099
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv            4-10    benign    381
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv             >10    benign     12
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv               1 malicious  72947
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv             2-3 malicious  72691
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv             >10 malicious   5844
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv               1    benign   3668
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv             2-3    benign    632
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv             >10    benign    216
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv            4-10 malicious     85
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv            4-10    benign     20
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv             >10 malicious      5
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv             2-3 malicious      2
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv            4-10 malicious      1
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv               1 malicious  77197
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv               1    benign    155
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv             2-3 malicious     28
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv            4-10    benign      8
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv             2-3    benign      5
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv             >10    benign      2
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv               1 malicious   6166
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv               1    benign   2181
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv             2-3 malicious   2056
+
+3. {
+  "output_directory": "/kaggle/working/TRACE_TRANSFORMABILITY_CENSUS_20261012T105825201766Z",
+  "sources_counted": 5,
+  "sources_incompatible": 0,
+  "models_trained": false,
+  "attacks_executed": false,
+  "Zeek_rerun": false,
+  "selection_by_model_outcome": false,
+  "purpose": "Design evidence for padding/injection feasibility only"
+}
+
+SOURCES
+                   scenario                                                                                                       path  status    rows
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv COUNTED 1008710
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv COUNTED       8
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv COUNTED  156103
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv COUNTED   77395
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv COUNTED   10403
+
+TRANSFORMABILITY SUMMARY
+                   scenario    rows  malicious  benign  malicious_tcp_fraction  malicious_udp_fraction  malicious_icmp_fraction  benign_tcp_fraction  benign_udp_fraction  malicious_single_packet_fraction  malicious_over_3_packets_fraction
+CTU-IoT-Malware-Capture-1-1 1008710     539473  469237                  0.9999                  0.0001                      0.0               0.0930               0.8698                            0.6558                             0.0153
+CTU-IoT-Malware-Capture-3-1       8          8       0                  1.0000                  0.0000                      0.0                  NaN                  NaN                            0.0000                             0.7500
+CTU-IoT-Malware-Capture-3-1  156103     151567    4536                  1.0000                  0.0000                      0.0               0.5712               0.1627                            0.4813                             0.0391
+CTU-IoT-Malware-Capture-7-1   77395      77225     170                  1.0000                  0.0000                      0.0               0.0176               0.6824                            0.9996                             0.0000
+CTU-IoT-Malware-Capture-8-1   10403       8222    2181                  1.0000                  0.0000                      0.0               0.0009               0.9991                            0.7499                             0.0000
+
+PROTO x LABEL
+                   scenario                                                                                                     source proto     label  flows
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv   tcp malicious 539439
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv   udp    benign 408159
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv   tcp    benign  43657
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv  icmp    benign  17421
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv   udp malicious     34
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv   tcp malicious 151567
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv   tcp    benign   2591
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv  icmp    benign   1207
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv   udp    benign    738
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv   tcp malicious      8
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv   tcp malicious  77225
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv   udp    benign    116
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv  icmp    benign     51
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv   tcp    benign      3
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv   tcp malicious   8222
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv   udp    benign   2179
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv   tcp    benign      2
+
+ORIG PACKETS x LABEL
+                   scenario                                                                                                     source orig_pkt_bucket     label  flows
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv               1    benign 452994
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv               1 malicious 353775
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv             2-3 malicious 177442
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv             2-3    benign  15850
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv             >10 malicious   4157
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv            4-10 malicious   4099
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv            4-10    benign    381
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv             >10    benign     12
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv               1 malicious  72947
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv             2-3 malicious  72691
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv             >10 malicious   5844
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv               1    benign   3668
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv             2-3    benign    632
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv             >10    benign    216
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv            4-10 malicious     85
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv            4-10    benign     20
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv             >10 malicious      5
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv             2-3 malicious      2
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/174b6b76ed2794a60d70/linked_records.csv            4-10 malicious      1
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv               1 malicious  77197
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv               1    benign    155
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv             2-3 malicious     28
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv            4-10    benign      8
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv             2-3    benign      5
+CTU-IoT-Malware-Capture-7-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-7-1/722944176f45d7634e9b/linked_records.csv             >10    benign      2
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv               1 malicious   6166
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv               1    benign   2181
+CTU-IoT-Malware-Capture-8-1                     /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/unique_exact_key_mapping.csv             2-3 malicious   2056
+
+4. {
+  "output_directory": "/kaggle/working/TRACE_BOUNDARY_CLOSING_20261012T110924068357Z",
+  "gate_result": "ATTACKABLE_REGIME_REQUIRES_PACKET_VALIDITY_SUITES",
+  "gate_rule": "NO_ATTACKABLE_REGIME if every conservative-eligibility, escalated-grid ALL9-detector upper-bound recall drop is < 0.05; otherwise ATTACKABLE_REGIME_REQUIRES_PACKET_VALIDITY_SUITES",
+  "detectors": [
+    "LOSO_HGB_ALL9",
+    "LOSO_HGB_NO_PROTO",
+    "LOSO_LR_ALL9",
+    "WITHIN_HGB_ALL9",
+    "WITHIN_HGB_NO_PROTO"
+  ],
+  "grids": [
+    "declared_original",
+    "escalated_10x"
+  ],
+  "models_for_confirmatory_use_trained": false,
+  "attacks_on_real_packets_executed": false,
+  "NF_changed": false,
+  "prospective_confirmation": false
+}
+
+E1/E2 - ALL-COMBINED UPPER-BOUND RECALL DROP (rows: detector/grid/eligibility; columns: held-out design scenario)
+held_out_target                                     CTU-IoT-Malware-Capture-1-1  CTU-IoT-Malware-Capture-3-1  CTU-IoT-Malware-Capture-8-1
+detector            grid              eligibility                                                                                        
+LOSO_HGB_ALL9       declared_original conservative                       0.0067                       0.0000                       0.0000
+                                      liberal                            0.0067                       0.0000                       0.0000
+                    escalated_10x     conservative                       0.0070                       0.0000                       0.0000
+                                      liberal                            0.0070                       0.0000                       0.0000
+LOSO_HGB_NO_PROTO   declared_original conservative                       0.0058                       0.0006                       0.0000
+                                      liberal                            0.9829                       0.9629                       1.0000
+                    escalated_10x     conservative                       0.0060                       0.0006                       0.0000
+                                      liberal                            0.9830                       0.9629                       1.0000
+LOSO_LR_ALL9        declared_original conservative                       0.0098                       0.0000                       0.0000
+                                      liberal                            0.9869                       0.0000                       0.0000
+                    escalated_10x     conservative                       0.0113                       0.0011                       0.2501
+                                      liberal                            0.9873                       0.0011                       0.2501
+WITHIN_HGB_ALL9     declared_original conservative                       0.3285                       0.0022                       0.0000
+                                      liberal                            0.9819                       0.0022                       0.0000
+                    escalated_10x     conservative                       0.0000                       0.0030                       0.0000
+                                      liberal                            0.6534                       0.0030                       0.0000
+WITHIN_HGB_NO_PROTO declared_original conservative                       0.3369                       0.0022                       0.0000
+                                      liberal                            0.9907                       0.9630                       0.7480
+                    escalated_10x     conservative                       0.3369                       0.0026                       0.0000
+                                      liberal                            0.9907                       0.9634                       0.7480
+
+BASELINE MALICIOUS RECALL (conservative / declared grid)
+held_out_target      CTU-IoT-Malware-Capture-1-1  CTU-IoT-Malware-Capture-3-1  CTU-IoT-Malware-Capture-8-1
+detector                                                                                                  
+LOSO_HGB_ALL9                             0.9849                       1.0000                          1.0
+LOSO_HGB_NO_PROTO                         0.9853                       1.0000                          1.0
+LOSO_LR_ALL9                              0.9873                       1.0000                          1.0
+WITHIN_HGB_ALL9                           0.9998                       0.9998                          1.0
+WITHIN_HGB_NO_PROTO                       0.9999                       0.9998                          1.0
+
+CONSERVATIVE ELIGIBILITY FRACTIONS (LOSO_HGB_ALL9)
+            held_out_target  eligible_pacing  eligible_padding  eligible_injection
+CTU-IoT-Malware-Capture-1-1           0.3470            0.0155              0.3406
+CTU-IoT-Malware-Capture-3-1           0.5216            0.0377              0.5216
+CTU-IoT-Malware-Capture-8-1           0.2501            0.0000              0.2501
+
+E3 - PROTOCOL RECORD GATE RESULT: ATTACKABLE_REGIME_REQUIRES_PACKET_VALIDITY_SUITES | liberal ALL9 escalated max drop: 0.9873
+
+
+5. {
+  "output_directory": "/kaggle/working/TRACE_ATTACK_SURFACE_20261012T111956150323Z",
+  "gate_result_union_grid": "ATTACKABLE_REGIME_REQUIRES_PACKET_VALIDITY_SUITES",
+  "attackable_ALL9_cases": 2
+}
+
+E4 - UNION-GRID UPPER-BOUND RECALL DROP BY PRIMITIVE (conservative eligibility)
+held_out_target                     CTU-IoT-Malware-Capture-1-1  CTU-IoT-Malware-Capture-3-1  CTU-IoT-Malware-Capture-8-1
+detector            primitive_set                                                                                        
+LOSO_HGB_ALL9       all_combined                         0.0070                       0.0000                       0.0000
+                    injection_only                       0.0009                       0.0000                       0.0000
+                    pacing_only                          0.0066                       0.0000                       0.0000
+                    padding_only                         0.0004                       0.0000                       0.0000
+LOSO_HGB_NO_PROTO   all_combined                         0.0062                       0.0006                       0.0000
+                    injection_only                       0.0012                       0.0000                       0.0000
+                    pacing_only                          0.0054                       0.0000                       0.0000
+                    padding_only                         0.0003                       0.0006                       0.0000
+LOSO_LR_ALL9        all_combined                         0.0113                       0.0011                       0.2501
+                    injection_only                       0.0000                       0.0000                       0.0000
+                    pacing_only                          0.0092                       0.0011                       0.2501
+                    padding_only                         0.0091                       0.0000                       0.0000
+WITHIN_HGB_ALL9     all_combined                         0.3285                       0.0031                       0.0000
+                    injection_only                       0.3285                       0.0005                       0.0000
+                    pacing_only                          0.0000                       0.0002                       0.0000
+                    padding_only                         0.0000                       0.0001                       0.0000
+WITHIN_HGB_NO_PROTO all_combined                         0.3369                       0.0029                       0.0000
+                    injection_only                       0.3295                       0.0005                       0.0000
+                    pacing_only                          0.0000                       0.0003                       0.0000
+                    padding_only                         0.0075                       0.0001                       0.0000
+
+E4 - CHEAPEST-EVASION PROFILES (conservative; cases with any evasion)
+            held_out_target            detector  eligibility  evaded_fraction_of_detected  share_cheapest_uses_pacing  share_cheapest_uses_padding  share_cheapest_uses_injection  median_duration_s  median_padding_bytes  median_dummy_packets  p90_duration_s  p90_padding_bytes  p90_dummy_packets
+CTU-IoT-Malware-Capture-1-1       LOSO_HGB_ALL9 conservative                       0.0071                      0.9474                       0.2153                         0.0622                1.0                   0.0                   0.0            10.0              100.0                0.0
+CTU-IoT-Malware-Capture-1-1   LOSO_HGB_NO_PROTO conservative                       0.0063                      0.9568                       0.0486                         0.2108                1.0                   0.0                   0.0            10.0                0.0                1.0
+CTU-IoT-Malware-Capture-1-1        LOSO_LR_ALL9 conservative                       0.0114                      0.3846                       0.9053                         0.0000                0.0                 100.0                   0.0           100.0              500.0                0.0
+CTU-IoT-Malware-Capture-1-1     WITHIN_HGB_ALL9 conservative                       0.3285                      0.0000                       0.0000                         1.0000                0.0                   0.0                   1.0             0.0                0.0                1.0
+CTU-IoT-Malware-Capture-1-1 WITHIN_HGB_NO_PROTO conservative                       0.3370                      0.0000                       0.0222                         0.9778                0.0                   0.0                   1.0             0.0                0.0                1.0
+CTU-IoT-Malware-Capture-3-1   LOSO_HGB_NO_PROTO conservative                       0.0006                      0.0000                       1.0000                         0.0000                0.0                 100.0                   0.0             0.0              100.0                0.0
+CTU-IoT-Malware-Capture-3-1        LOSO_LR_ALL9 conservative                       0.0011                      1.0000                       0.0000                         0.0000              100.0                   0.0                   0.0           100.0                0.0                0.0
+CTU-IoT-Malware-Capture-3-1     WITHIN_HGB_ALL9 conservative                       0.0031                      0.8602                       0.0538                         0.9140               10.0                   0.0                   3.0            10.0                0.0               10.0
+CTU-IoT-Malware-Capture-3-1 WITHIN_HGB_NO_PROTO conservative                       0.0029                      0.8488                       0.1744                         0.8488               10.0                   0.0                   3.0            10.0              100.0               10.0
+CTU-IoT-Malware-Capture-8-1        LOSO_LR_ALL9 conservative                       0.2501                      1.0000                       0.0000                         0.0000              100.0                   0.0                   0.0           100.0                0.0                0.0
+
+E5 - RANDOM CHOICE vs WORST CASE (conservative)
+            held_out_target            detector  eligibility  worst_case_all_combined_drop  random_choice_drop
+CTU-IoT-Malware-Capture-1-1       LOSO_HGB_ALL9 conservative                        0.0070              0.0028
+CTU-IoT-Malware-Capture-1-1   LOSO_HGB_NO_PROTO conservative                        0.0062              0.0031
+CTU-IoT-Malware-Capture-1-1        LOSO_LR_ALL9 conservative                        0.0113              0.0064
+CTU-IoT-Malware-Capture-1-1     WITHIN_HGB_ALL9 conservative                        0.3285              0.0663
+CTU-IoT-Malware-Capture-1-1 WITHIN_HGB_NO_PROTO conservative                        0.3369              0.1339
+CTU-IoT-Malware-Capture-3-1       LOSO_HGB_ALL9 conservative                        0.0000              0.0000
+CTU-IoT-Malware-Capture-3-1   LOSO_HGB_NO_PROTO conservative                        0.0006              0.0002
+CTU-IoT-Malware-Capture-3-1        LOSO_LR_ALL9 conservative                        0.0011              0.0001
+CTU-IoT-Malware-Capture-3-1     WITHIN_HGB_ALL9 conservative                        0.0031              0.0008
+CTU-IoT-Malware-Capture-3-1 WITHIN_HGB_NO_PROTO conservative                        0.0029              0.0007
+CTU-IoT-Malware-Capture-8-1       LOSO_HGB_ALL9 conservative                        0.0000              0.0000
+CTU-IoT-Malware-Capture-8-1   LOSO_HGB_NO_PROTO conservative                        0.0000              0.0000
+CTU-IoT-Malware-Capture-8-1        LOSO_LR_ALL9 conservative                        0.2501              0.0268
+CTU-IoT-Malware-Capture-8-1     WITHIN_HGB_ALL9 conservative                        0.0000              0.0000
+CTU-IoT-Malware-Capture-8-1 WITHIN_HGB_NO_PROTO conservative                        0.0000              0.0000
+
+E6 - AMENDED GATE: ATTACKABLE_REGIME_REQUIRES_PACKET_VALIDITY_SUITES
+            held_out_target        detector  upper_bound_recall_drop
+CTU-IoT-Malware-Capture-1-1 WITHIN_HGB_ALL9                   0.3285
+CTU-IoT-Malware-Capture-8-1    LOSO_LR_ALL9                   0.2501
+
+6. {
+  "output_directory": "/kaggle/working/TRACE_PACKET_PACING_20261012T113420850610Z",
+  "gate_result": "NO_REAL_PACKET_DAMAGE_ABOVE_THRESHOLD",
+  "selected_eligible_flows": 2056,
+  "packet_assignment_consistency": 1.0,
+  "all_packet_checks_passed": true,
+  "bound_to_compare_LR_8_1": 0.2501,
+  "models_for_confirmatory_use_trained": false,
+  "prospective_confirmation": false,
+  "TCP_semantic_validity_certified": false,
+  "application_functionality_tested": false
+}
+
+REAL-PACKET PACING RESULTS (Capture-8-1; d=0 is pipeline null control)
+ delay_s      detector  matched_flows  unmatched_or_new_flows  selected_flows  baseline_malicious_recall  recall_after_real_packet_transform  real_recall_drop  evaded_fraction_of_detected_eligible  median_selected_duration_increase_s  selected_counters_unchanged_fraction  nonselected_any_change_fraction  packet_flow_assignment_consistency_selected
+     0.0 LOSO_HGB_ALL9          10403                       0            2056                        1.0                                 1.0               0.0                                   0.0                               0.0000                                   1.0                           0.0000                                          1.0
+     0.0  LOSO_LR_ALL9          10403                       0            2056                        1.0                                 1.0               0.0                                   0.0                               0.0000                                   1.0                           0.0000                                          1.0
+     1.0 LOSO_HGB_ALL9          10403                       0            2056                        1.0                                 1.0               0.0                                   0.0                               1.0000                                   1.0                           0.0000                                          1.0
+     1.0  LOSO_LR_ALL9          10403                       0            2056                        1.0                                 1.0               0.0                                   0.0                               1.0000                                   1.0                           0.0000                                          1.0
+    10.0 LOSO_HGB_ALL9           8348                    2056            2056                        1.0                                 1.0               0.0                                   0.0                              -3.1198                                   0.0                           0.3268                                          1.0
+    10.0  LOSO_LR_ALL9           8348                    2056            2056                        1.0                                 1.0               0.0                                   0.0                              -3.1198                                   0.0                           0.3268                                          1.0
+   100.0 LOSO_HGB_ALL9          10403                    2056            2056                        1.0                                 1.0               0.0                                   0.0                              -3.1198                                   0.0                           0.0000                                          1.0
+   100.0  LOSO_LR_ALL9          10403                    2056            2056                        1.0                                 1.0               0.0                                   0.0                              -3.1198                                   0.0                           0.0000                                          1.0
+
+PACKET VALIDITY CHECKS
+ delay_s  check_packet_count_equal  check_packet_bytes_multiset_equal  check_per_flow_packet_order_preserved  check_no_packet_advanced  check_nonselected_timestamps_unchanged  check_output_timestamps_nondecreasing
+     0.0                      True                               True                                   True                      True                                    True                                   True
+     1.0                      True                               True                                   True                      True                                    True                                   True
+    10.0                      True                               True                                   True                      True                                    True                                   True
+   100.0                      True                               True                                   True                      True                                    True                                   True
+
+7. {
+  "output_directory": "/kaggle/working/TRACE_PACKET_HARNESS_V31_20261012T114635412884Z",
+  "gate_result": "NO_REAL_PACKET_DAMAGE_ABOVE_THRESHOLD",
+  "run_failures": 0,
+  "eligible_pacing_flows": 2056,
+  "eligible_injection_flows": 2056,
+  "injection_flows_with_header_only_originator_packet": 2056,
+  "packet_assignment_consistency": 1.0,
+  "all_packet_checks_passed": true,
+  "zeek_SYN_timeout_default_s": 5.0,
+  "models_for_confirmatory_use_trained": false,
+  "prospective_confirmation": false,
+  "TCP_semantic_validity_certified": false,
+  "application_functionality_tested": false
+}
+
+REAL-PACKET RESULTS (null control = pacing 0)
+transformation  parameter      detector  flows_after  new_flows_label_inherited  new_flows_unlabeled  selected_flows  selected_split_fraction  orig_view_recall_drop  all_flows_recall_drop  median_selected_duration_change_s  median_selected_orig_pkts_delta  median_selected_orig_ip_bytes_delta  injection_counters_as_expected_fraction  nonselected_any_change_fraction
+        pacing        0.0 LOSO_HGB_ALL9        10403                          0                    0            2056                      0.0                    0.0                    0.0                             0.0000                              0.0                                  0.0                                      NaN                           0.0000
+        pacing        0.0  LOSO_LR_ALL9        10403                          0                    0            2056                      0.0                    0.0                    0.0                             0.0000                              0.0                                  0.0                                      NaN                           0.0000
+        pacing        1.0 LOSO_HGB_ALL9        10403                          0                    0            2056                      0.0                    0.0                    0.0                             1.0000                              0.0                                  0.0                                      NaN                           0.0000
+        pacing        1.0  LOSO_LR_ALL9        10403                          0                    0            2056                      0.0                    0.0                    0.0                             1.0000                              0.0                                  0.0                                      NaN                           0.0000
+        pacing        3.0 LOSO_HGB_ALL9        10403                       2056                    0            2056                      1.0                    0.0                    0.0                             0.9199                             -1.0                                -60.0                                      NaN                           0.0000
+        pacing        3.0  LOSO_LR_ALL9        10403                       2056                    0            2056                      1.0                    0.0                    0.0                             0.9199                             -1.0                                -60.0                                      NaN                           0.0000
+        pacing        4.5 LOSO_HGB_ALL9        10403                       2056                    0            2056                      1.0                    0.0                    0.0                            -3.1198                             -2.0                               -120.0                                      NaN                           0.0000
+        pacing        4.5  LOSO_LR_ALL9        10403                       2056                    0            2056                      1.0                    0.0                    0.0                            -3.1198                             -2.0                               -120.0                                      NaN                           0.0000
+        pacing        6.0 LOSO_HGB_ALL9        10403                       2056                    0            2056                      1.0                    0.0                    0.0                            -3.1198                             -2.0                               -120.0                                      NaN                           0.0000
+        pacing        6.0  LOSO_LR_ALL9        10403                       2056                    0            2056                      1.0                    0.0                    0.0                            -3.1198                             -2.0                               -120.0                                      NaN                           0.0000
+        pacing       10.0 LOSO_HGB_ALL9        10404                       2056                    0            2056                      1.0                    0.0                    0.0                            -3.1198                             -2.0                               -120.0                                      NaN                           0.3268
+        pacing       10.0  LOSO_LR_ALL9        10404                       2056                    0            2056                      1.0                    0.0                    0.0                            -3.1198                             -2.0                               -120.0                                      NaN                           0.3268
+        pacing      100.0 LOSO_HGB_ALL9        12459                       2056                    0            2056                      1.0                    0.0                    0.0                            -3.1198                             -2.0                               -120.0                                      NaN                           0.0000
+        pacing      100.0  LOSO_LR_ALL9        12459                       2056                    0            2056                      1.0                    0.0                    0.0                            -3.1198                             -2.0                               -120.0                                      NaN                           0.0000
+     injection        1.0 LOSO_HGB_ALL9        10403                          0                    0            2056                      0.0                    0.0                    0.0                             0.0000                              1.0                                 60.0                                      1.0                           0.0000
+     injection        1.0  LOSO_LR_ALL9        10403                          0                    0            2056                      0.0                    0.0                    0.0                             0.0000                              1.0                                 60.0                                      1.0                           0.0000
+     injection        3.0 LOSO_HGB_ALL9        10403                          0                    0            2056                      0.0                    0.0                    0.0                             0.0000                              3.0                                180.0                                      1.0                           0.0000
+     injection        3.0  LOSO_LR_ALL9        10403                          0                    0            2056                      0.0                    0.0                    0.0                             0.0000                              3.0                                180.0                                      1.0                           0.0000
+
+PACKET CHECKS
+transformation  parameter  check_packet_multiset_as_designed  check_original_timestamps_not_advanced  check_per_flow_original_order_preserved  check_output_timestamps_nondecreasing
+        pacing        0.0                               True                                    True                                     True                                   True
+        pacing        1.0                               True                                    True                                     True                                   True
+        pacing        3.0                               True                                    True                                     True                                   True
+        pacing        4.5                               True                                    True                                     True                                   True
+        pacing        6.0                               True                                    True                                     True                                   True
+        pacing       10.0                               True                                    True                                     True                                   True
+        pacing      100.0                               True                                    True                                     True                                   True
+     injection        1.0                               True                                    True                                     True                                   True
+     injection        3.0                               True                                    True                                     True                                   True
+
+8. 
+{
+  "output_directory": "/kaggle/working/TRACE_PACKET_INJECTION_1_1_20261012T115115809570Z",
+  "gate_result": "REAL_PACKET_DAMAGE_OBSERVED",
+  "run_failures": 0,
+  "eligible_flows": 93104,
+  "flows_with_header_only_originator_packet": 93104,
+  "heldout_flows": 504355,
+  "all_packet_checks_passed": true,
+  "models_for_confirmatory_use_trained": false,
+  "prospective_confirmation": false,
+  "TCP_semantic_validity_certified": false,
+  "application_functionality_tested": false
+}
+
+REAL-PACKET INJECTION RESULTS (Capture-1-1, within-scenario detectors)
+ injected_packets_per_flow            detector  flows_after  flows_before  new_or_missing_keys  eligible_flows  injected_flows  injection_counters_as_expected_fraction  heldout_malicious_flows  recall_before  recall_after  real_recall_drop  evaded_fraction_of_detected_injected  upper_bound_reference  noninjected_any_change_fraction  duplicate_key_rows_removed
+                         1     WITHIN_HGB_ALL9      1008748       1008748                    0           93104           93104                                      1.0                   269737         0.9998        0.6725            0.3273                                0.9483                 0.3285                              0.0                           0
+                         1 WITHIN_HGB_NO_PROTO      1008748       1008748                    0           93104           93104                                      1.0                   269737         0.9999        0.6726            0.3273                                0.9483                 0.3369                              0.0                           0
+                         3     WITHIN_HGB_ALL9      1008748       1008748                    0           93104           93104                                      1.0                   269737         0.9998        0.9998           -0.0000                                0.0000                 0.3285                              0.0                           0
+                         3 WITHIN_HGB_NO_PROTO      1008748       1008748                    0           93104           93104                                      1.0                   269737         0.9999        0.6716            0.3283                                0.9513                 0.3369                              0.0                           0
+
+PACKET CHECKS
+ injected_packets_per_flow  check_packet_multiset_as_designed  check_original_timestamps_not_advanced  check_per_flow_original_order_preserved  check_output_timestamps_nondecreasing
+                         1                               True                                    True                                     True                                   True
+                         3                               True                                    True                                     True                                   True
+
+
+9. {
+  "output_directory": "/kaggle/working/TRACE_NATURAL_SHIFT_BOUNDARY_20261012T120948639087Z",
+  "declared": {
+    "window": 128,
+    "windows": 400,
+    "gate_z": 3.0,
+    "sd_floor": 0.01,
+    "boundary_threshold": 0.8
+  },
+  "design_scenarios": [
+    "CTU-IoT-Malware-Capture-1-1",
+    "CTU-IoT-Malware-Capture-3-1",
+    "CTU-IoT-Malware-Capture-8-1"
+  ],
+  "attack_applied": false,
+  "independent_pairs": 1,
+  "significance_claim_allowed": false,
+  "prospective_confirmation": false
+}
+
+TARGET-LEVEL BOUNDARY VARIABLES (leave-one-scenario-out)
+            held_out_target  target_flows  target_malicious_fraction  primary_accuracy  V_orig  V_resp  V_time_proto  mean_view_accuracy  boundary_met_mean_view_accuracy_ge_0.80  source_reference_accuracy
+CTU-IoT-Malware-Capture-1-1       1008710                     0.5348            0.9506  0.9538  0.5346        0.9463              0.8116                                     True                     0.9996
+CTU-IoT-Malware-Capture-3-1        156103                     0.9709            0.9834  0.9471  0.9756        0.9834              0.9687                                     True                     0.9573
+CTU-IoT-Malware-Capture-8-1         10403                     0.7903            1.0000  1.0000  0.9984        0.9998              0.9994                                     True                     0.9595
+
+ESTIMATION ERROR UNDER NATURAL SHIFT (mean over 400 windows)
+            held_out_target estimator  windows_used  mean_abs_error  mean_signed_error  gate_alarm_rate  abstain_rate  gain_vs_AC_mean_abs_error
+CTU-IoT-Malware-Capture-1-1        AC           400          0.0493             0.0493              NaN           NaN                     0.0000
+CTU-IoT-Malware-Capture-1-1       DoC           400          0.0493             0.0493              NaN           NaN                     0.0000
+CTU-IoT-Malware-Capture-1-1       ATC           400          0.0477             0.0477              NaN           NaN                     0.0016
+CTU-IoT-Malware-Capture-1-1     AGREE           400          0.0473             0.0473              NaN           NaN                     0.0020
+CTU-IoT-Malware-Capture-1-1     GATED           400          0.3689            -0.3689              1.0         0.000                    -0.3196
+CTU-IoT-Malware-Capture-3-1        AC           400          0.0583            -0.0583              NaN           NaN                     0.0000
+CTU-IoT-Malware-Capture-3-1       DoC           400          0.0567            -0.0567              NaN           NaN                     0.0016
+CTU-IoT-Malware-Capture-3-1       ATC           400          0.0054            -0.0014              NaN           NaN                     0.0529
+CTU-IoT-Malware-Capture-3-1     AGREE           400          0.0167             0.0167              NaN           NaN                     0.0416
+CTU-IoT-Malware-Capture-3-1     GATED           400          0.0127             0.0085              1.0         0.000                     0.0456
+CTU-IoT-Malware-Capture-8-1        AC           400          0.0357            -0.0357              NaN           NaN                     0.0000
+CTU-IoT-Malware-Capture-8-1       DoC           400          0.0420            -0.0420              NaN           NaN                    -0.0063
+CTU-IoT-Malware-Capture-8-1       ATC           400          0.0000             0.0000              NaN           NaN                     0.0357
+CTU-IoT-Malware-Capture-8-1     AGREE           400          0.0000             0.0000              NaN           NaN                     0.0357
+CTU-IoT-Malware-Capture-8-1     GATED            98          0.0000             0.0000              1.0         0.755                     0.0357
+
+10. {
+  "output_directory": "/kaggle/working/FINAL_EVIDENCE_FREEZE_20261012T121751836467Z",
+  "result_directories_found": {
+    "TRACE_SCENARIO_INVENTORY_": 1,
+    "TRACE_DESIGN_GATE_": 1,
+    "TRACE_BOUNDARY_CLOSING_": 1,
+    "TRACE_ATTACK_SURFACE_": 1,
+    "TRACE_PACKET_PACING_": 1,
+    "TRACE_PACKET_HARNESS_V31_": 1,
+    "TRACE_PACKET_INJECTION_1_1_": 1,
+    "TRACE_MONITOR_CASE_STUDY_": 2,
+    "TRACE_NATURAL_SHIFT_BOUNDARY_": 1,
+    "TRACE_TRANSFORMABILITY_CENSUS_": 2,
+    "TRACE_CLOSING_PAIR_": 1,
+    "TRACE_VERSION_SOURCE_": 1,
+    "TRACE_PUBLIC_SOURCE_FIX_": 1,
+    "TRACE_CLEAN_REPLAY_": 1,
+    "TRACE_LABEL_FIDELITY_": 1,
+    "FINAL_STATUS_AUDIT_": 1
+  },
+  "prefixes_missing": [],
+  "NF_directory_found": true,
+  "files_hashed": 104,
+  "package": "/kaggle/working/FINAL_EVIDENCE_FREEZE_20261012T121751836467Z_PRIVATE.zip",
+  "package_bytes": 1031236,
+  "package_sha256": "bc0c423b4a1ed318e018c608ae84bc98cc8cae7581e84647039df8b35329a0c0",
+  "CRC_verified": true,
+  "new_experiments_run": false,
+  "raw_pcaps_included": false,
+  "model_bundles_included": false
+}
+
+CLAIM-EVIDENCE MATRIX
+id                              status                                                                                                                                                                                                          claim
+C1                 ALLOWED_DESCRIPTIVE                                                                                   On IoT-23 design scenarios, protocol alone separates the classes (a detector using only protocol matches the full detector).
+C2                 ALLOWED_DESCRIPTIVE                                      Feature-space upper bounds overstate real damage when transformations interact with the extractor (pacing beyond ~2 s splits flows in Zeek; split flows stayed detected).
+C3 ALLOWED_DESCRIPTIVE_SINGLE_DETECTOR                                                      One real injected duplicate header-only packet per eligible flow lowered a within-scenario HGB detector recall on held-out malicious flows (Capture-1-1).
+C4                 ALLOWED_DESCRIPTIVE                                   Confidence estimators (AC/DoC) underestimated the real damage; ATC responded equally with and without damage; agreement tracked it when an unattacked accurate view existed.
+C5               ALLOWED_AS_LIMITATION Drift gating (as specified) is not reliable under natural shift: it alarmed on every window and in one scenario retained an uninformative view; mean view accuracy alone is an insufficient boundary variable.
+C6               ALLOWED_AS_LIMITATION                                                                                                                                           Independent-pair inference was infeasible under the declared screen.
+F1                           FORBIDDEN                                                                                                                    Any claim that the monitor defeats evasion, is robust, or is confirmed on independent data.
+F2                           FORBIDDEN                                                                                                                                                      Packet-valid, TCP-semantic or application-level validity.
+F3                           FORBIDDEN                                                                                           Generalization of the IoT-23 injection result to other detectors, datasets or CICIoT2023/CICIoMT2024 packet attacks.
+F4                           FORBIDDEN                                                                                                                                        NF as independent-corpus confirmation or as support for a monitor gain.
+
+C1 EVIDENCE: 1-1 HGB ALL9: acc=0.9491; 1-1 HGB ONLY_PROTO: acc=0.9567; 3-1 HGB ALL9: acc=0.9834; 3-1 HGB ONLY_PROTO: acc=0.9834; 8-1 HGB ALL9: acc=1.0000; 8-1 HGB ONLY_PROTO: acc=0.9998
+
+C2 EVIDENCE: pacing 0 LOSO_LR_ALL9: split=0.00, all-flow drop=0.0000; pacing 1 LOSO_LR_ALL9: split=0.00, all-flow drop=0.0000; pacing 3 LOSO_LR_ALL9: split=1.00, all-flow drop=0.0000; pacing 4.5 LOSO_LR_ALL9: split=1.00, all-flow drop=0.0000; pacing 6 LOSO_LR_ALL9: split=1.00, all-flow drop=0.0000; pacing 10 LOSO_LR_ALL9: split=1.00, all-flow drop=0.0000; pacing 100 LOSO_LR_ALL9: split=1.00, all-flow drop=0.0000; injection 1 LOSO_LR_ALL9: split=0.00, all-flow drop=0.0000; injection 3 LOSO_LR_ALL9: split=0.00, all-flow drop=0.0000
+
+C3 EVIDENCE: k=1 WITHIN_HGB_ALL9: recall 0.9998->0.6725, drop=0.3273, bound=0.3285; k=1 WITHIN_HGB_NO_PROTO: recall 0.9999->0.6726, drop=0.3273, bound=0.3369; k=3 WITHIN_HGB_ALL9: recall 0.9998->0.9998, drop=-0.0000, bound=0.3285; k=3 WITHIN_HGB_NO_PROTO: recall 0.9999->0.6716, drop=0.3283, bound=0.3369
+
+C4 EVIDENCE: k=1 AC: est drop=0.0442 vs true=0.1751, diff.err=0.1308; k=1 DoC: est drop=0.0442 vs true=0.1751, diff.err=0.1308; k=1 ATC: est drop=0.1372 vs true=0.1751, diff.err=0.0379; k=1 AGREE: est drop=0.1751 vs true=0.1751, diff.err=0.0000; k=1 GATED: est drop=0.1751 vs true=0.1751, diff.err=0.0000; k=3 AC: est drop=0.0144 vs true=0.0000, diff.err=0.0144; k=3 DoC: est drop=0.0144 vs true=0.0000, diff.err=0.0144; k=3 ATC: est drop=0.1371 vs true=0.0000, diff.err=0.1371; k=3 AGREE: est drop=0.0000 vs true=0.0000, diff.err=0.0000; k=3 GATED: est drop=0.0000 vs true=0.0000, diff.err=0.0000
+
+C5 EVIDENCE: 1-1 AC: MAE=0.0493, gate_alarm=nan, abstain=nan; 1-1 AGREE: MAE=0.0473, gate_alarm=nan, abstain=nan; 1-1 GATED: MAE=0.3689, gate_alarm=1.0, abstain=0.0; 3-1 AC: MAE=0.0583, gate_alarm=nan, abstain=nan; 3-1 AGREE: MAE=0.0167, gate_alarm=nan, abstain=nan; 3-1 GATED: MAE=0.0127, gate_alarm=1.0, abstain=0.0; 8-1 AC: MAE=0.0357, gate_alarm=nan, abstain=nan; 8-1 AGREE: MAE=0.0000, gate_alarm=nan, abstain=nan; 8-1 GATED: MAE=0.0000, gate_alarm=1.0, abstain=0.755
+
+C6 EVIDENCE: 1
+
+11. CTU-Honeypot-Capture-5-1 SLICE_OFFSET_BEYOND_CAPTURE  benign 1327 malicious 0
+CTU-IoT-Malware-Capture-7-1 ACCEPTED offset 0 MB, slice 100 MB benign 1691 malicious 1352292
+CTU-IoT-Malware-Capture-9-1 ACCEPTED offset 0 MB, slice 100 MB benign 5402 malicious 1332872
+CTU-IoT-Malware-Capture-33-1 ACCEPTED offset 0 MB, slice 100 MB benign 33128 malicious 1265471
+CTU-IoT-Malware-Capture-36-1 ACCEPTED offset 0 MB, slice 500 MB benign 1375 malicious 6860916
+CTU-IoT-Malware-Capture-39-1 ACCEPTED offset 0 MB, slice 500 MB benign 712 malicious 6311164
+CTU-IoT-Malware-Capture-43-1 ACCEPTED offset 0 MB, slice 100 MB benign 162769 malicious 366384
+CTU-IoT-Malware-Capture-48-1 ACCEPTED offset 0 MB, slice 250 MB benign 1011 malicious 709067
+CTU-IoT-Malware-Capture-49-1 ACCEPTED offset 0 MB, slice 250 MB benign 737 malicious 1100605
+CTU-IoT-Malware-Capture-52-1 REJECTED_MINORITY_CLASS_BELOW_MINIMUM  benign 0 malicious 0
+CTU-IoT-Malware-Capture-60-1 REJECTED_MINORITY_CLASS_BELOW_MINIMUM  benign 0 malicious 0
+{
+  "output_directory": "/kaggle/working/E1_BLIND_TARGETS_20261012T125026604016Z",
+  "declared": {
+    "candidates": [
+      "CTU-Honeypot-Capture-5-1",
+      "CTU-IoT-Malware-Capture-7-1",
+      "CTU-IoT-Malware-Capture-9-1",
+      "CTU-IoT-Malware-Capture-33-1",
+      "CTU-IoT-Malware-Capture-36-1",
+      "CTU-IoT-Malware-Capture-39-1",
+      "CTU-IoT-Malware-Capture-43-1",
+      "CTU-IoT-Malware-Capture-48-1",
+      "CTU-IoT-Malware-Capture-49-1",
+      "CTU-IoT-Malware-Capture-52-1",
+      "CTU-IoT-Malware-Capture-60-1"
+    ],
+    "design_excluded": [
+      "CTU-IoT-Malware-Capture-1-1",
+      "CTU-IoT-Malware-Capture-3-1",
+      "CTU-IoT-Malware-Capture-8-1"
+    ],
+    "slice_plan_MB": [
+      [
+        0.0,
+        100.0
+      ],
+      [
+        0.0,
+        250.0
+      ],
+      [
+        0.0,
+        500.0
+      ],
+      [
+        1000.0,
+        250.0
+      ],
+      [
+        3000.0,
+        250.0
+      ]
+    ],
+    "min_class": 512,
+    "truncation_margin_s": 120.0,
+    "reference_margin_s": 1800.0
+  },
+  "candidates_attempted": 11,
+  "accepted_blind_targets": 8,
+  "accepted": [
+    "CTU-IoT-Malware-Capture-7-1",
+    "CTU-IoT-Malware-Capture-9-1",
+    "CTU-IoT-Malware-Capture-33-1",
+    "CTU-IoT-Malware-Capture-36-1",
+    "CTU-IoT-Malware-Capture-39-1",
+    "CTU-IoT-Malware-Capture-43-1",
+    "CTU-IoT-Malware-Capture-48-1",
+    "CTU-IoT-Malware-Capture-49-1"
+  ],
+  "model_trained_or_evaluated": false,
+  "labels_replaced": false,
+  "prospective_design": "frozen source detector will be trained on design scenarios only"
+}
+
+BLIND TARGET MANIFEST
+                    scenario                                status  attempts             accepted_plan  packets  span_seconds  generated_flows  mapped_flows  mapped_fraction  benign  malicious  core_field_identical_fraction_on_matched
+    CTU-Honeypot-Capture-5-1           SLICE_OFFSET_BEYOND_CAPTURE         5                       NaN   398312    19751.6347             1383          1327           0.9985    1327          0                                       1.0
+ CTU-IoT-Malware-Capture-7-1                              ACCEPTED         1 offset 0 MB, slice 100 MB  1378113     9548.4783          1372562       1353983           1.0000    1691    1352292                                       1.0
+ CTU-IoT-Malware-Capture-9-1                              ACCEPTED         1 offset 0 MB, slice 100 MB  1363358    29865.2624          1348329       1338274           1.0000    5402    1332872                                       1.0
+CTU-IoT-Malware-Capture-33-1                              ACCEPTED         1 offset 0 MB, slice 100 MB  1376592     2359.8982          1374593       1298599           1.0000   33128    1265471                                       1.0
+CTU-IoT-Malware-Capture-36-1                              ACCEPTED         3 offset 0 MB, slice 500 MB  6894123    43569.7507          6881256       6862291           1.0000    1375    6860916                                       1.0
+CTU-IoT-Malware-Capture-39-1                              ACCEPTED         3 offset 0 MB, slice 500 MB  6717148     2940.9276          6678711       6311876           1.0000     712    6311164                                       1.0
+CTU-IoT-Malware-Capture-43-1                              ACCEPTED         1 offset 0 MB, slice 100 MB  1364273      446.3890          1359620        529153           1.0000  162769     366384                                       1.0
+CTU-IoT-Malware-Capture-48-1                              ACCEPTED         2 offset 0 MB, slice 250 MB  2888752     7482.8403           721794        710078           1.0000    1011     709067                                       1.0
+CTU-IoT-Malware-Capture-49-1                              ACCEPTED         2 offset 0 MB, slice 250 MB  3391734     5505.7114          1126036       1101342           1.0000     737    1100605                                       1.0
+CTU-IoT-Malware-Capture-52-1 REJECTED_MINORITY_CLASS_BELOW_MINIMUM         5                       NaN  3449111     4614.9834          1723697             0           0.0000       0          0                                       NaN
+CTU-IoT-Malware-Capture-60-1 REJECTED_MINORITY_CLASS_BELOW_MINIMUM         5                       NaN  3449257      308.4304                2             0           0.0000       0          0                                       NaN
+
+12. {
+  "output_directory": "/kaggle/working/TRACE_CONFIRMATORY_SOURCE_MODELS_v1_1",
+  "supersedes_failed_source_script": true,
+  "protocol_sha256": "824df259cf27872c1395888d0715baa96fc5b9decfe8b527c03394358d65ebf0",
+  "source_scenarios": [
+    "CTU-IoT-Malware-Capture-1-1",
+    "CTU-IoT-Malware-Capture-3-1",
+    "CTU-IoT-Malware-Capture-8-1"
+  ],
+  "source_rows_train": 107949,
+  "source_rows_test": 26990,
+  "seeds": [
+    8101,
+    8102,
+    8103
+  ],
+  "models_trained": true,
+  "target_pcap_or_log_opened": false,
+  "target_predictions_computed": false,
+  "target_outcomes_inspected": false,
+  "attacks_executed": false,
+  "NF_changed": false
+}
+
+SOURCE DATA MANIFEST
+                   scenario                                                                                                source_path                                                    source_sha256                                    source_kind  raw_rows  balanced_rows  benign_raw  malicious_raw
+CTU-IoT-Malware-Capture-1-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-1-1/8ebcd17af4e2d20b1cf7/linked_records.csv af3f3fca9dc1393bdd6ab28e508d7ed7c09d263172b8b328d137975151226d04                                 linked_records   1008710          80000      469237         539473
+CTU-IoT-Malware-Capture-3-1 /kaggle/working/TRACE_LINKAGE_BATCH_v1/CTU-IoT-Malware-Capture-3-1/c674dc0c8d584fa66e6f/linked_records.csv e52bb7d863a43b105026e4487815c394a4ad466fb9fa0b8cabebfd3a5e4fc975                                 linked_records    156103          44536        4536         151567
+CTU-IoT-Malware-Capture-8-1                            /kaggle/working/TRACE_CLEAN_REPLAY_20261011T161846072286Z/clean_replay/conn.log de37d79049d22d538ba6e7ec37735bd33f3ec2427bb9305f25bed1670d056883 clean_replay_conn_log_plus_exact_label_mapping     10403          10403        2181           8222
+
+SOURCE MODEL DIAGNOSTICS
+ seed        model                                                                                          features  rows  accuracy  balanced_accuracy  AUROC
+ 8101      PRIMARY duration|orig_bytes|resp_bytes|orig_pkts|resp_pkts|orig_ip_bytes|resp_ip_bytes|missed_bytes|proto 26990    0.9726             0.9619 0.9760
+ 8101       V_orig                                                                orig_pkts|orig_bytes|orig_ip_bytes 26990    0.9591             0.9416 0.9508
+ 8101       V_resp                                                   resp_pkts|resp_bytes|resp_ip_bytes|missed_bytes 26990    0.6967             0.5634 0.5732
+ 8101 V_time_proto                                                                                    duration|proto 26990    0.9668             0.9553 0.9739
+ 8102      PRIMARY duration|orig_bytes|resp_bytes|orig_pkts|resp_pkts|orig_ip_bytes|resp_ip_bytes|missed_bytes|proto 26990    0.9725             0.9616 0.9763
+ 8102       V_orig                                                                orig_pkts|orig_bytes|orig_ip_bytes 26990    0.9592             0.9416 0.9511
+ 8102       V_resp                                                   resp_pkts|resp_bytes|resp_ip_bytes|missed_bytes 26990    0.6966             0.5633 0.5736
+ 8102 V_time_proto                                                                                    duration|proto 26990    0.9666             0.9551 0.9740
+ 8103      PRIMARY duration|orig_bytes|resp_bytes|orig_pkts|resp_pkts|orig_ip_bytes|resp_ip_bytes|missed_bytes|proto 26990    0.9727             0.9619 0.9760
+ 8103       V_orig                                                                orig_pkts|orig_bytes|orig_ip_bytes 26990    0.9592             0.9416 0.9511
+ 8103       V_resp                                                   resp_pkts|resp_bytes|resp_ip_bytes|missed_bytes 26990    0.6967             0.5634 0.5735
+ 8103 V_time_proto                                                                                    duration|proto 26990    0.9668             0.9554 0.9738
+
+13. {
+  "output_directory": "/kaggle/working/IOT23_V2_UNSEEN_TARGET_ROSTER_20261012T161709331404Z",
+  "real_corpus": "IoT-23 original PCAP + conn.log.labeled",
+  "PCAP_payloads_read": false,
+  "Zeek_labeled_conn_logs_streamed": true,
+  "models_trained": false,
+  "predictions_computed": false,
+  "attacks_executed": false,
+  "NF_changed": false,
+  "excluded_previously_observed_scenarios": [
+    1,
+    3,
+    7,
+    8,
+    9,
+    33,
+    36,
+    39,
+    43,
+    48,
+    49
+  ],
+  "minimum_benign_rows": 512,
+  "minimum_malicious_rows": 512,
+  "audited_unseen_scenarios": [
+    17,
+    20,
+    21,
+    34,
+    35,
+    42,
+    44,
+    52,
+    60
+  ],
+  "eligible_unseen_v2_scenarios": [
+    17,
+    34,
+    35,
+    52,
+    60
+  ],
+  "eligible_unseen_v2_count": 5,
+  "next_step": "Freeze the new V2 confirmatory target roster. Then rebuild and calibrate source-only models from 1, 3 and 8 before inspecting any V2 target prediction."
+}
+
+UNUSED IoT-23 MALWARE-CAPTURE LABEL COUNTS
+ scenario  pcap_files  pcap_total_GiB  conn_records  parsed_label_rows  label_parse_fraction  benign_rows  malicious_rows  unknown_rows  other_rows  unparsed_rows  has_both_classes  meets_balanced_sample_requirement  eligible_unseen_v2_target error
+       17           2          8.8075      54659855           54659855                   1.0        31438        54628417             0           0              0              True                               True                       True  None
+       34           2          0.1211         23145              23145                   1.0         1923           21222             0           0              0              True                               True                       True  None
+       35           7          5.5289      10447787           10447787                   1.0      8262389         2185398             0           0              0              True                               True                       True  None
+       52           1          4.5676      19781378           19781378                   1.0         1794        19779584             0           0              0              True                               True                       True  None
+       60           1         20.5156       3581028            3581028                   1.0         2476         3578552             0           0              0              True                               True                       True  None
+       20           1          0.0038          3209               3209                   1.0         3193              16             0           0              0              True                              False                      False  None
+       21           1          0.0038          3286               3286                   1.0         3272              14             0           0              0              True                              False                      False  None
+       42           1          0.0027          4426               4426                   1.0         4420               6             0           0              0              True                              False                      False  None
+       44           1          1.6974           237                237                   1.0          211              26             0           0              0              True                              False                      False  None
+
+ELIGIBLE UNSEEN V2 TARGET ROSTER
+ scenario  pcap_files  pcap_total_GiB  conn_records  parsed_label_rows  label_parse_fraction  benign_rows  malicious_rows  unknown_rows  other_rows  unparsed_rows  has_both_classes  meets_balanced_sample_requirement  eligible_unseen_v2_target error
+       17           2          8.8075      54659855           54659855                   1.0        31438        54628417             0           0              0              True                               True                       True  None
+       34           2          0.1211         23145              23145                   1.0         1923           21222             0           0              0              True                               True                       True  None
+       35           7          5.5289      10447787           10447787                   1.0      8262389         2185398             0           0              0              True                               True                       True  None
+       52           1          4.5676      19781378           19781378                   1.0         1794        19779584             0           0              0              True                               True                       True  None
+       60           1         20.5156       3581028            3581028                   1.0         2476         3578552             0           0              0              True                               True                       True  None
+
+
+14. {
+  "output_directory": "/kaggle/working/TRACE_CONFIRMATORY_FINAL_RUNNER_INTERFACE_v2_20261012T173202113685Z",
+  "status": "FINAL_RUNNER_INTERFACE_INSPECTED",
+  "frozen_runner_sha256": "7decc2a96fa9567d8d7d81adf9aa5fa36dbcf474bd25deeae80ba173f0bc3606",
+  "source_model_bundle_sha256": "b340bb3289e95996007f4b7b31d6d379cfa79e03ece7f09860f82680c80a7774",
+  "protocol_amendment_sha256": "1b8f110664f35976ea234f794ff24a9e92f912e149bd050fbc21b0226bd2bf6c",
+  "runner_is_top_level_script": true,
+  "runner_functions_found": [
+    "sha",
+    "key",
+    "ks",
+    "mat",
+    "pcap_read",
+    "pcap_write",
+    "tcp",
+    "logread",
+    "select",
+    "resolve_keys",
+    "exact_p",
+    "estim",
+    "signp"
+  ],
+  "model_bank_rows": 12,
+  "target_predictions_computed": false,
+  "models_retrained": false,
+  "attacks_executed": false,
+  "Zeek_rerun": false,
+  "NF_changed": false
+}
+
+FROZEN RUNNER FUNCTION INDEX
+        name  start_line  end_line
+         sha          15        19
+         key          20        20
+          ks          21        21
+         mat          22        25
+   pcap_read          26        34
+  pcap_write          35        39
+         tcp          40        55
+     logread          56        63
+      select          64        68
+resolve_keys          70        76
+     exact_p          77        78
+       estim          79        81
+       signp         157       160
+
+ORIGINAL estim() FUNCTION
+def estim(df,bank):
+ pp=bank['PRIMARY'].predict_proba(mat(df,F))[:,1];pred=(pp>=.5).astype(int);votes=np.column_stack([bank[n].predict(mat(df,c)) for n,c in V.items()]);maj=(votes.sum(1)>=2).astype(int)
+ conf=np.maximum(pp,1-pp);return {'AC':float(conf.mean()),'AGREE':float((pred==maj).mean()),'ATC':float((conf>=.5).mean())},pred
+
+FROZEN MODEL BANK INVENTORY
+seed   model_name                    python_type  has_predict  has_predict_proba classes
+8101      PRIMARY HistGradientBoostingClassifier         True               True   [0 1]
+8101       V_orig HistGradientBoostingClassifier         True               True   [0 1]
+8101       V_resp HistGradientBoostingClassifier         True               True   [0 1]
+8101 V_time_proto HistGradientBoostingClassifier         True               True   [0 1]
+8102      PRIMARY HistGradientBoostingClassifier         True               True   [0 1]
+8102       V_orig HistGradientBoostingClassifier         True               True   [0 1]
+8102       V_resp HistGradientBoostingClassifier         True               True   [0 1]
+8102 V_time_proto HistGradientBoostingClassifier         True               True   [0 1]
+8103      PRIMARY HistGradientBoostingClassifier         True               True   [0 1]
+8103       V_orig HistGradientBoostingClassifier         True               True   [0 1]
+8103       V_resp HistGradientBoostingClassifier         True               True   [0 1]
+8103 V_time_proto HistGradientBoostingClassifier         True               True   [0 1]
+
+
+15. 
+INJECTION SCENARIO SUMMARY
+                    scenario attack  clean_accuracy  attack_accuracy  true_damage  clean_malicious_recall  attack_malicious_recall  prediction_changed_rows  correct_to_wrong_rows  wrong_to_correct_rows  modified_malicious_fraction
+CTU-IoT-Malware-Capture-33-1 INJ_k1        0.500000         1.000000    -0.500000                0.000000                 1.000000                    512.0                    0.0                  512.0                     1.000000
+CTU-IoT-Malware-Capture-33-1 INJ_k3        0.500000         0.801758    -0.301758                0.000000                 0.603516                    309.0                    0.0                  309.0                     0.603516
+CTU-IoT-Malware-Capture-36-1 INJ_k1        0.500000         0.998047    -0.498047                0.003906                 1.000000                    510.0                    0.0                  510.0                     1.000000
+CTU-IoT-Malware-Capture-36-1 INJ_k3        0.500000         0.948242    -0.448242                0.003906                 0.900391                    459.0                    0.0                  459.0                     0.900391
+CTU-IoT-Malware-Capture-39-1 INJ_k1        0.486654         0.986654    -0.500000                0.000000                 1.000000                    512.0                    0.0                  512.0                     1.000000
+CTU-IoT-Malware-Capture-39-1 INJ_k3        0.486654         0.986654    -0.500000                0.000000                 1.000000                    512.0                    0.0                  512.0                     1.000000
+CTU-IoT-Malware-Capture-43-1 INJ_k1        0.500000         1.000000    -0.500000                0.000000                 1.000000                    512.0                    0.0                  512.0                     1.000000
+CTU-IoT-Malware-Capture-43-1 INJ_k3        0.500000         0.922852    -0.422852                0.000000                 0.845703                    433.0                    0.0                  433.0                     0.845703
+CTU-IoT-Malware-Capture-48-1 INJ_k1        0.981445         0.981445     0.000000                1.000000                 1.000000                      0.0                    0.0                    0.0                     1.000000
+CTU-IoT-Malware-Capture-48-1 INJ_k3        0.981445         0.981445     0.000000                1.000000                 1.000000                      0.0                    0.0                    0.0                     0.130859
+CTU-IoT-Malware-Capture-49-1 INJ_k1        0.981445         0.981445     0.000000                1.000000                 1.000000                      0.0                    0.0                    0.0                     1.000000
+CTU-IoT-Malware-Capture-49-1 INJ_k3        0.981445         0.981445     0.000000                1.000000                 1.000000                      0.0                    0.0                    0.0                     0.958984
+ CTU-IoT-Malware-Capture-7-1 INJ_k1        0.500000         0.999023    -0.499023                0.000000                 0.998047                    511.0                    0.0                  511.0                     1.000000
+ CTU-IoT-Malware-Capture-7-1 INJ_k3        0.500000         0.983398    -0.483398                0.000000                 0.966797                    495.0                    0.0                  495.0                     0.968750
+ CTU-IoT-Malware-Capture-9-1 INJ_k1        0.494141         0.994141    -0.500000                0.000000                 1.000000                    512.0                    0.0                  512.0                     1.000000
+ CTU-IoT-Malware-Capture-9-1 INJ_k3        0.494141         0.686523    -0.192383                0.000000                 0.384766                    197.0                    0.0                  197.0                     0.384766
+
+COMPLETION
+{
+  "output_directory": "/kaggle/working/E4_INJECTION_ANALYSIS_20261012T204242685175Z",
+  "expected_seed_rows": 48,
+  "actual_seed_rows": 48,
+  "issues": [],
+  "all_injection_jobs_verified": true,
+  "PCAP_replays": 0,
+  "models_retrained": false,
+  "existing_files_deleted": false
+
+16. VIEW REMOVAL AND TIE SENSITIVITY
+attack        configuration      tie_policy  mean_differential_error  clean_tie_fraction  attack_tie_fraction  scenarios
+INJ_k1          V_orig_only no_possible_tie                 0.828084            0.000000             0.000000          8
+INJ_k1          V_resp_only no_possible_tie                 0.000000            0.000000             0.000000          8
+INJ_k1    V_time_proto_only no_possible_tie                 0.374756            0.000000             0.000000          8
+INJ_k1            all_three no_possible_tie                 0.453328            0.000000             0.000000          8
+INJ_k1       without_V_orig   benign_on_tie                 0.374756            0.311605             0.686361          8
+INJ_k1       without_V_orig  primary_on_tie                 0.000000            0.311605             0.686361          8
+INJ_k1       without_V_resp   benign_on_tie                 0.749512            0.529989             0.234049          8
+INJ_k1       without_V_resp  primary_on_tie                 0.827962            0.529989             0.234049          8
+INJ_k1 without_V_time_proto   benign_on_tie                 0.828084            0.802694             0.724365          8
+INJ_k1 without_V_time_proto  primary_on_tie                 0.374634            0.802694             0.724365          8
+INJ_k3          V_orig_only no_possible_tie                 0.439982            0.000000             0.000000          8
+INJ_k3          V_resp_only no_possible_tie                 0.000000            0.000000             0.000000          8
+INJ_k3    V_time_proto_only no_possible_tie                 0.293701            0.000000             0.000000          8
+INJ_k3            all_three no_possible_tie                 0.147868            0.000000             0.000000          8
+INJ_k3       without_V_orig   benign_on_tie                 0.293701            0.311605             0.605306          8
+INJ_k3       without_V_orig  primary_on_tie                 0.000000            0.311605             0.605306          8
+INJ_k3       without_V_resp   benign_on_tie                 0.589966            0.529989             0.484782          8
+INJ_k3       without_V_resp  primary_on_tie                 0.441447            0.529989             0.484782          8
+INJ_k3 without_V_time_proto   benign_on_tie                 0.439901            0.802694             0.559977          8
+INJ_k3 without_V_time_proto  primary_on_tie                 0.293579            0.802694             0.559977          8
+
+
+17. 
+
