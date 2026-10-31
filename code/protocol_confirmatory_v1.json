@@ -1,0 +1,36 @@
+{
+  "study": "IoTJ-integrity-monitoring-confirmatory-v1",
+  "rule": "Do not train final semantic experiments until feature_provenance_review.csv has been manually completed.",
+  "primary_metric": "differential absolute accuracy-estimation error",
+  "primary_datasets_after_review": [
+    "CICIoMT2024",
+    "CICIoT2023",
+    "TON_IoT_or_NF-ToN-IoT"
+  ],
+  "semantic_views_required": [
+    "size_volume",
+    "timing",
+    "directionality",
+    "protocol_state",
+    "count_burst"
+  ],
+  "forbidden_actions": [
+    "directly perturb derived features",
+    "modify protocol/service identity without a valid trace-level rule",
+    "tune parameters on held-out fifth dataset"
+  ],
+  "required_attack_checks": [
+    "range",
+    "integer",
+    "categorical",
+    "protocol invariance",
+    "derived-feature recomputation",
+    "validity rate"
+  ],
+  "confirmatory_seeds": [
+    10,
+    11,
+    12
+  ],
+  "pool_seed": 1
+}
