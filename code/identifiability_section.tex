@@ -1,0 +1,72 @@
+% Identifiability limit and a clean-view condition -- manuscript section (amsmath, amsthm assumed).
+% Preamble needed: \newtheorem{proposition}{Proposition} \newtheorem{theorem}{Theorem} \newtheorem{corollary}{Corollary} \newtheorem{remark}{Remark}
+\section{Identifiability Limit and a Clean-View Condition}\label{sec:ident}
+
+\subsection{Setting}
+A window is $W=((x_i,y_i))_{i=1}^{n}$ with features $x_i\in\mathcal X$ and labels $y_i\in\{0,1\}$ ($1$ = malicious). A frozen detector $h:\mathcal X\to\{0,1\}$ and views
+$g_1,\dots,g_G:\mathcal X\to\{0,1\}$ (each reading a subset of the features) are fixed. The monitor observes only the output matrix
+\[
+O(W)=\big(h(x_i),g_1(x_i),\dots,g_G(x_i)\big)_{i=1}^{n},
+\]
+and an \emph{output-only estimator} is any (possibly randomized) map $\hat A$ from $O(W)$ to $[0,1]$. The target is the window accuracy
+$A(W)=\frac1n\sum_{i=1}^{n}\mathbf 1[h(x_i)=y_i]$. A threat model fixes a set $\mathcal W$ of \emph{admissible} windows.
+
+\begin{proposition}[Two-point lower bound]\label{prop:twopoint}
+If $W,W'\in\mathcal W$ and $O(W)=O(W')$, then every output-only estimator satisfies
+\[
+\max\big\{\mathbb E|\hat A-A(W)|,\;\mathbb E|\hat A-A(W')|\big\}\;\ge\;\tfrac12\,|A(W)-A(W')|.
+\]
+\end{proposition}
+\begin{proof}
+Because $O(W)=O(W')$, $\hat A$ has the same distribution under both windows. Pointwise, $|\hat A-A(W)|+|\hat A-A(W')|\ge|A(W)-A(W')|$ by the triangle inequality. Taking expectations, the average of the two errors is at least $\frac12|A(W)-A(W')|$, so the maximum is too.
+\end{proof}
+
+\subsection{Mimicry and non-identifiability}
+\emph{Threat model.} The attacker may replace the feature vector $x$ of a malicious record by any $x'\in R_B(x)\subseteq\mathcal X$ (a budget-$B$ reachable set) without changing its label; benign records are not modified. A point $x'$ is \emph{benign-realizable} if some benign record with exactly the feature vector $x'$ is admissible.
+
+\begin{theorem}[Mimicry implies non-identifiability]\label{thm:mimicry}
+Let $W^{\mathrm{atk}}$ be an admissible window in which $k$ malicious records (positions $S$) carry attacker-chosen vectors $x'_i\in R_B(x_i)$, $i\in S$, each benign-realizable with $h(x'_i)=0$. Let $W^{\mathrm{ben}}$ be the window that is identical except that, at positions $S$, it holds benign records with the same vectors $x'_i$. Then $W^{\mathrm{ben}}$ is admissible, $O(W^{\mathrm{atk}})=O(W^{\mathrm{ben}})$, and
+\[
+A(W^{\mathrm{ben}})-A(W^{\mathrm{atk}})=\tfrac{k}{n}.
+\]
+Consequently every output-only estimator has worst-case expected error at least $k/(2n)$ over $\{W^{\mathrm{atk}},W^{\mathrm{ben}}\}$.
+\end{theorem}
+\begin{proof}
+All outputs are deterministic functions of the feature vectors, and the two windows have identical feature vectors at every position, so $O(W^{\mathrm{atk}})=O(W^{\mathrm{ben}})$. Positions outside $S$ contribute identically to both accuracies. At each $i\in S$, the prediction is $h(x'_i)=0$; the label is $1$ in $W^{\mathrm{atk}}$ (an error) and $0$ in $W^{\mathrm{ben}}$ (correct), giving a difference of $1/n$ per position. Apply Proposition~\ref{prop:twopoint}.
+\end{proof}
+
+\begin{remark}[When mimicry fails]
+If every view $g_j$ reads at least one channel that the attacker cannot alter and on which the malicious and benign classes differ (for example, the transport protocol in the IoT-23 captures studied here), then no $x'\in R_B(x)$ is benign-realizable and the construction in Theorem~\ref{thm:mimicry} is unavailable. The theorem is therefore a statement about mimicry across all channels the monitor reads, not about evasion of the detector alone.
+\end{remark}
+
+\subsection{A clean-view condition}
+Let $w_1,\dots,w_G\ge0$ with $\sum_j w_j=1$, let $C\subseteq\{1,\dots,G\}$ be the views the attacker cannot influence, and $W_C=\sum_{j\in C}w_j$. For each view let $e_j=\frac1n\sum_i\mathbf 1[g_j(x_i)\neq y_i]$ be its window error (a quantity that is \emph{not} observable without labels). Define the weighted vote
+$v_i=\mathbf 1\big[\sum_j w_j g_j(x_i)>\tfrac12\big]$ and the agreement estimator $\hat A_{\mathrm{agr}}=\frac1n\sum_i\mathbf 1[h(x_i)=v_i]$.
+
+\begin{proposition}[Clean-weight-majority bound]\label{prop:clean}
+If $W_C>\frac12$, then, whatever the outputs of the views outside $C$,
+\[
+\big|\hat A_{\mathrm{agr}}-A(W)\big|\;\le\;\frac{\sum_{j\in C}w_j\,e_j}{W_C-\frac12}.
+\]
+\end{proposition}
+\begin{proof}
+Let $u_i$ be the total weight of views that err on record $i$. If $v_i\neq y_i$ then $u_i\ge\frac12$ (for $y_i=1$ the weight predicting $1$ is at most $\frac12$; for $y_i=0$ it exceeds $\frac12$). Split $u_i=u_i^{C}+u_i^{A}$ with $u_i^{A}\le 1-W_C$, so $u_i^{C}\ge W_C-\frac12>0$. By Markov's inequality on $u_i^{C}$, the fraction of records with $v_i\ne y_i$ is at most $\big(\frac1n\sum_i u_i^{C}\big)/(W_C-\frac12)=\sum_{j\in C}w_je_j/(W_C-\frac12)$. Finally $\mathbf 1[h(x_i)=v_i]=\mathbf 1[h(x_i)=y_i]$ whenever $v_i=y_i$, so $|\hat A_{\mathrm{agr}}-A(W)|$ is at most the fraction of records with $v_i\ne y_i$.
+\end{proof}
+
+\begin{corollary}[Weighted-integrity condition]\label{cor:integrity}
+The bound in Proposition~\ref{prop:clean} is below $1$ if and only if $\sum_{j\in C}w_j(1-2e_j)>\sum_{j\notin C}w_j$.
+\end{corollary}
+\begin{proof}
+$\sum_{C}w_je_j<W_C-\frac12 \iff 2W_C-1>2\sum_C w_je_j \iff \sum_C w_j(1-2e_j)>1-W_C=\sum_{j\notin C}w_j$.
+\end{proof}
+
+\begin{proposition}[Clean-view competence is not identifiable from outputs]\label{prop:competence}
+Suppose label-conditional natural shift is admissible. Then for any window on which $h$ and all views agree on every record, there are admissible windows $W$ (labels equal to the common output, $A=1$) and $W'$ (labels opposite, $A=0$) with $O(W)=O(W')$, and every output-only estimator has worst-case expected error at least $\frac12$.
+\end{proposition}
+\begin{proof}
+Apply Proposition~\ref{prop:twopoint} with $|A(W)-A(W')|=1$.
+\end{proof}
+
+\begin{remark}[Reading the results]
+Proposition~\ref{prop:clean} gives a worst-case guarantee against any behavior of attacked views, but it is conditional on the clean-view errors $e_j$, which Proposition~\ref{prop:competence} shows cannot be certified from unlabeled outputs. A deployed monitor can therefore report a conditional estimate (assuming clean-view competence established on labeled reference data) or abstain; it cannot certify accuracy unconditionally. Output drift of a view is neither necessary nor sufficient for the view to be attacked, so drift gating carries no guarantee of its own.
+\end{remark}
