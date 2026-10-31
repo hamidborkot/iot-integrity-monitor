@@ -1,0 +1,19 @@
+{
+  "dataset": "CICIoT2023",
+  "experiment": "E8_1_v2_query_based_gradient_free_coordinate_attack",
+  "attack_view": "volume_size",
+  "query_method": "two-sided coordinate search using primary probability queries only",
+  "epsilons": [
+    0.25,
+    0.5
+  ],
+  "query_seeds": [
+    201,
+    202,
+    203
+  ],
+  "passes": 3,
+  "minimum_damage": 0.05,
+  "selection_rule": "Among feasible attacks with true damage at least 5 points, maximize trusted coverage; then minimize abstention and suspicion.",
+  "validity_scope": "range-and-type constrained flow-feature perturbation"
+}

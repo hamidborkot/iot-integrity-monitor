@@ -1,0 +1,117 @@
+dataset,method,partition_seed,view,feature
+CICIoT2023,semantic,-1,protocol_state,Protocol Type
+CICIoT2023,semantic,-1,protocol_state,fin_flag_number
+CICIoT2023,semantic,-1,protocol_state,syn_flag_number
+CICIoT2023,semantic,-1,protocol_state,rst_flag_number
+CICIoT2023,semantic,-1,protocol_state,psh_flag_number
+CICIoT2023,semantic,-1,protocol_state,ack_flag_number
+CICIoT2023,semantic,-1,protocol_state,ece_flag_number
+CICIoT2023,semantic,-1,protocol_state,cwr_flag_number
+CICIoT2023,semantic,-1,protocol_state,TCP
+CICIoT2023,semantic,-1,protocol_state,UDP
+CICIoT2023,semantic,-1,protocol_state,ICMP
+CICIoT2023,semantic,-1,volume_size,Header_Length
+CICIoT2023,semantic,-1,volume_size,Tot sum
+CICIoT2023,semantic,-1,volume_size,Tot size
+CICIoT2023,semantic,-1,volume_size,Number
+CICIoT2023,semantic,-1,volume_size,Min
+CICIoT2023,semantic,-1,volume_size,Max
+CICIoT2023,semantic,-1,volume_size,AVG
+CICIoT2023,semantic,-1,volume_size,Std
+CICIoT2023,semantic,-1,count_burst,ack_count
+CICIoT2023,semantic,-1,count_burst,syn_count
+CICIoT2023,semantic,-1,count_burst,fin_count
+CICIoT2023,semantic,-1,count_burst,urg_count
+CICIoT2023,semantic,-1,count_burst,rst_count
+CICIoT2023,semantic,-1,count_burst,Magnitue
+CICIoT2023,semantic,-1,count_burst,Radius
+CICIoT2023,semantic,-1,count_burst,Covariance
+CICIoT2023,semantic,-1,count_burst,Variance
+CICIoT2023,semantic,-1,count_burst,Weight
+CICIoT2023,random,201,random_group_0,Weight
+CICIoT2023,random,201,random_group_0,Std
+CICIoT2023,random,201,random_group_0,cwr_flag_number
+CICIoT2023,random,201,random_group_0,Covariance
+CICIoT2023,random,201,random_group_0,rst_count
+CICIoT2023,random,201,random_group_0,Radius
+CICIoT2023,random,201,random_group_0,ack_count
+CICIoT2023,random,201,random_group_0,ICMP
+CICIoT2023,random,201,random_group_0,TCP
+CICIoT2023,random,201,random_group_0,Protocol Type
+CICIoT2023,random,201,random_group_0,AVG
+CICIoT2023,random,201,random_group_1,Tot sum
+CICIoT2023,random,201,random_group_1,Min
+CICIoT2023,random,201,random_group_1,syn_count
+CICIoT2023,random,201,random_group_1,Max
+CICIoT2023,random,201,random_group_1,urg_count
+CICIoT2023,random,201,random_group_1,Tot size
+CICIoT2023,random,201,random_group_1,Header_Length
+CICIoT2023,random,201,random_group_1,fin_count
+CICIoT2023,random,201,random_group_2,Number
+CICIoT2023,random,201,random_group_2,psh_flag_number
+CICIoT2023,random,201,random_group_2,syn_flag_number
+CICIoT2023,random,201,random_group_2,rst_flag_number
+CICIoT2023,random,201,random_group_2,Variance
+CICIoT2023,random,201,random_group_2,Magnitue
+CICIoT2023,random,201,random_group_2,fin_flag_number
+CICIoT2023,random,201,random_group_2,ack_flag_number
+CICIoT2023,random,201,random_group_2,UDP
+CICIoT2023,random,201,random_group_2,ece_flag_number
+CICIoT2023,random,202,random_group_0,Header_Length
+CICIoT2023,random,202,random_group_0,Max
+CICIoT2023,random,202,random_group_0,Number
+CICIoT2023,random,202,random_group_0,rst_count
+CICIoT2023,random,202,random_group_0,Tot sum
+CICIoT2023,random,202,random_group_0,ack_flag_number
+CICIoT2023,random,202,random_group_0,Weight
+CICIoT2023,random,202,random_group_0,ece_flag_number
+CICIoT2023,random,202,random_group_0,UDP
+CICIoT2023,random,202,random_group_0,ack_count
+CICIoT2023,random,202,random_group_0,Radius
+CICIoT2023,random,202,random_group_1,Magnitue
+CICIoT2023,random,202,random_group_1,Covariance
+CICIoT2023,random,202,random_group_1,TCP
+CICIoT2023,random,202,random_group_1,AVG
+CICIoT2023,random,202,random_group_1,rst_flag_number
+CICIoT2023,random,202,random_group_1,cwr_flag_number
+CICIoT2023,random,202,random_group_1,Protocol Type
+CICIoT2023,random,202,random_group_1,syn_flag_number
+CICIoT2023,random,202,random_group_2,Std
+CICIoT2023,random,202,random_group_2,ICMP
+CICIoT2023,random,202,random_group_2,Variance
+CICIoT2023,random,202,random_group_2,urg_count
+CICIoT2023,random,202,random_group_2,fin_count
+CICIoT2023,random,202,random_group_2,Tot size
+CICIoT2023,random,202,random_group_2,syn_count
+CICIoT2023,random,202,random_group_2,psh_flag_number
+CICIoT2023,random,202,random_group_2,fin_flag_number
+CICIoT2023,random,202,random_group_2,Min
+CICIoT2023,random,203,random_group_0,UDP
+CICIoT2023,random,203,random_group_0,Weight
+CICIoT2023,random,203,random_group_0,Min
+CICIoT2023,random,203,random_group_0,rst_flag_number
+CICIoT2023,random,203,random_group_0,Magnitue
+CICIoT2023,random,203,random_group_0,urg_count
+CICIoT2023,random,203,random_group_0,Protocol Type
+CICIoT2023,random,203,random_group_0,TCP
+CICIoT2023,random,203,random_group_0,syn_count
+CICIoT2023,random,203,random_group_0,Variance
+CICIoT2023,random,203,random_group_0,Tot sum
+CICIoT2023,random,203,random_group_1,AVG
+CICIoT2023,random,203,random_group_1,ece_flag_number
+CICIoT2023,random,203,random_group_1,Number
+CICIoT2023,random,203,random_group_1,ack_flag_number
+CICIoT2023,random,203,random_group_1,Std
+CICIoT2023,random,203,random_group_1,Tot size
+CICIoT2023,random,203,random_group_1,fin_flag_number
+CICIoT2023,random,203,random_group_1,Max
+CICIoT2023,random,203,random_group_2,rst_count
+CICIoT2023,random,203,random_group_2,Covariance
+CICIoT2023,random,203,random_group_2,ack_count
+CICIoT2023,random,203,random_group_2,fin_count
+CICIoT2023,random,203,random_group_2,syn_flag_number
+CICIoT2023,random,203,random_group_2,psh_flag_number
+CICIoT2023,random,203,random_group_2,ICMP
+CICIoT2023,random,203,random_group_2,cwr_flag_number
+CICIoT2023,random,203,random_group_2,Radius
+CICIoT2023,random,203,random_group_2,Header_Length

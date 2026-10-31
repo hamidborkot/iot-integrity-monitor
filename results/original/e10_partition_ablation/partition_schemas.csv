@@ -1,0 +1,117 @@
+method,partition_seed,view,feature
+semantic,-1,protocol_state,Protocol Type
+semantic,-1,protocol_state,fin_flag_number
+semantic,-1,protocol_state,syn_flag_number
+semantic,-1,protocol_state,rst_flag_number
+semantic,-1,protocol_state,psh_flag_number
+semantic,-1,protocol_state,ack_flag_number
+semantic,-1,protocol_state,ece_flag_number
+semantic,-1,protocol_state,cwr_flag_number
+semantic,-1,protocol_state,TCP
+semantic,-1,protocol_state,UDP
+semantic,-1,protocol_state,ICMP
+semantic,-1,volume_size,Header_Length
+semantic,-1,volume_size,Tot sum
+semantic,-1,volume_size,Tot size
+semantic,-1,volume_size,Number
+semantic,-1,volume_size,Min
+semantic,-1,volume_size,Max
+semantic,-1,volume_size,AVG
+semantic,-1,volume_size,Std
+semantic,-1,count_burst,ack_count
+semantic,-1,count_burst,syn_count
+semantic,-1,count_burst,fin_count
+semantic,-1,count_burst,urg_count
+semantic,-1,count_burst,rst_count
+semantic,-1,count_burst,Magnitue
+semantic,-1,count_burst,Radius
+semantic,-1,count_burst,Covariance
+semantic,-1,count_burst,Variance
+semantic,-1,count_burst,Weight
+random,201,random_group_0,Weight
+random,201,random_group_0,Std
+random,201,random_group_0,cwr_flag_number
+random,201,random_group_0,Covariance
+random,201,random_group_0,rst_count
+random,201,random_group_0,Radius
+random,201,random_group_0,ack_count
+random,201,random_group_0,ICMP
+random,201,random_group_0,TCP
+random,201,random_group_0,Protocol Type
+random,201,random_group_0,AVG
+random,201,random_group_1,Tot sum
+random,201,random_group_1,Min
+random,201,random_group_1,syn_count
+random,201,random_group_1,Max
+random,201,random_group_1,urg_count
+random,201,random_group_1,Tot size
+random,201,random_group_1,Header_Length
+random,201,random_group_1,fin_count
+random,201,random_group_2,Number
+random,201,random_group_2,psh_flag_number
+random,201,random_group_2,syn_flag_number
+random,201,random_group_2,rst_flag_number
+random,201,random_group_2,Variance
+random,201,random_group_2,Magnitue
+random,201,random_group_2,fin_flag_number
+random,201,random_group_2,ack_flag_number
+random,201,random_group_2,UDP
+random,201,random_group_2,ece_flag_number
+random,202,random_group_0,Header_Length
+random,202,random_group_0,Max
+random,202,random_group_0,Number
+random,202,random_group_0,rst_count
+random,202,random_group_0,Tot sum
+random,202,random_group_0,ack_flag_number
+random,202,random_group_0,Weight
+random,202,random_group_0,ece_flag_number
+random,202,random_group_0,UDP
+random,202,random_group_0,ack_count
+random,202,random_group_0,Radius
+random,202,random_group_1,Magnitue
+random,202,random_group_1,Covariance
+random,202,random_group_1,TCP
+random,202,random_group_1,AVG
+random,202,random_group_1,rst_flag_number
+random,202,random_group_1,cwr_flag_number
+random,202,random_group_1,Protocol Type
+random,202,random_group_1,syn_flag_number
+random,202,random_group_2,Std
+random,202,random_group_2,ICMP
+random,202,random_group_2,Variance
+random,202,random_group_2,urg_count
+random,202,random_group_2,fin_count
+random,202,random_group_2,Tot size
+random,202,random_group_2,syn_count
+random,202,random_group_2,psh_flag_number
+random,202,random_group_2,fin_flag_number
+random,202,random_group_2,Min
+random,203,random_group_0,UDP
+random,203,random_group_0,Weight
+random,203,random_group_0,Min
+random,203,random_group_0,rst_flag_number
+random,203,random_group_0,Magnitue
+random,203,random_group_0,urg_count
+random,203,random_group_0,Protocol Type
+random,203,random_group_0,TCP
+random,203,random_group_0,syn_count
+random,203,random_group_0,Variance
+random,203,random_group_0,Tot sum
+random,203,random_group_1,AVG
+random,203,random_group_1,ece_flag_number
+random,203,random_group_1,Number
+random,203,random_group_1,ack_flag_number
+random,203,random_group_1,Std
+random,203,random_group_1,Tot size
+random,203,random_group_1,fin_flag_number
+random,203,random_group_1,Max
+random,203,random_group_2,rst_count
+random,203,random_group_2,Covariance
+random,203,random_group_2,ack_count
+random,203,random_group_2,fin_count
+random,203,random_group_2,syn_flag_number
+random,203,random_group_2,psh_flag_number
+random,203,random_group_2,ICMP
+random,203,random_group_2,cwr_flag_number
+random,203,random_group_2,Radius
+random,203,random_group_2,Header_Length

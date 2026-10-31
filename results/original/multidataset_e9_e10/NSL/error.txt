@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/tmp/ipykernel_50/2648055560.py", line 1006, in <cell line: 0>
+    baseline_summary, risk_summary = run_dataset(dataset, bundle)
+                                     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_50/2648055560.py", line 480, in run_dataset
+    validate_bundle(dataset, bundle)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_50/2648055560.py", line 275, in validate_bundle
+    raise ValueError(
+        f"{dataset}: missing bundle fields: {missing}"
+    )
+ValueError: NSL: missing bundle fields: ['normal_reference_df', 'primary_model', 'primary_features', 'primary_threshold', 'mutable_columns', 'semantic_views']

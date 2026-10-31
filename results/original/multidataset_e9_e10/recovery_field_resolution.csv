@@ -1,0 +1,17 @@
+dataset,field,status,candidates
+CSE,train_df,NOT_FOUND,
+CSE,source_test_df,NOT_FOUND,
+CSE,normal_reference_df,NOT_FOUND,
+CSE,primary_model,NOT_FOUND,
+CSE,primary_features,NOT_FOUND,
+CSE,primary_threshold,NOT_FOUND,
+CSE,mutable_columns,NOT_FOUND,
+CSE,semantic_views,EXISTING,RUN_BUNDLES['CSE']
+NSL,train_df,EXISTING,RUN_BUNDLES['NSL']
+NSL,source_test_df,EXISTING,RUN_BUNDLES['NSL']
+NSL,normal_reference_df,NOT_FOUND,
+NSL,primary_model,NOT_FOUND,
+NSL,primary_features,NOT_FOUND,
+NSL,primary_threshold,NOT_FOUND,
+NSL,mutable_columns,NOT_FOUND,
+NSL,semantic_views,NOT_FOUND,

@@ -1,0 +1,27 @@
+{
+  "dataset": "CSE-CIC-IDS2018",
+  "source_families": [
+    "Bot",
+    "Brute Force -Web",
+    "DDOS attack-HOIC",
+    "DDOS attack-LOIC-UDP",
+    "DDoS attacks-LOIC-HTTP",
+    "DoS attacks-GoldenEye"
+  ],
+  "heldout_families": [
+    "DoS attacks-Hulk",
+    "DoS attacks-Slowloris",
+    "Infilteration",
+    "SSH-Bruteforce"
+  ],
+  "primary_source_bacc": 0.9619883040935673,
+  "primary_zero_day_bacc": 0.689480633802817,
+  "accepted_views": [
+    "timing_rate",
+    "volume_size",
+    "directionality",
+    "count_burst"
+  ],
+  "accepted_view_count": 4,
+  "pass": true
+}

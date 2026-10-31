@@ -1,0 +1,40 @@
+{
+  "dataset": "NSL-KDD",
+  "views": [
+    "protocol_service",
+    "volume_size",
+    "connection_counts",
+    "error_rate_state",
+    "host_service_rates"
+  ],
+  "primary_threshold": 0.6060803301275801,
+  "view_thresholds": {
+    "protocol_service": 0.45307156600297854,
+    "volume_size": 0.5290229536033557,
+    "connection_counts": 0.8407522667016804,
+    "error_rate_state": 0.8722166253607145,
+    "host_service_rates": 0.7669255537134696
+  },
+  "clean_trusted_coverage": 0.7777777777777778,
+  "clean_false_suspect_rate": 0.1111111111111111,
+  "clean_false_abstain_rate": 0.1111111111111111,
+  "e2_e3_pass": false,
+  "source_families": [
+    "apache2",
+    "back",
+    "guess_passwd",
+    "ipsweep",
+    "mscan",
+    "neptune",
+    "nmap",
+    "portsweep",
+    "processtable"
+  ],
+  "heldout_families": [
+    "satan",
+    "smurf",
+    "teardrop",
+    "warezclient",
+    "warezmaster"
+  ]
+}

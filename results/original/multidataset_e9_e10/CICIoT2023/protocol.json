@@ -1,0 +1,140 @@
+{
+  "dataset": "CICIoT2023",
+  "experiments_completed": [
+    "E9",
+    "E10"
+  ],
+  "primary_features": [
+    "flow_duration",
+    "Header_Length",
+    "Protocol Type",
+    "Duration",
+    "Rate",
+    "Srate",
+    "Drate",
+    "fin_flag_number",
+    "syn_flag_number",
+    "rst_flag_number",
+    "psh_flag_number",
+    "ack_flag_number",
+    "ece_flag_number",
+    "cwr_flag_number",
+    "ack_count",
+    "syn_count",
+    "fin_count",
+    "urg_count",
+    "rst_count",
+    "HTTP",
+    "HTTPS",
+    "DNS",
+    "Telnet",
+    "SMTP",
+    "SSH",
+    "IRC",
+    "TCP",
+    "UDP",
+    "DHCP",
+    "ARP",
+    "ICMP",
+    "IPv",
+    "LLC",
+    "Tot sum",
+    "Min",
+    "Max",
+    "AVG",
+    "Std",
+    "Tot size",
+    "IAT",
+    "Number",
+    "Magnitue",
+    "Radius",
+    "Covariance",
+    "Variance",
+    "Weight"
+  ],
+  "mutable_columns": [
+    "Header_Length",
+    "Tot sum",
+    "Tot size",
+    "Number",
+    "Min",
+    "Max",
+    "AVG",
+    "Std"
+  ],
+  "semantic_views": {
+    "protocol_state": [
+      "Protocol Type",
+      "fin_flag_number",
+      "syn_flag_number",
+      "rst_flag_number",
+      "psh_flag_number",
+      "ack_flag_number",
+      "ece_flag_number",
+      "cwr_flag_number",
+      "TCP",
+      "UDP",
+      "ICMP"
+    ],
+    "volume_size": [
+      "Header_Length",
+      "Tot sum",
+      "Tot size",
+      "Number",
+      "Min",
+      "Max",
+      "AVG",
+      "Std"
+    ],
+    "count_burst": [
+      "ack_count",
+      "syn_count",
+      "fin_count",
+      "urg_count",
+      "rst_count",
+      "Magnitue",
+      "Radius",
+      "Covariance",
+      "Variance",
+      "Weight"
+    ]
+  },
+  "primary_threshold": 0.6145878931396175,
+  "attack_seeds": [
+    10,
+    11,
+    12
+  ],
+  "partition_seeds": [
+    201,
+    202,
+    203
+  ],
+  "epsilons": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "sparse_k": 3,
+  "surrogate_fraction": 0.5,
+  "window_size": 128,
+  "test_windows": 51,
+  "excluded_test_remainder": 46,
+  "reference_allocation_rows": {
+    "view_thresholds": 722,
+    "profile_fit": 722,
+    "support_calibration": 722
+  },
+  "limitations": [
+    "Exploratory, not confirmatory",
+    "Margin-density proxy is not published MD3",
+    "Normal-only profile ablation",
+    "Reference bootstrap windows overlap",
+    "Original train/reference/test separation is supplied by bundle",
+    "Random partition seeds are not independent dataset replications",
+    "White-box seeds repeat one frozen primary attack",
+    "Range/type constraints do not establish packet validity",
+    "Raw categorical datasets must be encoded before registration",
+    "No natural-shift domains evaluated unless separately supplied"
+  ]
+}

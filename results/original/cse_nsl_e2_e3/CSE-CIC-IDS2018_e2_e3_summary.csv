@@ -1,0 +1,5 @@
+split,state,windows,primary_accuracy,support_score
+clean_normal,suspect,2,0.94921875,275.83480032665705
+clean_normal,trusted,3,0.9557291666666666,174.33797354304895
+source_family,trusted,16,0.96240234375,0.9197380856866587
+zero_day,abstain,35,0.6863839285714286,21.490861428026435

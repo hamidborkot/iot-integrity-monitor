@@ -1,0 +1,36 @@
+{
+  "dataset": "CSE-CIC-IDS2018",
+  "views": [
+    "protocol_state",
+    "timing_rate",
+    "volume_size",
+    "directionality",
+    "count_burst"
+  ],
+  "primary_threshold": 0.5012755190590762,
+  "view_thresholds": {
+    "protocol_state": 0.6835585264374409,
+    "timing_rate": 0.5616879761385098,
+    "volume_size": 0.7698006715976423,
+    "directionality": 0.7966667649494426,
+    "count_burst": 0.6868670690761293
+  },
+  "clean_trusted_coverage": 0.6,
+  "clean_false_suspect_rate": 0.4,
+  "clean_false_abstain_rate": 0.0,
+  "e2_e3_pass": false,
+  "source_families": [
+    "Bot",
+    "Brute Force -Web",
+    "DDOS attack-HOIC",
+    "DDOS attack-LOIC-UDP",
+    "DDoS attacks-LOIC-HTTP",
+    "DoS attacks-GoldenEye"
+  ],
+  "heldout_families": [
+    "DoS attacks-Hulk",
+    "DoS attacks-Slowloris",
+    "Infilteration",
+    "SSH-Bruteforce"
+  ]
+}

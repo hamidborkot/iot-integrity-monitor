@@ -1,0 +1,7 @@
+epsilon,search_seed,selection_status,candidate_id,true_damage,trusted_coverage,suspect_rate,abstain_rate,trusted_risk,attribution_accuracy,validity_rate
+0.25,101,infeasible_no_damage_5pp,,,,,,,,
+0.25,102,infeasible_no_damage_5pp,,,,,,,,
+0.25,103,infeasible_no_damage_5pp,,,,,,,,
+0.5,101,infeasible_no_damage_5pp,,,,,,,,
+0.5,102,infeasible_no_damage_5pp,,,,,,,,
+0.5,103,infeasible_no_damage_5pp,,,,,,,,

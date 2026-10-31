@@ -1,0 +1,34 @@
+{
+  "dataset": "CICIoT2023",
+  "experiment": "Semantic versus size-matched random partition ablation",
+  "evidence_status": "Exploratory development",
+  "random_partition_seeds": [
+    201,
+    202,
+    203
+  ],
+  "group_sizes": [
+    11,
+    8,
+    10
+  ],
+  "feature_union_sha256": "6408468e4ca1de23c9b5a551c35a86cf17f8a06111fc3e8a4f9e40f40f674ab8",
+  "attacks": [
+    "clean_source",
+    "whitebox_eps_0.25",
+    "whitebox_eps_0.50"
+  ],
+  "primary_detector": "Unchanged frozen E9-v2 primary detector",
+  "reference_allocations": "Disjoint records for view thresholds, profile fitting, and support threshold calibration",
+  "profile": "Normal-only; shared fixed robust-scale floor",
+  "window_size": 128,
+  "test_windows": "Disjoint; incomplete remainder excluded",
+  "matched_coverage_selection": "Rank windows without labels; retain lowest-score windows",
+  "limitations": [
+    "Normal-profile ablation is not the previous two-profile monitor",
+    "Reference bootstrap windows overlap; not independent observations",
+    "Random partition seeds are not independent dataset replications",
+    "No packet-semantic validity claim",
+    "No confirmatory significance claimed"
+  ]
+}

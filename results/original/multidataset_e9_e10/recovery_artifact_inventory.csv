@@ -1,0 +1,31 @@
+datasets,path,size_bytes
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/DoS2-Friday-16-02-2018_TrafficForML_CICFlowMeter.parquet,57992315
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/DoS1-Thursday-15-02-2018_TrafficForML_CICFlowMeter.parquet,98618434
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/DDoS1-Tuesday-20-02-2018_TrafficForML_CICFlowMeter.parquet,89492377
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/Web2-Friday-23-02-2018_TrafficForML_CICFlowMeter.parquet,101389557
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/Web1-Thursday-22-02-2018_TrafficForML_CICFlowMeter.parquet,103957293
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/Botnet-Friday-02-03-2018_TrafficForML_CICFlowMeter.parquet,83481543
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/Infil2-Thursday-01-03-2018_TrafficForML_CICFlowMeter.parquet,29282940
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/DDoS2-Wednesday-21-02-2018_TrafficForML_CICFlowMeter.parquet,33448003
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/Infil1-Wednesday-28-02-2018_TrafficForML_CICFlowMeter.parquet,50954894
+CSE,/kaggle/input/datasets/dhoogla/csecicids2018/Bruteforce-Wednesday-14-02-2018_TrafficForML_CICFlowMeter.parquet,76430026
+NSL,/kaggle/input/datasets/shamstahzib/nsl-kdd-dataset/nsl-kdd-dataset/Field Names.csv,1050
+NSL,/kaggle/input/datasets/shamstahzib/nsl-kdd-dataset/nsl-kdd-dataset/KDDTest+.csv,2639177
+NSL,/kaggle/input/datasets/shamstahzib/nsl-kdd-dataset/nsl-kdd-dataset/Attack Types.csv,300
+NSL,/kaggle/input/datasets/shamstahzib/nsl-kdd-dataset/nsl-kdd-dataset/20 Percent Training Set.csv,2923240
+NSL,/kaggle/input/datasets/shamstahzib/nsl-kdd-dataset/nsl-kdd-dataset/KDDTrain+.csv,14612857
+NSL,/kaggle/input/datasets/shamstahzib/nsl-kdd-dataset/nsl-kdd-dataset/Small Training Set.csv,117304
+CSE|NSL,/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json,895
+CSE|NSL,/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json,846
+CSE|NSL,/kaggle/working/cse_nsl_e2_e3/cse_nsl_e2_e3_decisions.csv,1256
+CSE|NSL,/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_summary.csv,441
+CSE|NSL,/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_windows.csv,6345
+CSE|NSL,/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_windows.csv,9858
+CSE|NSL,/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_summary.csv,281
+CSE|NSL,/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json,571
+CSE|NSL,/kaggle/working/e1_1_cse_nsl_semantic/cse_nsl_e1_1_decisions.csv,764
+CSE|NSL,/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_view_results.csv,928
+CSE|NSL,/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json,560
+CSE|NSL,/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_view_results.csv,980
+CSE,/kaggle/working/all_dataset_recovery_audit/schemas/CSE-CIC-IDS2018_provenance_inventory.csv,8565
+NSL,/kaggle/working/all_dataset_recovery_audit/schemas/NSL-KDD_provenance_inventory.csv,4601

@@ -1,0 +1,23 @@
+{
+  "dataset": "CICIoT2023",
+  "experiment": "E8_1_gradient_free_NES_style",
+  "attack_view": "volume_size",
+  "search_type": "gradient_free_random_direction_NES_style_candidate_search",
+  "epsilons": [
+    0.25,
+    0.5
+  ],
+  "search_seeds": [
+    101,
+    102,
+    103
+  ],
+  "candidates_per_seed": 40,
+  "minimum_damage": 0.05,
+  "selection_rule": "Among candidates satisfying true_damage >= 0.05, maximize trusted_coverage; then minimize abstain_rate and suspect_rate.",
+  "validity_scope": "range-and-type constrained flow-feature perturbation",
+  "not_claimed": [
+    "packet_semantic_validity",
+    "traffic_trace_validity"
+  ]
+}

@@ -1,0 +1,205 @@
+object,type,shape,columns_or_keys
+DATASET_PATHS.CSE-CIC-IDS2018,list,,
+DATASET_PATHS.NSL-KDD,list,,
+schema_from_nsl,function,,
+status.missing_required_final_work.CSE-CIC-IDS2018,list,,
+status.missing_required_final_work.NSL-KDD,list,,
+CSE_ROOT,PosixPath,,
+NSL_ROOT,PosixPath,,
+NSL_TRAIN,PosixPath,,
+NSL_TEST,PosixPath,,
+CSE_VIEW_KEYWORDS,dict,,"[""protocol_state"", ""timing_rate"", ""volume_size"", ""directionality"", ""count_burst""]"
+CSE_VIEW_KEYWORDS.protocol_state,list,,
+CSE_VIEW_KEYWORDS.timing_rate,list,,
+CSE_VIEW_KEYWORDS.volume_size,list,,
+CSE_VIEW_KEYWORDS.directionality,list,,
+CSE_VIEW_KEYWORDS.count_burst,list,,
+NSL_VIEW_COLUMNS,dict,,"[""protocol_service"", ""volume_size"", ""connection_counts"", ""error_rate_state"", ""host_service_rates""]"
+NSL_VIEW_COLUMNS.protocol_service,list,,
+NSL_VIEW_COLUMNS.volume_size,list,,
+NSL_VIEW_COLUMNS.connection_counts,list,,
+NSL_VIEW_COLUMNS.error_rate_state,list,,
+NSL_VIEW_COLUMNS.host_service_rates,list,,
+cse_files,list,,
+cse_frames,list,,
+cse_sample,DataFrame,"(829405, 78)","[""Protocol"", ""Flow Duration"", ""Total Fwd Packets"", ""Total Backward Packets"", ""Fwd Packets Length Total"", ""Bwd Packets Length Total"", ""Fwd Packet Length Max"", ""Fwd Packet Length Min"", ""Fwd Packet Length Mean"", ""Fwd Packet Length Std"", ""Bwd Packet Length Max"", ""Bwd Packet Length Min"", ""Bwd Packet Length Mean"", ""Bwd Packet Length Std"", ""Flow Bytes/s"", ""Flow Packets/s"", ""Flow IAT Mean"", ""Flow IAT Std"", ""Flow IAT Max"", ""Flow IAT Min"", ""Fwd IAT Total"", ""Fwd IAT Mean"", ""Fwd IAT Std"", ""Fwd IAT Max"", ""Fwd IAT Min"", ""Bwd IAT Total"", ""Bwd IAT Mean"", ""Bwd IAT Std"", ""Bwd IAT Max"", ""Bwd IAT Min"", ""Fwd PSH Flags"", ""Bwd PSH Flags"", ""Fwd URG Flags"", ""Bwd URG Flags"", ""Fwd Header Length"", ""Bwd Header Length"", ""Fwd Packets/s"", ""Bwd Packets/s"", ""Packet Length Min"", ""Packet Length Max"", ""Packet Length Mean"", ""Packet Length Std"", ""Packet Length Variance"", ""FIN Flag Count"", ""SYN Flag Count"", ""RST Flag Count"", ""PSH Flag Count"", ""ACK Flag Count"", ""URG Flag Count"", ""CWE Flag Count"", ""ECE Flag Count"", ""Down/Up Ratio"", ""Avg Packet Size"", ""Avg Fwd Segment Size"", ""Avg Bwd Segment Size"", ""Fwd Avg Bytes/Bulk"", ""Fwd Avg Packets/Bulk"", ""Fwd Avg Bulk Rate"", ""Bwd Avg Bytes/Bulk"", ""Bwd Avg Packets/Bulk"", ""Bwd Avg Bulk Rate"", ""Subflow Fwd Packets"", ""Subflow Fwd Bytes"", ""Subflow Bwd Packets"", ""Subflow Bwd Bytes"", ""Init Fwd Win Bytes"", ""Init Bwd Win Bytes"", ""Fwd Act Data Packets"", ""Fwd Seg Size Min"", ""Active Mean"", ""Active Std"", ""Active Max"", ""Active Min"", ""Idle Mean"", ""Idle Std"", ""Idle Max"", ""Idle Min"", ""Label""]"
+cse_df,DataFrame,"(6659532, 78)","[""Protocol"", ""Flow Duration"", ""Total Fwd Packets"", ""Total Backward Packets"", ""Fwd Packets Length Total"", ""Bwd Packets Length Total"", ""Fwd Packet Length Max"", ""Fwd Packet Length Min"", ""Fwd Packet Length Mean"", ""Fwd Packet Length Std"", ""Bwd Packet Length Max"", ""Bwd Packet Length Min"", ""Bwd Packet Length Mean"", ""Bwd Packet Length Std"", ""Flow Bytes/s"", ""Flow Packets/s"", ""Flow IAT Mean"", ""Flow IAT Std"", ""Flow IAT Max"", ""Flow IAT Min"", ""Fwd IAT Total"", ""Fwd IAT Mean"", ""Fwd IAT Std"", ""Fwd IAT Max"", ""Fwd IAT Min"", ""Bwd IAT Total"", ""Bwd IAT Mean"", ""Bwd IAT Std"", ""Bwd IAT Max"", ""Bwd IAT Min"", ""Fwd PSH Flags"", ""Bwd PSH Flags"", ""Fwd URG Flags"", ""Bwd URG Flags"", ""Fwd Header Length"", ""Bwd Header Length"", ""Fwd Packets/s"", ""Bwd Packets/s"", ""Packet Length Min"", ""Packet Length Max"", ""Packet Length Mean"", ""Packet Length Std"", ""Packet Length Variance"", ""FIN Flag Count"", ""SYN Flag Count"", ""RST Flag Count"", ""PSH Flag Count"", ""ACK Flag Count"", ""URG Flag Count"", ""CWE Flag Count"", ""ECE Flag Count"", ""Down/Up Ratio"", ""Avg Packet Size"", ""Avg Fwd Segment Size"", ""Avg Bwd Segment Size"", ""Fwd Avg Bytes/Bulk"", ""Fwd Avg Packets/Bulk"", ""Fwd Avg Bulk Rate"", ""Bwd Avg Bytes/Bulk"", ""Bwd Avg Packets/Bulk"", ""Bwd Avg Bulk Rate"", ""Subflow Fwd Packets"", ""Subflow Fwd Bytes"", ""Subflow Bwd Packets"", ""Subflow Bwd Bytes"", ""Init Fwd Win Bytes"", ""Init Bwd Win Bytes"", ""Fwd Act Data Packets"", ""Fwd Seg Size Min"", ""Active Mean"", ""Active Std"", ""Active Max"", ""Active Min"", ""Idle Mean"", ""Idle Std"", ""Idle Max"", ""Idle Min"", ""Label""]"
+cse_views,dict,,"[""protocol_state"", ""timing_rate"", ""volume_size"", ""directionality"", ""count_burst""]"
+cse_views.protocol_state,list,,
+cse_views.timing_rate,list,,
+cse_views.volume_size,list,,
+cse_views.directionality,list,,
+cse_views.count_burst,list,,
+cse_decision,dict,,"[""dataset"", ""source_families"", ""heldout_families"", ""primary_source_bacc"", ""primary_zero_day_bacc"", ""accepted_views"", ""accepted_view_count"", ""pass""]"
+cse_decision.dataset,str,,
+cse_decision.source_families,list,,
+cse_decision.heldout_families,list,,
+cse_decision.primary_source_bacc,float,,
+cse_decision.primary_zero_day_bacc,float,,
+cse_decision.accepted_views,list,,
+cse_decision.accepted_view_count,int,,
+cse_decision.pass,bool,,
+NSL_COLUMNS,list,,
+nsl_train_df,DataFrame,"(125973, 43)","[""duration"", ""protocol_type"", ""service"", ""flag"", ""src_bytes"", ""dst_bytes"", ""land"", ""wrong_fragment"", ""urgent"", ""hot"", ""num_failed_logins"", ""logged_in"", ""num_compromised"", ""root_shell"", ""su_attempted"", ""num_root"", ""num_file_creations"", ""num_shells"", ""num_access_files"", ""num_outbound_cmds"", ""is_host_login"", ""is_guest_login"", ""count"", ""srv_count"", ""serror_rate"", ""srv_serror_rate"", ""rerror_rate"", ""srv_rerror_rate"", ""same_srv_rate"", ""diff_srv_rate"", ""srv_diff_host_rate"", ""dst_host_count"", ""dst_host_srv_count"", ""dst_host_same_srv_rate"", ""dst_host_diff_srv_rate"", ""dst_host_same_src_port_rate"", ""dst_host_srv_diff_host_rate"", ""dst_host_serror_rate"", ""dst_host_srv_serror_rate"", ""dst_host_rerror_rate"", ""dst_host_srv_rerror_rate"", ""label"", ""difficulty""]"
+nsl_test_df,DataFrame,"(22544, 43)","[""duration"", ""protocol_type"", ""service"", ""flag"", ""src_bytes"", ""dst_bytes"", ""land"", ""wrong_fragment"", ""urgent"", ""hot"", ""num_failed_logins"", ""logged_in"", ""num_compromised"", ""root_shell"", ""su_attempted"", ""num_root"", ""num_file_creations"", ""num_shells"", ""num_access_files"", ""num_outbound_cmds"", ""is_host_login"", ""is_guest_login"", ""count"", ""srv_count"", ""serror_rate"", ""srv_serror_rate"", ""rerror_rate"", ""srv_rerror_rate"", ""same_srv_rate"", ""diff_srv_rate"", ""srv_diff_host_rate"", ""dst_host_count"", ""dst_host_srv_count"", ""dst_host_same_srv_rate"", ""dst_host_diff_srv_rate"", ""dst_host_same_src_port_rate"", ""dst_host_srv_diff_host_rate"", ""dst_host_serror_rate"", ""dst_host_srv_serror_rate"", ""dst_host_rerror_rate"", ""dst_host_srv_rerror_rate"", ""label"", ""difficulty""]"
+nsl_df,DataFrame,"(148517, 43)","[""duration"", ""protocol_type"", ""service"", ""flag"", ""src_bytes"", ""dst_bytes"", ""land"", ""wrong_fragment"", ""urgent"", ""hot"", ""num_failed_logins"", ""logged_in"", ""num_compromised"", ""root_shell"", ""su_attempted"", ""num_root"", ""num_file_creations"", ""num_shells"", ""num_access_files"", ""num_outbound_cmds"", ""is_host_login"", ""is_guest_login"", ""count"", ""srv_count"", ""serror_rate"", ""srv_serror_rate"", ""rerror_rate"", ""srv_rerror_rate"", ""same_srv_rate"", ""diff_srv_rate"", ""srv_diff_host_rate"", ""dst_host_count"", ""dst_host_srv_count"", ""dst_host_same_srv_rate"", ""dst_host_diff_srv_rate"", ""dst_host_same_src_port_rate"", ""dst_host_srv_diff_host_rate"", ""dst_host_serror_rate"", ""dst_host_srv_serror_rate"", ""dst_host_rerror_rate"", ""dst_host_srv_rerror_rate"", ""label"", ""difficulty""]"
+nsl_decision,dict,,"[""dataset"", ""source_families"", ""heldout_families"", ""primary_source_bacc"", ""primary_zero_day_bacc"", ""accepted_views"", ""accepted_view_count"", ""pass""]"
+nsl_decision.dataset,str,,
+nsl_decision.source_families,list,,
+nsl_decision.heldout_families,list,,
+nsl_decision.primary_source_bacc,float,,
+nsl_decision.primary_zero_day_bacc,float,,
+nsl_decision.accepted_views,list,,
+nsl_decision.accepted_view_count,int,,
+nsl_decision.pass,bool,,
+cse_decision_e23,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+cse_decision_e23.dataset,str,,
+cse_decision_e23.views,list,,
+cse_decision_e23.primary_threshold,float,,
+cse_decision_e23.view_thresholds,dict,,"[""protocol_state"", ""timing_rate"", ""volume_size"", ""directionality"", ""count_burst""]"
+cse_decision_e23.view_thresholds.protocol_state,float,,
+cse_decision_e23.view_thresholds.timing_rate,float,,
+cse_decision_e23.view_thresholds.volume_size,float,,
+cse_decision_e23.view_thresholds.directionality,float,,
+cse_decision_e23.view_thresholds.count_burst,float,,
+cse_decision_e23.clean_trusted_coverage,float,,
+cse_decision_e23.clean_false_suspect_rate,float,,
+cse_decision_e23.clean_false_abstain_rate,float,,
+cse_decision_e23.e2_e3_pass,bool,,
+cse_decision_e23.source_families,list,,
+cse_decision_e23.heldout_families,list,,
+nsl_decision_e23,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+nsl_decision_e23.dataset,str,,
+nsl_decision_e23.views,list,,
+nsl_decision_e23.primary_threshold,float,,
+nsl_decision_e23.view_thresholds,dict,,"[""protocol_service"", ""volume_size"", ""connection_counts"", ""error_rate_state"", ""host_service_rates""]"
+nsl_decision_e23.view_thresholds.protocol_service,float,,
+nsl_decision_e23.view_thresholds.volume_size,float,,
+nsl_decision_e23.view_thresholds.connection_counts,float,,
+nsl_decision_e23.view_thresholds.error_rate_state,float,,
+nsl_decision_e23.view_thresholds.host_service_rates,float,,
+nsl_decision_e23.clean_trusted_coverage,float,,
+nsl_decision_e23.clean_false_suspect_rate,float,,
+nsl_decision_e23.clean_false_abstain_rate,float,,
+nsl_decision_e23.e2_e3_pass,bool,,
+nsl_decision_e23.source_families,list,,
+nsl_decision_e23.heldout_families,list,,
+CSE_NSL,PosixPath,,
+cse_e11,dict,,[]
+nsl_e11,dict,,[]
+cse_e23,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+cse_e23.dataset,str,,
+cse_e23.views,list,,
+cse_e23.primary_threshold,float,,
+cse_e23.view_thresholds,dict,,"[""protocol_state"", ""timing_rate"", ""volume_size"", ""directionality"", ""count_burst""]"
+cse_e23.view_thresholds.protocol_state,float,,
+cse_e23.view_thresholds.timing_rate,float,,
+cse_e23.view_thresholds.volume_size,float,,
+cse_e23.view_thresholds.directionality,float,,
+cse_e23.view_thresholds.count_burst,float,,
+cse_e23.clean_trusted_coverage,float,,
+cse_e23.clean_false_suspect_rate,float,,
+cse_e23.clean_false_abstain_rate,float,,
+cse_e23.e2_e3_pass,bool,,
+cse_e23.source_families,list,,
+cse_e23.heldout_families,list,,
+nsl_e23,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+nsl_e23.dataset,str,,
+nsl_e23.views,list,,
+nsl_e23.primary_threshold,float,,
+nsl_e23.view_thresholds,dict,,"[""protocol_service"", ""volume_size"", ""connection_counts"", ""error_rate_state"", ""host_service_rates""]"
+nsl_e23.view_thresholds.protocol_service,float,,
+nsl_e23.view_thresholds.volume_size,float,,
+nsl_e23.view_thresholds.connection_counts,float,,
+nsl_e23.view_thresholds.error_rate_state,float,,
+nsl_e23.view_thresholds.host_service_rates,float,,
+nsl_e23.clean_trusted_coverage,float,,
+nsl_e23.clean_false_suspect_rate,float,,
+nsl_e23.clean_false_abstain_rate,float,,
+nsl_e23.e2_e3_pass,bool,,
+nsl_e23.source_families,list,,
+nsl_e23.heldout_families,list,,
+PREFIXES.CSE,list,,
+PREFIXES.NSL,list,,
+namespace.schema_from_nsl,function,,
+namespace.CSE_ROOT,PosixPath,,
+namespace.NSL_ROOT,PosixPath,,
+namespace.NSL_TRAIN,PosixPath,,
+namespace.NSL_TEST,PosixPath,,
+namespace.CSE_VIEW_KEYWORDS,dict,,"[""protocol_state"", ""timing_rate"", ""volume_size"", ""directionality"", ""count_burst""]"
+namespace.NSL_VIEW_COLUMNS,dict,,"[""protocol_service"", ""volume_size"", ""connection_counts"", ""error_rate_state"", ""host_service_rates""]"
+namespace.cse_files,list,,
+namespace.cse_frames,list,,
+namespace.cse_sample,DataFrame,"(829405, 78)","[""Protocol"", ""Flow Duration"", ""Total Fwd Packets"", ""Total Backward Packets"", ""Fwd Packets Length Total"", ""Bwd Packets Length Total"", ""Fwd Packet Length Max"", ""Fwd Packet Length Min"", ""Fwd Packet Length Mean"", ""Fwd Packet Length Std"", ""Bwd Packet Length Max"", ""Bwd Packet Length Min"", ""Bwd Packet Length Mean"", ""Bwd Packet Length Std"", ""Flow Bytes/s"", ""Flow Packets/s"", ""Flow IAT Mean"", ""Flow IAT Std"", ""Flow IAT Max"", ""Flow IAT Min"", ""Fwd IAT Total"", ""Fwd IAT Mean"", ""Fwd IAT Std"", ""Fwd IAT Max"", ""Fwd IAT Min"", ""Bwd IAT Total"", ""Bwd IAT Mean"", ""Bwd IAT Std"", ""Bwd IAT Max"", ""Bwd IAT Min"", ""Fwd PSH Flags"", ""Bwd PSH Flags"", ""Fwd URG Flags"", ""Bwd URG Flags"", ""Fwd Header Length"", ""Bwd Header Length"", ""Fwd Packets/s"", ""Bwd Packets/s"", ""Packet Length Min"", ""Packet Length Max"", ""Packet Length Mean"", ""Packet Length Std"", ""Packet Length Variance"", ""FIN Flag Count"", ""SYN Flag Count"", ""RST Flag Count"", ""PSH Flag Count"", ""ACK Flag Count"", ""URG Flag Count"", ""CWE Flag Count"", ""ECE Flag Count"", ""Down/Up Ratio"", ""Avg Packet Size"", ""Avg Fwd Segment Size"", ""Avg Bwd Segment Size"", ""Fwd Avg Bytes/Bulk"", ""Fwd Avg Packets/Bulk"", ""Fwd Avg Bulk Rate"", ""Bwd Avg Bytes/Bulk"", ""Bwd Avg Packets/Bulk"", ""Bwd Avg Bulk Rate"", ""Subflow Fwd Packets"", ""Subflow Fwd Bytes"", ""Subflow Bwd Packets"", ""Subflow Bwd Bytes"", ""Init Fwd Win Bytes"", ""Init Bwd Win Bytes"", ""Fwd Act Data Packets"", ""Fwd Seg Size Min"", ""Active Mean"", ""Active Std"", ""Active Max"", ""Active Min"", ""Idle Mean"", ""Idle Std"", ""Idle Max"", ""Idle Min"", ""Label""]"
+namespace.cse_df,DataFrame,"(6659532, 78)","[""Protocol"", ""Flow Duration"", ""Total Fwd Packets"", ""Total Backward Packets"", ""Fwd Packets Length Total"", ""Bwd Packets Length Total"", ""Fwd Packet Length Max"", ""Fwd Packet Length Min"", ""Fwd Packet Length Mean"", ""Fwd Packet Length Std"", ""Bwd Packet Length Max"", ""Bwd Packet Length Min"", ""Bwd Packet Length Mean"", ""Bwd Packet Length Std"", ""Flow Bytes/s"", ""Flow Packets/s"", ""Flow IAT Mean"", ""Flow IAT Std"", ""Flow IAT Max"", ""Flow IAT Min"", ""Fwd IAT Total"", ""Fwd IAT Mean"", ""Fwd IAT Std"", ""Fwd IAT Max"", ""Fwd IAT Min"", ""Bwd IAT Total"", ""Bwd IAT Mean"", ""Bwd IAT Std"", ""Bwd IAT Max"", ""Bwd IAT Min"", ""Fwd PSH Flags"", ""Bwd PSH Flags"", ""Fwd URG Flags"", ""Bwd URG Flags"", ""Fwd Header Length"", ""Bwd Header Length"", ""Fwd Packets/s"", ""Bwd Packets/s"", ""Packet Length Min"", ""Packet Length Max"", ""Packet Length Mean"", ""Packet Length Std"", ""Packet Length Variance"", ""FIN Flag Count"", ""SYN Flag Count"", ""RST Flag Count"", ""PSH Flag Count"", ""ACK Flag Count"", ""URG Flag Count"", ""CWE Flag Count"", ""ECE Flag Count"", ""Down/Up Ratio"", ""Avg Packet Size"", ""Avg Fwd Segment Size"", ""Avg Bwd Segment Size"", ""Fwd Avg Bytes/Bulk"", ""Fwd Avg Packets/Bulk"", ""Fwd Avg Bulk Rate"", ""Bwd Avg Bytes/Bulk"", ""Bwd Avg Packets/Bulk"", ""Bwd Avg Bulk Rate"", ""Subflow Fwd Packets"", ""Subflow Fwd Bytes"", ""Subflow Bwd Packets"", ""Subflow Bwd Bytes"", ""Init Fwd Win Bytes"", ""Init Bwd Win Bytes"", ""Fwd Act Data Packets"", ""Fwd Seg Size Min"", ""Active Mean"", ""Active Std"", ""Active Max"", ""Active Min"", ""Idle Mean"", ""Idle Std"", ""Idle Max"", ""Idle Min"", ""Label""]"
+namespace.cse_views,dict,,"[""protocol_state"", ""timing_rate"", ""volume_size"", ""directionality"", ""count_burst""]"
+namespace.cse_decision,dict,,"[""dataset"", ""source_families"", ""heldout_families"", ""primary_source_bacc"", ""primary_zero_day_bacc"", ""accepted_views"", ""accepted_view_count"", ""pass""]"
+namespace.NSL_COLUMNS,list,,
+namespace.nsl_train_df,DataFrame,"(125973, 43)","[""duration"", ""protocol_type"", ""service"", ""flag"", ""src_bytes"", ""dst_bytes"", ""land"", ""wrong_fragment"", ""urgent"", ""hot"", ""num_failed_logins"", ""logged_in"", ""num_compromised"", ""root_shell"", ""su_attempted"", ""num_root"", ""num_file_creations"", ""num_shells"", ""num_access_files"", ""num_outbound_cmds"", ""is_host_login"", ""is_guest_login"", ""count"", ""srv_count"", ""serror_rate"", ""srv_serror_rate"", ""rerror_rate"", ""srv_rerror_rate"", ""same_srv_rate"", ""diff_srv_rate"", ""srv_diff_host_rate"", ""dst_host_count"", ""dst_host_srv_count"", ""dst_host_same_srv_rate"", ""dst_host_diff_srv_rate"", ""dst_host_same_src_port_rate"", ""dst_host_srv_diff_host_rate"", ""dst_host_serror_rate"", ""dst_host_srv_serror_rate"", ""dst_host_rerror_rate"", ""dst_host_srv_rerror_rate"", ""label"", ""difficulty""]"
+namespace.nsl_test_df,DataFrame,"(22544, 43)","[""duration"", ""protocol_type"", ""service"", ""flag"", ""src_bytes"", ""dst_bytes"", ""land"", ""wrong_fragment"", ""urgent"", ""hot"", ""num_failed_logins"", ""logged_in"", ""num_compromised"", ""root_shell"", ""su_attempted"", ""num_root"", ""num_file_creations"", ""num_shells"", ""num_access_files"", ""num_outbound_cmds"", ""is_host_login"", ""is_guest_login"", ""count"", ""srv_count"", ""serror_rate"", ""srv_serror_rate"", ""rerror_rate"", ""srv_rerror_rate"", ""same_srv_rate"", ""diff_srv_rate"", ""srv_diff_host_rate"", ""dst_host_count"", ""dst_host_srv_count"", ""dst_host_same_srv_rate"", ""dst_host_diff_srv_rate"", ""dst_host_same_src_port_rate"", ""dst_host_srv_diff_host_rate"", ""dst_host_serror_rate"", ""dst_host_srv_serror_rate"", ""dst_host_rerror_rate"", ""dst_host_srv_rerror_rate"", ""label"", ""difficulty""]"
+namespace.nsl_df,DataFrame,"(148517, 43)","[""duration"", ""protocol_type"", ""service"", ""flag"", ""src_bytes"", ""dst_bytes"", ""land"", ""wrong_fragment"", ""urgent"", ""hot"", ""num_failed_logins"", ""logged_in"", ""num_compromised"", ""root_shell"", ""su_attempted"", ""num_root"", ""num_file_creations"", ""num_shells"", ""num_access_files"", ""num_outbound_cmds"", ""is_host_login"", ""is_guest_login"", ""count"", ""srv_count"", ""serror_rate"", ""srv_serror_rate"", ""rerror_rate"", ""srv_rerror_rate"", ""same_srv_rate"", ""diff_srv_rate"", ""srv_diff_host_rate"", ""dst_host_count"", ""dst_host_srv_count"", ""dst_host_same_srv_rate"", ""dst_host_diff_srv_rate"", ""dst_host_same_src_port_rate"", ""dst_host_srv_diff_host_rate"", ""dst_host_serror_rate"", ""dst_host_srv_serror_rate"", ""dst_host_rerror_rate"", ""dst_host_srv_rerror_rate"", ""label"", ""difficulty""]"
+namespace.nsl_decision,dict,,"[""dataset"", ""source_families"", ""heldout_families"", ""primary_source_bacc"", ""primary_zero_day_bacc"", ""accepted_views"", ""accepted_view_count"", ""pass""]"
+namespace.cse_decision_e23,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+namespace.nsl_decision_e23,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+namespace.CSE_NSL,PosixPath,,
+namespace.cse_e11,dict,,[]
+namespace.nsl_e11,dict,,[]
+namespace.cse_e23,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+namespace.nsl_e23,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+RUN_BUNDLES.CSE,dict,,"[""semantic_views""]"
+RUN_BUNDLES.CSE.semantic_views,dict,,"[""protocol_state"", ""timing_rate"", ""volume_size"", ""directionality"", ""count_burst""]"
+RUN_BUNDLES.NSL,dict,,"[""train_df"", ""source_test_df""]"
+RUN_BUNDLES.NSL.train_df,DataFrame,"(125973, 43)","[""duration"", ""protocol_type"", ""service"", ""flag"", ""src_bytes"", ""dst_bytes"", ""land"", ""wrong_fragment"", ""urgent"", ""hot"", ""num_failed_logins"", ""logged_in"", ""num_compromised"", ""root_shell"", ""su_attempted"", ""num_root"", ""num_file_creations"", ""num_shells"", ""num_access_files"", ""num_outbound_cmds"", ""is_host_login"", ""is_guest_login"", ""count"", ""srv_count"", ""serror_rate"", ""srv_serror_rate"", ""rerror_rate"", ""srv_rerror_rate"", ""same_srv_rate"", ""diff_srv_rate"", ""srv_diff_host_rate"", ""dst_host_count"", ""dst_host_srv_count"", ""dst_host_same_srv_rate"", ""dst_host_diff_srv_rate"", ""dst_host_same_src_port_rate"", ""dst_host_srv_diff_host_rate"", ""dst_host_serror_rate"", ""dst_host_srv_serror_rate"", ""dst_host_rerror_rate"", ""dst_host_srv_rerror_rate"", ""label"", ""difficulty""]"
+RUN_BUNDLES.NSL.source_test_df,DataFrame,"(22544, 43)","[""duration"", ""protocol_type"", ""service"", ""flag"", ""src_bytes"", ""dst_bytes"", ""land"", ""wrong_fragment"", ""urgent"", ""hot"", ""num_failed_logins"", ""logged_in"", ""num_compromised"", ""root_shell"", ""su_attempted"", ""num_root"", ""num_file_creations"", ""num_shells"", ""num_access_files"", ""num_outbound_cmds"", ""is_host_login"", ""is_guest_login"", ""count"", ""srv_count"", ""serror_rate"", ""srv_serror_rate"", ""rerror_rate"", ""srv_rerror_rate"", ""same_srv_rate"", ""diff_srv_rate"", ""srv_diff_host_rate"", ""dst_host_count"", ""dst_host_srv_count"", ""dst_host_same_srv_rate"", ""dst_host_diff_srv_rate"", ""dst_host_same_src_port_rate"", ""dst_host_srv_diff_host_rate"", ""dst_host_serror_rate"", ""dst_host_srv_serror_rate"", ""dst_host_rerror_rate"", ""dst_host_srv_rerror_rate"", ""label"", ""difficulty""]"
+RECOVERY_PREFIXES.CSE,list,,
+RECOVERY_PREFIXES.NSL,list,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.dataset,str,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.views,list,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.primary_threshold,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.view_thresholds,dict,,"[""protocol_service"", ""volume_size"", ""connection_counts"", ""error_rate_state"", ""host_service_rates""]"
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.view_thresholds.protocol_service,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.view_thresholds.volume_size,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.view_thresholds.connection_counts,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.view_thresholds.error_rate_state,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.view_thresholds.host_service_rates,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.clean_trusted_coverage,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.clean_false_suspect_rate,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.clean_false_abstain_rate,float,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.e2_e3_pass,bool,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.source_families,list,,
+/kaggle/working/cse_nsl_e2_e3/NSL-KDD_e2_e3_decision.json.heldout_families,list,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json,dict,,"[""dataset"", ""views"", ""primary_threshold"", ""view_thresholds"", ""clean_trusted_coverage"", ""clean_false_suspect_rate"", ""clean_false_abstain_rate"", ""e2_e3_pass"", ""source_families"", ""heldout_families""]"
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.dataset,str,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.views,list,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.primary_threshold,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.view_thresholds,dict,,"[""protocol_state"", ""timing_rate"", ""volume_size"", ""directionality"", ""count_burst""]"
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.view_thresholds.protocol_state,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.view_thresholds.timing_rate,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.view_thresholds.volume_size,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.view_thresholds.directionality,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.view_thresholds.count_burst,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.clean_trusted_coverage,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.clean_false_suspect_rate,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.clean_false_abstain_rate,float,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.e2_e3_pass,bool,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.source_families,list,,
+/kaggle/working/cse_nsl_e2_e3/CSE-CIC-IDS2018_e2_e3_decision.json.heldout_families,list,,
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json,dict,,"[""dataset"", ""source_families"", ""heldout_families"", ""primary_source_bacc"", ""primary_zero_day_bacc"", ""accepted_views"", ""accepted_view_count"", ""pass""]"
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json.dataset,str,,
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json.source_families,list,,
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json.heldout_families,list,,
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json.primary_source_bacc,float,,
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json.primary_zero_day_bacc,float,,
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json.accepted_views,list,,
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json.accepted_view_count,int,,
+/kaggle/working/e1_1_cse_nsl_semantic/CSE-CIC-IDS2018_e1_1_decision.json.pass,bool,,
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json,dict,,"[""dataset"", ""source_families"", ""heldout_families"", ""primary_source_bacc"", ""primary_zero_day_bacc"", ""accepted_views"", ""accepted_view_count"", ""pass""]"
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json.dataset,str,,
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json.source_families,list,,
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json.heldout_families,list,,
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json.primary_source_bacc,float,,
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json.primary_zero_day_bacc,float,,
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json.accepted_views,list,,
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json.accepted_view_count,int,,
+/kaggle/working/e1_1_cse_nsl_semantic/NSL-KDD_e1_1_decision.json.pass,bool,,

@@ -1,0 +1,31 @@
+{
+  "dataset": "NSL-KDD",
+  "source_families": [
+    "apache2",
+    "back",
+    "guess_passwd",
+    "ipsweep",
+    "mscan",
+    "neptune",
+    "nmap",
+    "portsweep",
+    "processtable"
+  ],
+  "heldout_families": [
+    "satan",
+    "smurf",
+    "teardrop",
+    "warezclient",
+    "warezmaster"
+  ],
+  "primary_source_bacc": 0.941747572815534,
+  "primary_zero_day_bacc": 0.6077372262773723,
+  "accepted_views": [
+    "protocol_service",
+    "connection_counts",
+    "error_rate_state",
+    "host_service_rates"
+  ],
+  "accepted_view_count": 4,
+  "pass": true
+}

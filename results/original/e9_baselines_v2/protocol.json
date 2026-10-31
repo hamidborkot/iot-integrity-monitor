@@ -1,0 +1,30 @@
+{
+  "dataset": "CICIoT2023",
+  "experiment": "E9_v2",
+  "margin_monitor": "Margin-density proxy; not actual MD3",
+  "margin_width": 0.1,
+  "margin_reference": "Clean source-family test distribution",
+  "domain_monitor": "Paired-fold logistic Domain-AUC",
+  "domain_rows_per_state": 5000,
+  "domain_preprocessing": "Fitted separately inside each fold",
+  "attack_scope": "Range/type-constrained feature-space perturbation",
+  "attack_protocol_change": "Benign rows preserved; original-relative epsilon budget enforced. Do not combine these rows with earlier attacks that clipped all rows.",
+  "sparse_k": 3,
+  "surrogate_train_fraction": 0.5,
+  "seeds": [
+    10,
+    11,
+    12
+  ],
+  "epsilons": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "limitations": [
+    "No packet-semantic validity claim",
+    "White-box repetitions share one fixed primary model",
+    "Surrogate subset seeds are not independent dataset replications",
+    "Margin reference is exploratory, not held-out calibration"
+  ]
+}
