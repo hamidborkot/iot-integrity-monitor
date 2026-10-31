@@ -1,0 +1,10 @@
+{
+  "status": "BLOCKED",
+  "new_PCAP_replays": 0,
+  "models_trained": false,
+  "source_calibration_refitted": false,
+  "timeout_search_performed": false,
+  "independent_confirmation": false,
+  "output_directory": "/kaggle/working/CAPTURE49_SYN_TIMEOUT_SENSITIVITY_20261016T133234655627Z",
+  "reason": "Missing completed stage P4_AC_AGREEMENT_BATCH_COMPLETE"
+}
